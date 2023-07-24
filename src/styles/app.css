@@ -1,0 +1,19 @@
+html,
+body,
+#root {
+    @apply tw-w-full tw-p-0 tw-m-0;
+}
+
+html {
+    font-size: 100%;
+
+    @apply tw-h-[100vh];
+}
+
+body,
+#root,
+.ant-app {
+    font-size: 0.875rem;
+
+    @apply tw-h-full;
+}

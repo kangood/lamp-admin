@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+        /* Bundler mode */
+        "moduleResolution": "Node",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        /* Others */
+        "allowJs": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "alwaysStrict": true,
+        "sourceMap": true,
+        "incremental": true,
+        "noImplicitReturns": true,
+        "pretty": true,
+        "noImplicitAny": true,
+        "importsNotUsedAsValues": "remove",
+        /* Paths */
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "types": ["unplugin-icons/types/react", "@types/node"]
+    },
+    "include": ["./src", "./mock", "./typings/**/*.d.ts"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+}

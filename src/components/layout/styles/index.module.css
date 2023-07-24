@@ -1,0 +1,230 @@
+@import './mixins.css';
+
+:global(.layout-main) {
+    @apply tw-flex-auto tw-flex;
+
+    & > :global(.ant-layout) {
+        @apply tw-flex-auto;
+    }
+}
+
+.layoutContent {
+    @apply tw-h-full tw-flex tw-flex-col;
+
+    & > .layoutTabs {
+        @apply tw-flex-none tw-w-full tw-pb-1;
+    }
+
+    & > .layoutKeepAlive {
+        @apply tw-flex-auto;
+    }
+}
+
+.layout-fixed {
+    &:not(:local(.layout-side-sidebar-fixed)) {
+        @apply tw-h-screen tw-overflow-hidden;
+    }
+
+    & .ant-layout-header {
+        @apply tw-transition-all tw-duration-200;
+    }
+
+    &.layout-side-sidebar-fixed,
+    &.layout-side-header-fixed,
+    &.layout-embed-header-fixed,
+    &.layout-embed-embed-fixed,
+    &.layout-embed-sidebar-fixed {
+        & > :global(.ant-layout-sider) {
+            @mixin fixedSidebar;
+        }
+    }
+
+    &.layout-content-sidebar-fixed,
+    &.layout-content-header-fixed,
+    &.layout-top-header-fixed {
+        & > :global(.ant-layout-header) {
+            @mixin fixedHeader;
+        }
+    }
+
+    &.layout-side-sidebar-fixed
+        > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-content),
+    &.layout-side-header-fixed
+        > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-content),
+    &.layout-content-sidebar-fixed
+        > :global(.layout-main > .ant-layout > .ant-layout-sider-collapsed + .ant-layout-content) {
+        @apply tw-ml-[var(--sidebar-collapse-width)];
+    }
+
+    &.mobile-layout {
+        &.layout-side-sidebar-fixed > :global(.ant-layout > .ant-layout-header),
+        &.layout-side-sidebar-fixed
+            > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-header),
+        &.layout-side-sidebar-fixed > :global(.ant-layout > .ant-layout-content),
+        &.layout-side-sidebar-fixed
+            > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-content),
+        &.layout-side-header-fixed > :global(.ant-layout > .ant-layout-header),
+        &.layout-side-header-fixed
+            > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-header),
+        &.layout-side-header-fixed > :global(.ant-layout > .ant-layout-content),
+        &.layout-side-header-fixed
+            > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-content),
+        &.layout-content-sidebar-fixed > :global(.layout-main > .ant-layout > .ant-layout-content) {
+            @apply tw-w-full tw-ml-0;
+        }
+    }
+}
+
+.layout-side-sidebar-fixed {
+    & > :global(.ant-layout > .ant-layout-header) {
+        @apply tw-w-[calc(100%_-_var(--sidebar-width))] tw-ml-[var(--sidebar-width)];
+    }
+
+    & > :global(.ant-layout > .ant-layout-content) {
+        @apply tw-ml-[var(--sidebar-width)];
+    }
+
+    & > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-header) {
+        @apply tw-w-[calc(100%_-_var(--sidebar-collapse-width))] tw-ml-[var(--sidebar-collapse-width)];
+    }
+}
+
+.layout-side-header-fixed {
+    & > :global(.ant-layout > .ant-layout-header) {
+        @mixin fixedHeader calc(100% - var(--sidebar-width));
+    }
+
+    & > :global(.ant-layout-sider-collapsed + .ant-layout > .ant-layout-header) {
+        @apply tw-w-[calc(100%_-_var(--sidebar-collapse-width))];
+    }
+
+    & > :global(.ant-layout > .ant-layout-content) {
+        @apply tw-mt-[var(--header-height)] tw-ml-[var(--sidebar-width)];
+    }
+
+    @mixin fixedKeepAliveTabs;
+}
+
+.layout-content-sidebar-fixed {
+    & > :global(.layout-main) {
+        @apply tw-relative tw-h-[calc(100vh_-_var(--header-height))] tw-mt-[var(--header-height)];
+    }
+
+    & > :global(.layout-main > .ant-layout) {
+        @apply tw-h-full;
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout-sider) {
+        @mixin fixedSidebar;
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout-content) {
+        @apply tw-w-[calc(100%_-_var(--sidebar-width))] tw-max-h-full tw-ml-[var(--sidebar-width)];
+    }
+
+    @mixin fixedKeepAliveTabs;
+}
+
+.layout-content-header-fixed {
+    & > :global(.layout-main) {
+        @apply tw-flex-auto tw-mt-[var(--header-height)] tw-overflow-y-auto tw-relative;
+
+        & > [class~='ant-layout'] {
+            min-height: unset;
+        }
+    }
+}
+
+.layout-top-header-fixed {
+    & > :global(.ant-layout-content) {
+        @apply tw-relative tw-max-h-[calc(100vh_-_var(--header-height))] tw-mt-[var(--header-height)];
+    }
+
+    @mixin fixedKeepAliveTabs;
+}
+
+.layout-embed {
+    & > :global(.layout-main) {
+        @apply tw-flex tw-flex-auto;
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout) {
+        @apply tw-w-auto;
+    }
+}
+
+.layout-embed-sidebar-fixed {
+    & > embed-sidebar {
+        @mixin fixedSidebar;
+    }
+
+    & > :global(.layout-main) {
+        @apply tw-block tw-max-w-[calc(100%_-_var(--sidebar-collapse-width))] tw-ml-[var(--sidebar-collapse-width)] tw-overflow-hidden;
+    }
+
+    & > :global(.layout-main > .ant-layout) {
+        @apply tw-flex-auto;
+    }
+}
+
+.layout-embed-embed-fixed {
+    & > :global(.layout-main) {
+        @apply tw-ml-[var(--sidebar-collapse-width)];
+    }
+
+    & > embed-sidebar {
+        @mixin fixedSidebar;
+
+        @apply tw-ml-[var(--sidebar-collapse-width)];
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout) {
+        @apply tw-overflow-auto;
+    }
+}
+
+.layout-embed-header-fixed {
+    & > embed-sidebar {
+        @apply tw-ml-[var(--sidebar-collapse-width)];
+
+        @mixin fixedSidebar;
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout-sider) {
+        @mixin fixedSidebar;
+
+        @apply tw-left-[var(--sidebar-collapse-width)];
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout > .ant-layout-header) {
+        @mixin fixedHeader calc(100% - var(--sidebar-collapse-width) - var(--sidebar-width));
+    }
+
+    & > :global(.layout-main > .ant-layout > .ant-layout > .ant-layout-content) {
+        @apply tw-mt-[var(--header-height)] tw-ml-[calc(var(--sidebar-collapse-width)_+_var(--sidebar-width))] tw-overflow-auto;
+    }
+
+    &
+        > :global(
+            .layout-main
+                > .ant-layout
+                > .ant-layout-sider-collapsed
+                + .ant-layout
+                > .ant-layout-header
+        ) {
+        @apply tw-w-[calc(100%_-_var(--sidebar-collapse-width)_-_var(--sidebar-collapse-width))];
+    }
+
+    &
+        > :global(
+            .layout-main
+                > .ant-layout
+                > .ant-layout-sider-collapsed
+                + .ant-layout
+                > .ant-layout-content
+        ) {
+        @apply tw-ml-[calc(var(--sidebar-collapse-width)_+_var(--sidebar-collapse-width))];
+    }
+
+    @mixin fixedKeepAliveTabs;
+}

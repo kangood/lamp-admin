@@ -1,0 +1,19 @@
+.container {
+    @apply tw-relative tw-w-full tw-h-full tw-px-4;
+
+    & > .main {
+        @apply tw-container tw-relative tw-h-full tw-py-2 tw-mx-auto sm:tw-px-10;
+
+        & .leftBlock {
+            @apply tw-hidden xl:tw-flex xl:tw-flex-col xl:tw-w-6/12 tw-min-h-full tw-mr-4 tw-pl-4;
+        }
+
+        & .rightBlock {
+            @apply tw-h-full xl:tw-h-auto tw-flex tw-py-5 xl:tw-py-0 xl:tw-my-0 tw-w-full xl:tw-w-6/12;
+
+            & > .formBlock {
+                @apply tw-my-auto tw-mx-auto xl:tw-ml-20 xl:tw-bg-transparent tw-px-5 tw-py-8 sm:tw-px-8 xl:tw-p-4 tw-rounded-md tw-shadow-md xl:tw-shadow-none tw-w-full sm:tw-w-3/4 lg:tw-w-2/4 xl:tw-w-auto tw-relative;
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+@define-mixin fixedSidebar {
+    position: fixed;
+    left: 0;
+    z-index: 99;
+    height: 100vh;
+    overflow: hidden;
+
+    & > :global(.ant-layout-sider-children) {
+        display: flex;
+        flex-direction: column;
+
+        & > :global(.fixed-sidebar-content) {
+            flex: auto;
+            overflow: auto;
+
+            &::-webkit-scrollbar {
+                width: 3px;
+                height: 3px;
+            }
+        }
+    }
+}
+
+@define-mixin fixedHeader $width: 100% {
+    position: fixed;
+    right: 0;
+    z-index: 1;
+    width: $width;
+}
+
+@define-mixin fixedKeepAliveTabs {
+    & :global(.ant-layout-content) > .layoutContent {
+        @apply tw-max-h-full tw-overflow-hidden;
+
+        & > .keepAlive {
+            @apply tw-overflow-y-auto;
+        }
+    }
+}
