@@ -13,6 +13,8 @@
         "@ant-design/icons": "^5.1.4",
         "@ant-design/pro-components": "^2.6.7",
         "@iconify/react": "^4.1.1",
+        "@svgr/core": "^8.0.0",
+        "@svgr/plugin-jsx": "^8.0.1",
         "ahooks": "^3.7.8",
         "antd": "^5.7.0",
         "auto-zustand-selectors-hook": "^2.0.0",
