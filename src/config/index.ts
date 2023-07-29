@@ -18,7 +18,7 @@ export const config = (): IConfig => ({
         hash: false,
         routes: [
             {
-                id: 'layout.masster',
+                id: 'layout.master',
                 menu: false,
                 path: '/',
                 page: 'layouts/master',
