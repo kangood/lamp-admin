@@ -81,7 +81,7 @@ export default () => {
     };
     // 时间改变时回调，更新时间传值
     const [timedate, setDate] = useState<string[]>([]);
-    const dateChangeHandler = (_date: [], dateString: [string, string]) => {
+    const dateChangeHandler = (_date: any, dateString: [string, string]) => {
         setDate(dateString);
     };
     // 表单提交时把范围时间传入values参数中
