@@ -22,7 +22,11 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
             initialized.current = true;
             setLoading(true);
             axios
-                .get(`${config.api.baseUrl}/param${id === 0 ? '' : `/${id}`}`)
+                .get(`${config.api.baseUrl}/param${id === 0 ? '' : `/${id}`}`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                })
                 .then((res) => {
                     if (res) {
                         setData(res.data);
@@ -53,6 +57,9 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
         axios
             .patch(`${config.api.baseUrl}/param`, {
                 ...values,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
             })
             .then((res) => {
                 // 重置表单项，关闭窗口
@@ -70,6 +77,9 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
         axios
             .post(`${config.api.baseUrl}/param`, {
                 ...values,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
             })
             .then((res) => {
                 form.resetFields();

@@ -30,7 +30,11 @@ export default function useFetch(url: string, init: RequestInit) {
         if (prevUrl.current === url && prevInit.current === init) return;
         prevUrl.current = url;
         prevInit.current = init;
-        fetch(config.api.baseUrl + url, init)
+        fetch(config.api.baseUrl + url, {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
+        })
             .then((response) => {
                 if (response.ok) return response.json();
                 return null;

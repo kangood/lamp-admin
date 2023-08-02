@@ -1,7 +1,7 @@
 {
-    "name": "chapter1",
+    "name": "lamp-react-3r-kd",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",

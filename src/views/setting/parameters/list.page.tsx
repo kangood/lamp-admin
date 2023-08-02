@@ -23,6 +23,9 @@ export default () => {
                 params: {
                     ...values,
                 },
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
             })
             .then((res) => {
                 if (res) {
@@ -54,6 +57,9 @@ export default () => {
             .delete(`${config.api.baseUrl}/param`, {
                 data: {
                     ids,
+                },
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
                 },
             })
             .then((res) => {
@@ -116,7 +122,9 @@ export default () => {
                         </Form.Item>
                     </Col>
                     <Col span={4}>
-                        <RangePicker locale={locale} onChange={dateChangeHandler} />
+                        <Form.Item name="hold">
+                            <RangePicker locale={locale} onChange={dateChangeHandler} />
+                        </Form.Item>
                     </Col>
                     <Col span={2}>
                         <Form.Item>
