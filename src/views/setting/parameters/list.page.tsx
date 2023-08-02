@@ -38,7 +38,7 @@ export default () => {
     };
     useEffect(() => {
         /**
-         * 暂时停止useEffect多次加载的方法
+         * 暂时停止使用useRef解决useEffect多次加载的方法
          * const initialized = useRef(false);
          * ...
          * if (!initialized.current) {
@@ -122,9 +122,7 @@ export default () => {
                         </Form.Item>
                     </Col>
                     <Col span={4}>
-                        <Form.Item name="hold">
-                            <RangePicker locale={locale} onChange={dateChangeHandler} />
-                        </Form.Item>
+                        <RangePicker locale={locale} onChange={dateChangeHandler} />
                     </Col>
                     <Col span={2}>
                         <Form.Item>

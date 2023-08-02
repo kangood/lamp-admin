@@ -3,15 +3,15 @@ import { Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 export interface DataType {
-    id: number;
+    id?: number;
     key: string;
     name: string;
     value: string;
-    describe: string;
+    describe?: string;
     state: boolean;
     readonly: boolean;
-    createdAt: string;
-    timeRange: string;
+    createdAt?: string;
+    timeRange?: string;
 }
 
 interface IProps {

@@ -125,16 +125,16 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
                 <Form.Item name="describe" label="描述">
                     <Input />
                 </Form.Item>
-                <Form.Item name="state" label="状态">
-                    <Radio.Group defaultValue={id ? data?.state : true} buttonStyle="solid">
+                <Form.Item name="state" label="状态" initialValue={id ? data?.state : true}>
+                    <Radio.Group buttonStyle="solid">
                         <Radio.Button value defaultChecked>
                             启用
                         </Radio.Button>
                         <Radio.Button value={false}>禁用</Radio.Button>
                     </Radio.Group>
                 </Form.Item>
-                <Form.Item name="readonly" label="内置">
-                    <Radio.Group defaultValue={id ? data?.readonly : false} buttonStyle="solid">
+                <Form.Item name="readonly" label="内置" initialValue={id ? data?.readonly : false}>
+                    <Radio.Group buttonStyle="solid">
                         <Radio.Button value>是</Radio.Button>
                         <Radio.Button value={false} defaultChecked>
                             否
