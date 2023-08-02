@@ -55,12 +55,17 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
     const updateRequest = (values: DataType) => {
         values.id = id;
         axios
-            .patch(`${config.api.baseUrl}/param`, {
-                ...values,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
+            .patch(
+                `${config.api.baseUrl}/param`,
+                {
+                    ...values,
                 },
-            })
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                },
+            )
             .then((res) => {
                 // 重置表单项，关闭窗口
                 form.resetFields();
@@ -75,12 +80,17 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
     // 新增请求
     const createRequest = (values: DataType) => {
         axios
-            .post(`${config.api.baseUrl}/param`, {
-                ...values,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
+            .post(
+                `${config.api.baseUrl}/param`,
+                {
+                    ...values,
                 },
-            })
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                },
+            )
             .then((res) => {
                 form.resetFields();
                 onClose();
