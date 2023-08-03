@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Space, Tag } from 'antd';
+import { Button, Checkbox, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 export interface DataType {
@@ -24,16 +24,27 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
     onDelHandler,
 }) => [
     {
+        title: <Checkbox />,
+        key: 'checkbox',
+        render: () => (
+            <Space size="middle">
+                <Checkbox.Group options={['']} />
+            </Space>
+        ),
+    },
+    {
         title: '参数键',
         dataIndex: 'key',
     },
     {
         title: '参数名称',
         dataIndex: 'name',
+        width: 150,
     },
     {
         title: '参数值',
         dataIndex: 'value',
+        width: 170,
     },
     {
         title: '描述',

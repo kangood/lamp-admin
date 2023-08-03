@@ -142,9 +142,7 @@ export default () => {
                         </Button>
                     </Col>
                     <Col span={2}>
-                        <Button type="primary" onClick={() => onOpenFormHandler}>
-                            删除
-                        </Button>
+                        <Button type="primary">删除</Button>
                     </Col>
                 </Row>
             </Form>
