@@ -1,4 +1,4 @@
-import { Button, Col, Input, Row, Table, DatePicker, message, Form } from 'antd';
+import { Button, Col, Input, Row, Table, DatePicker, message, Form, Pagination } from 'antd';
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
@@ -12,9 +12,18 @@ import { CollectionEditForm } from './edit.page';
 
 const { RangePicker } = DatePicker;
 
+interface PageMeta {
+    currentPage: number;
+    itemCount: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+}
+
 export default () => {
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
+    const [meta, setMeta] = useState<PageMeta>();
     const [showInfo, setShowInfo] = useState(false);
     // 列表查询请求
     const listRequest = (values?: DataType) => {
@@ -30,6 +39,7 @@ export default () => {
             .then((res) => {
                 if (res) {
                     setData(res.data.items);
+                    setMeta(res.data.meta);
                 }
             })
             .catch((err) => {
@@ -101,6 +111,11 @@ export default () => {
         form.resetFields();
         listRequest();
     };
+    // 分页处理
+    const onPageChange = (page: number, pageSize: number) => {
+        const values = { page, limit: pageSize };
+        listRequest(values);
+    };
     return (
         <div>
             {/* 搜索和操作栏 */}
@@ -147,7 +162,17 @@ export default () => {
                 </Row>
             </Form>
             {/* 表格数据 */}
-            <Table columns={columns({ onOpenFormHandler, onDelHandler })} dataSource={data} />
+            <Table
+                columns={columns({ onOpenFormHandler, onDelHandler })}
+                dataSource={data}
+                pagination={false}
+            />
+            <Pagination
+                showSizeChanger
+                onChange={onPageChange}
+                total={meta?.totalItems}
+                current={meta?.currentPage}
+            />
             {/* 弹出层表单 */}
             {showInfo && <CollectionEditForm id={curId} onClose={() => setShowInfo(false)} />}
         </div>

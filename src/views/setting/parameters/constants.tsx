@@ -4,14 +4,16 @@ import { ColumnsType } from 'antd/es/table';
 
 export interface DataType {
     id?: number;
-    key: string;
-    name: string;
-    value: string;
+    key?: string;
+    name?: string;
+    value?: string;
     describe?: string;
-    state: boolean;
-    readonly: boolean;
+    state?: boolean;
+    readonly?: boolean;
     createdAt?: string;
     timeRange?: string;
+    page?: number;
+    limit?: number;
 }
 
 interface IProps {
