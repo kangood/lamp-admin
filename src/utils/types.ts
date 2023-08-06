@@ -6,3 +6,16 @@ export interface ZustandGetterSelectors<StateType> {
         [key in keyof StateType]: () => StateType[key];
     };
 }
+
+export interface PageMeta {
+    currentPage: number;
+    itemCount: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+}
+
+export interface ResultType<T> {
+    items: T[];
+    meta: PageMeta;
+}

@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-import config from '../../public/config.json';
-
 export interface ResultType {
     id: number;
     key: string;
@@ -30,7 +28,7 @@ export default function useFetch(url: string, init: RequestInit) {
         if (prevUrl.current === url && prevInit.current === init) return;
         prevUrl.current = url;
         prevInit.current = init;
-        fetch(config.api.baseUrl + url, {
+        fetch(url, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },

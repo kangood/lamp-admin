@@ -27,5 +27,17 @@ export const setting: RouteOption = {
             path: 'parameters/edit',
             page: 'setting/parameters/edit',
         },
+        {
+            id: 'dictionary.list',
+            path: 'dictionaries/list',
+            page: 'setting/dictionaries/list',
+            meta: { name: '字典管理' },
+        },
+        {
+            id: 'dictionaries.edit',
+            menu: false,
+            path: 'dictionaries/edit',
+            page: 'setting/dictionaries/edit',
+        },
     ],
 };

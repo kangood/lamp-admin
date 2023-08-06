@@ -20,6 +20,18 @@ export const createConfig = (params: ConfigEnv, configure?: Configure): UserConf
                 },
             },
             plugins: createPlugins(isBuild),
+            server: {
+                proxy: {
+                    '/dict': {
+                        target: 'http://127.0.0.1:6001',
+                        changeOrigin: true,
+                    },
+                    '/param': {
+                        target: 'http://127.0.0.1:6001',
+                        changeOrigin: true,
+                    },
+                },
+            },
         },
         typeof configure === 'function' ? configure(params, isBuild) : {},
         {

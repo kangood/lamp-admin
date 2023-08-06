@@ -5,20 +5,12 @@ import { useEffect, useState } from 'react';
 
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
-import config from '../../../../public/config.json';
+import { PageMeta } from '@/utils/types';
 
 import { DataType, columns } from './constants';
-import { CollectionEditForm } from './edit.page';
+import { ParameterEditForm } from './edit.page';
 
 const { RangePicker } = DatePicker;
-
-interface PageMeta {
-    currentPage: number;
-    itemCount: number;
-    perPage: number;
-    totalItems: number;
-    totalPages: number;
-}
 
 export default () => {
     const [form] = Form.useForm();
@@ -28,7 +20,7 @@ export default () => {
     // 列表查询请求
     const listRequest = (values?: DataType) => {
         axios
-            .get(`${config.api.baseUrl}/param`, {
+            .get(`/param`, {
                 params: {
                     ...values,
                 },
@@ -64,7 +56,7 @@ export default () => {
     // 删除处理器，点击删除按钮触发
     const onDelHandler = (ids: number[]) => {
         axios
-            .delete(`${config.api.baseUrl}/param`, {
+            .delete(`/param`, {
                 data: {
                     ids,
                 },
@@ -174,7 +166,7 @@ export default () => {
                 current={meta?.currentPage}
             />
             {/* 弹出层表单 */}
-            {showInfo && <CollectionEditForm id={curId} onClose={() => setShowInfo(false)} />}
+            {showInfo && <ParameterEditForm id={curId} onClose={() => setShowInfo(false)} />}
         </div>
     );
 };

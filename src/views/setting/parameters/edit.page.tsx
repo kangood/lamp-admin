@@ -2,16 +2,14 @@ import { Form, Input, Modal, Radio, Spin, message } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 
-import config from '../../../../public/config.json';
-
 import { DataType } from './constants';
 
-interface CollectionEditFormProps {
+interface ParameterEditFormProps {
     id: number;
     onClose: (isReload?: boolean) => void;
 }
 
-export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onClose }) => {
+export const ParameterEditForm: React.FC<ParameterEditFormProps> = ({ id, onClose }) => {
     const [form] = Form.useForm();
     const [data, setData] = useState<DataType>();
     const [loading, setLoading] = useState(false);
@@ -22,7 +20,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
             initialized.current = true;
             setLoading(true);
             axios
-                .get(`${config.api.baseUrl}/param${id === 0 ? '' : `/${id}`}`, {
+                .get(`/param${id === 0 ? '' : `/${id}`}`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                     },
@@ -56,7 +54,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
         values.id = id;
         axios
             .patch(
-                `${config.api.baseUrl}/param`,
+                `/param`,
                 {
                     ...values,
                 },
@@ -81,7 +79,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({ id, onCl
     const createRequest = (values: DataType) => {
         axios
             .post(
-                `${config.api.baseUrl}/param`,
+                `/param`,
                 {
                     ...values,
                 },
