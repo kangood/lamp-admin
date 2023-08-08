@@ -8,6 +8,7 @@ import { home } from './routes/home';
 
 import { addLoading } from './routes/loading';
 import { media } from './routes/media';
+import { org } from './routes/org';
 import { setting } from './routes/setting';
 
 export const config = (): IConfig => ({
@@ -23,7 +24,7 @@ export const config = (): IConfig => ({
                 path: '/',
                 page: 'layouts/master',
                 error: 'errors/404',
-                children: addLoading([home, dashboard, account, content, media, setting]),
+                children: addLoading([home, org, dashboard, account, content, media, setting]),
             },
             errors,
         ],

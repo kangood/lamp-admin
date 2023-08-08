@@ -41,8 +41,8 @@ export default () => {
         if (record) {
             setClickDict(record);
         } else {
-            const newRecord = { type: clickType, label: listTitle, state: true };
-            setClickDict(newRecord);
+            const defaultRecord = { type: clickType, label: listTitle, state: true };
+            setClickDict(defaultRecord);
         }
         setShowInfo(true);
     };
