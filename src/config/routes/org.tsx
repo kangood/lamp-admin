@@ -16,7 +16,7 @@ export const org: RouteOption = {
             id: 'org.index',
             index: true,
             menu: false,
-            loader: () => redirect('/org/orgs/list'),
+            loader: () => redirect('/org/stations/list'),
         },
         {
             id: 'org.list',
@@ -29,6 +29,12 @@ export const org: RouteOption = {
             path: 'stations/list',
             page: 'org/stations/list',
             meta: { name: '岗位管理' },
+        },
+        {
+            id: 'stations.edit',
+            menu: false,
+            path: 'stations/edit',
+            page: 'org/stations/edit',
         },
     ],
 };

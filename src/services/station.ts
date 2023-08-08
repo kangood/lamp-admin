@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { InputType } from '@/views/org/stations/constants';
+import { globalError, globalSuccess } from '@/utils/antdExtract';
 
 /**
  * 关联机构列表查询
@@ -27,8 +28,12 @@ export const useListTree = () => {
  * 更新单个岗位
  */
 export const useUpdateStation = () => {
-    return useMutation([], async (params: InputType) =>
-        axios.patch('/station', { ...params }).then((res) => res.data),
+    return useMutation(
+        async (params: InputType) => axios.patch('/station', { ...params }).then((res) => res.data),
+        {
+            onSuccess: () => globalSuccess(),
+            onError: (error: AxiosError) => globalError(error),
+        },
     );
 };
 
@@ -36,8 +41,12 @@ export const useUpdateStation = () => {
  * 新建单个岗位
  */
 export const useCreateStation = () => {
-    return useMutation([], async (params: InputType) =>
-        axios.post('/station', { ...params }).then((res) => res.data),
+    return useMutation(
+        async (params: InputType) => axios.post('/station', { ...params }).then((res) => res.data),
+        {
+            onSuccess: () => globalSuccess(),
+            onError: (error: AxiosError) => globalError(error),
+        },
     );
 };
 
@@ -45,7 +54,12 @@ export const useCreateStation = () => {
  * 删除单个岗位
  */
 export const useDeleteStation = () => {
-    return useMutation([], async (ids: number[]) =>
-        axios.delete('/station', { data: { ids } }).then((res) => res.data),
+    return useMutation(
+        async (ids: number[]) =>
+            axios.delete('/station', { data: { ids } }).then((res) => res.data),
+        {
+            onSuccess: () => globalSuccess(),
+            onError: (error: AxiosError) => globalError(error),
+        },
     );
 };
