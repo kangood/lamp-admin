@@ -103,8 +103,8 @@ export default () => {
                         <Pagination
                             showSizeChanger
                             // onChange={onPageChange}
-                            total={listTypeData?.meta.totalItems}
-                            current={listTypeData?.meta.currentPage}
+                            total={listTypeData?.meta?.totalItems}
+                            current={listTypeData?.meta?.currentPage}
                             showTotal={(total) => `共 ${total} 条`}
                         />
                     </Card>
@@ -152,15 +152,15 @@ export default () => {
                             dataSource={listSingleTypeData?.items}
                             pagination={false}
                         />
-                        {listSingleTypeData?.meta.totalItems !== 0 && (
+                        {listSingleTypeData?.meta?.totalItems !== 0 && (
                             <div>
                                 <Divider />
                                 <Pagination
                                     showSizeChanger
                                     onChange={onListPageChange}
                                     showTotal={(total) => `共 ${total} 条`}
-                                    total={listSingleTypeData?.meta.totalItems}
-                                    current={listSingleTypeData?.meta.currentPage}
+                                    total={listSingleTypeData?.meta?.totalItems}
+                                    current={listSingleTypeData?.meta?.currentPage}
                                 />
                             </div>
                         )}

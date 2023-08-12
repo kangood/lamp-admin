@@ -13,7 +13,7 @@ interface StationEditFormProps {
 
 export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onClose }) => {
     const [form] = Form.useForm();
-    const { data: updatedData, mutateAsync: updateMutate } = useUpdateStation();
+    const { mutateAsync: updateMutate } = useUpdateStation();
     const { mutateAsync: createMutate } = useCreateStation();
     const { data: listTree } = useListTree();
     // 表单提交处理
@@ -21,7 +21,6 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
         const values = await form.validateFields();
         if (clickOne?.id) {
             await updateMutate(values);
-            console.log(updatedData);
         } else {
             await createMutate(values);
         }

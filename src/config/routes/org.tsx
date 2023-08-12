@@ -25,6 +25,12 @@ export const org: RouteOption = {
             meta: { name: '机构管理' },
         },
         {
+            id: 'orgs.edit',
+            menu: false,
+            path: 'orgs/edit',
+            page: 'org/orgs/edit',
+        },
+        {
             id: 'station.list',
             path: 'stations/list',
             page: 'org/stations/list',
