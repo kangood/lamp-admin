@@ -2,7 +2,7 @@ import { Button, Card, Col, Divider, Form, Input, Pagination, Row, Table } from 
 
 import { useState } from 'react';
 
-import { useDelDicts, useListType, useListSingleType } from '@/services/dictionary';
+import { useDelDicts, useListType, useListDictSingleType } from '@/services/dictionary';
 
 import { listTypeColumns, listColumns, OutputType, InputType } from './constants';
 import { DictionaryRightEditForm } from './edit.page';
@@ -19,7 +19,7 @@ export default () => {
     // API-hooks
     const { mutateAsync: delMutate, isLoading: delLoading } = useDelDicts();
     const { data: listTypeData, isLoading: listTypeLoading } = useListType();
-    const { listSingleTypeData, listSingleTypeLoading, listSingleTypeRefetch } = useListSingleType(
+    const { listDataItems, listMeta, listLoading, listRefetch } = useListDictSingleType(
         clickType,
         pageQ,
         limitQ,
@@ -51,7 +51,7 @@ export default () => {
         setShowInfo(false);
         if (isReload) {
             // 整理刷新总是返回的上一次数据，why？
-            listSingleTypeRefetch();
+            listRefetch();
             // const qResult: Promise<QueryObserverResult<ResultType<OutputType>>> = refetch();
             // qResult.then((res) => {
             //     const xx = res.data?.items.filter((item) => item.id === clickDict?.id);
@@ -63,20 +63,20 @@ export default () => {
     // 删除处理器，点击删除按钮触发API调用
     const onDelHandler = (ids: number[]) => {
         delMutate(ids);
-        listSingleTypeRefetch();
+        listRefetch();
     };
     // 表单提交处理
     const onFinishHandler = (values: InputType) => {
         setCode(values.code);
         setName(values.name);
-        listSingleTypeRefetch();
+        listRefetch();
     };
     // 重置表单处理
     const resetHandler = () => {
         form.resetFields();
         setCode('');
         setName('');
-        listSingleTypeRefetch();
+        listRefetch();
     };
     return (
         <div>
@@ -147,20 +147,20 @@ export default () => {
                         </Form>
                         <Table
                             bordered
-                            loading={delLoading || listSingleTypeLoading}
+                            loading={delLoading || listLoading}
                             columns={listColumns({ onOpenFormHandler, onDelHandler })}
-                            dataSource={listSingleTypeData?.items}
+                            dataSource={listDataItems}
                             pagination={false}
                         />
-                        {listSingleTypeData?.meta?.totalItems !== 0 && (
+                        {listMeta?.totalItems !== 0 && (
                             <div>
                                 <Divider />
                                 <Pagination
                                     showSizeChanger
                                     onChange={onListPageChange}
                                     showTotal={(total) => `共 ${total} 条`}
-                                    total={listSingleTypeData?.meta?.totalItems}
-                                    current={listSingleTypeData?.meta?.currentPage}
+                                    total={listMeta?.totalItems}
+                                    current={listMeta?.currentPage}
                                 />
                             </div>
                         )}

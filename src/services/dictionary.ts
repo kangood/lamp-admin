@@ -2,6 +2,9 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { message } from 'antd';
 
+import { ResultType } from '@/utils/types';
+import { OutputType } from '@/views/setting/dictionaries/constants';
+
 /**
  * 按type分组查询字典列表
  */
@@ -10,19 +13,19 @@ export const useListType = () => {
 };
 
 /**
- * 查询单个字典值
+ * 根据ID查询单个字典值
  */
-export const useSingleDict = (id: number) => {
+export const useGetDictById = (id: number) => {
     return useQuery([], () => fetch(`/dict/${id}`).then((response) => response.json()));
 };
 
 /**
  * 按单个type查询字典列表
  */
-export const useListSingleType = (
+export const useListDictSingleType = (
     clickType: string,
-    page: number,
-    limit: number,
+    page?: number,
+    limit?: number,
     code?: string,
     name?: string,
 ) => {
@@ -33,13 +36,15 @@ export const useListSingleType = (
     if (name) {
         url += `&name=${name}`;
     }
-    const { data, isLoading, refetch } = useQuery([clickType, page, limit], async () =>
-        fetch(url).then((response) => response.json()),
+    const { data, isLoading, refetch } = useQuery<ResultType<OutputType>>(
+        [clickType, page, limit],
+        async () => fetch(url).then((response) => response.json()),
     );
     return {
-        listSingleTypeData: data,
-        listSingleTypeLoading: isLoading,
-        listSingleTypeRefetch: refetch,
+        listDataItems: data?.items,
+        listMeta: data?.meta,
+        listLoading: isLoading,
+        listRefetch: refetch,
     };
 };
 

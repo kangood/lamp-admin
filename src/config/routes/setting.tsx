@@ -39,5 +39,17 @@ export const setting: RouteOption = {
             path: 'dictionaries/edit',
             page: 'setting/dictionaries/edit',
         },
+        {
+            id: 'area.list',
+            path: 'areas/list',
+            page: 'setting/areas/list',
+            meta: { name: '地区管理' },
+        },
+        {
+            id: 'areas.edit',
+            menu: false,
+            path: 'areas/edit',
+            page: 'setting/areas/edit',
+        },
     ],
 };
