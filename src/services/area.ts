@@ -3,11 +3,12 @@ import axios, { AxiosError } from 'axios';
 
 import { InputType } from '@/views/org/orgs/list.page';
 import { globalError, globalSuccess } from '@/utils/antdExtract';
+import { ResponseResultType } from '@/utils/types';
 
 /**
  * 树结构查询
  */
-export const useAreaListTree = () => {
+export const useListAreaTree = () => {
     return useQuery([], async () => axios.get('/area/tree').then((res) => res.data));
 };
 
@@ -19,7 +20,7 @@ export const useUpdateArea = () => {
         async (params: InputType) => axios.patch('/area', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
-            onError: (error: AxiosError) => globalError(error),
+            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
     );
 };
@@ -32,7 +33,7 @@ export const useCreateArea = () => {
         async (params: InputType) => axios.post('/area', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
-            onError: (error: AxiosError) => globalError(error),
+            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
     );
 };
@@ -45,7 +46,7 @@ export const useDeleteMultiArea = () => {
         async (ids: number[]) => axios.delete('/area', { data: { ids } }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
-            onError: (error: AxiosError) => globalError(error),
+            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
     );
 };

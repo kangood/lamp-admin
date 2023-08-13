@@ -42,5 +42,17 @@ export const org: RouteOption = {
             path: 'stations/edit',
             page: 'org/stations/edit',
         },
+        {
+            id: 'user.list',
+            path: 'users/list',
+            page: 'org/users/list',
+            meta: { name: '用户管理' },
+        },
+        {
+            id: 'users.edit',
+            menu: false,
+            path: 'users/edit',
+            page: 'org/users/edit',
+        },
     ],
 };

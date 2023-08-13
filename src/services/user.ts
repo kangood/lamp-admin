@@ -1,30 +1,29 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 
-import { InputType } from '@/views/org/orgs/list.page';
+import { InputType } from '@/views/org/stations/constants';
 import { globalError, globalSuccess } from '@/utils/antdExtract';
 import { ResponseResultType } from '@/utils/types';
 
 /**
- * 树结构查询
+ * 关联其他的列表查询
  */
-export const useListOrgTree = () => {
-    return useQuery([], async () => axios.get('/org/tree').then((res) => res.data));
+export const useListUserRelate = (values?: InputType) => {
+    return useQuery(['listRelate', values], () =>
+        axios
+            .get('/user/listRelate', {
+                params: values,
+            })
+            .then((res) => res.data),
+    );
 };
 
 /**
- * 单个查询
+ * 更新用户
  */
-export const useGetOne = (id: number) => {
-    return useQuery(['getOne', id], async () => axios.get(`/org/${id}`).then((res) => res.data));
-};
-
-/**
- * 更新
- */
-export const useUpdateOne = () => {
+export const useUpdateUser = () => {
     return useMutation(
-        async (params: InputType) => axios.patch('/org', { ...params }).then((res) => res.data),
+        async (params: InputType) => axios.patch('/user', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
@@ -33,11 +32,11 @@ export const useUpdateOne = () => {
 };
 
 /**
- * 新建
+ * 新建用户
  */
-export const useCreateOne = () => {
+export const useCreateUser = () => {
     return useMutation(
-        async (params: InputType) => axios.post('/org', { ...params }).then((res) => res.data),
+        async (params: InputType) => axios.post('/user', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
@@ -46,11 +45,11 @@ export const useCreateOne = () => {
 };
 
 /**
- * 删除
+ * 删除多个用户
  */
-export const useDeleteOne = () => {
+export const useDeleteUser = () => {
     return useMutation(
-        async (ids: number[]) => axios.delete('/org', { data: { ids } }).then((res) => res.data),
+        async (ids: number[]) => axios.delete('/user', { data: { ids } }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),

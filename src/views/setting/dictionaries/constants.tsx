@@ -27,6 +27,10 @@ export interface OutputType {
     deletedAt?: string;
 }
 
+export interface DictMapListType {
+    [key: string]: OutputType[];
+}
+
 interface IProps {
     onOpenFormHandler: (clickDict: OutputType) => void;
     onDelHandler: (ids: number[]) => void;

@@ -1,7 +1,7 @@
 import { Button, Card, Col, Form, Input, Row, Tree } from 'antd';
 import { useState } from 'react';
 
-import { useDeleteOne, useListTree } from '@/services/org';
+import { useDeleteOne, useListOrgTree } from '@/services/org';
 
 import { OrgEditForm } from './edit.page';
 
@@ -53,7 +53,7 @@ export default () => {
     const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
     const [clickOne, setClickOne] = useState<InputType>(defaultClickOne);
     // API-hook
-    const { data: listTree, refetch } = useListTree();
+    const { data: listOrgTree, refetch } = useListOrgTree();
     const { mutateAsync } = useDeleteOne();
     // ==========逻辑处理==========
     // 树结构展开处理
@@ -127,7 +127,7 @@ export default () => {
             <Row>
                 <Col>
                     <Card style={{ width: 650 }}>
-                        {listTree && (
+                        {listOrgTree && (
                             <Tree
                                 checkable
                                 checkStrictly
@@ -147,7 +147,7 @@ export default () => {
                                 onSelect={onSelect}
                                 // （受控）设置选中的树节点
                                 selectedKeys={selectedKeys}
-                                treeData={listTree}
+                                treeData={listOrgTree}
                                 fieldNames={{ title: 'label', key: 'id' }}
                             />
                         )}

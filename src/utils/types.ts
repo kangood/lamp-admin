@@ -15,7 +15,13 @@ export interface PageMeta {
     totalPages: number;
 }
 
-export interface ResultType<T> {
+export interface QueryResultType<T> {
     items: T[];
     meta: PageMeta;
+}
+
+export interface ResponseResultType {
+    error: string;
+    message: string[];
+    statusCode: number;
 }

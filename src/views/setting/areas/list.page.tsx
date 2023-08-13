@@ -1,7 +1,7 @@
 import { Button, Card, Col, Form, Input, Row, Tree } from 'antd';
 import { useState } from 'react';
 
-import { useDeleteMultiArea, useAreaListTree } from '@/services/area';
+import { useDeleteMultiArea, useListAreaTree } from '@/services/area';
 
 import { OrgEditForm } from './edit.page';
 
@@ -21,25 +21,6 @@ export interface InputType {
     sortValue?: number;
 }
 
-export interface OutputType {
-    id?: number;
-    parent?: OutputType;
-    children?: OutputType[];
-    depth?: number;
-    label?: string;
-    type?: string;
-    abbreviation?: string;
-    parentId?: number;
-    sortValue?: number;
-    state?: boolean;
-    describe?: string;
-    deletedAt?: Date;
-    createdAt?: Date;
-    createdBy?: number;
-    updatedAt?: Date;
-    updatedBy?: number;
-}
-
 interface CheckedKeysType {
     checked: number[];
     halfChecked: number[];
@@ -55,7 +36,7 @@ export default () => {
     const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
     const [clickOne, setClickOne] = useState<InputType>(defaultClickOne);
     // API-hook
-    const { data: listTree, refetch } = useAreaListTree();
+    const { data: listTree, refetch } = useListAreaTree();
     const { mutateAsync } = useDeleteMultiArea();
     // ==========逻辑处理==========
     // 树结构展开处理

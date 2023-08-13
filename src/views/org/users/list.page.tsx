@@ -4,21 +4,24 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 
 import { useState } from 'react';
 
-import { useDeleteStation, useListRelate } from '@/services/station';
-
 import { useListOrgTree } from '@/services/org';
 
+import { useDeleteUser, useListUserRelate } from '@/services/user';
+
+import { useDictListTypes } from '@/services/dictionary';
+
 import { InputType, OutputType, columns } from './constants';
-import { StationEditForm } from './edit.page';
+import { UserEditForm } from './edit.page';
 
 export default () => {
     const [form] = Form.useForm();
     // 状态定义
     const [listRelateParams, setListRelateParams] = useState<InputType>();
     // API-hooks
-    const { data, refetch: listRelateRefetch } = useListRelate(listRelateParams);
-    const { mutateAsync: delMutate } = useDeleteStation();
+    const { data, refetch: listRelateRefetch } = useListUserRelate(listRelateParams);
+    const { mutateAsync: delMutate } = useDeleteUser();
     const { data: listOrgTree } = useListOrgTree();
+    const { data: dictListTypes } = useDictListTypes("'NATION','POSITION_STATUS','EDUCATION'");
     // ==========逻辑处理==========
     // 时间改变时回调，更新时间传值
     const [timedate, setDate] = useState<string[]>([]);
@@ -41,7 +44,7 @@ export default () => {
         if (record) {
             setClickOne(record);
         } else {
-            const defaultRecord = { state: true };
+            const defaultRecord = { state: true, password: '123456' };
             setClickOne(defaultRecord);
         }
         setShowInfo(true);
@@ -76,7 +79,7 @@ export default () => {
         setListRelateParams(values);
     };
     // 批量删除处理
-    const [selectedIds, setselectedIds] = useState<number[]>([]);
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
     const batchDelHandler = async () => {
         await delMutate(selectedIds);
         listRelateRefetch();
@@ -88,7 +91,7 @@ export default () => {
             selectedRows.forEach((val, index) => {
                 ids[index] = val?.id;
             });
-            setselectedIds(ids);
+            setSelectedIds(ids);
         },
     };
     // 给列表数据循环加入key属性，以便多选框可以定位
@@ -104,8 +107,8 @@ export default () => {
             <Form form={form} onFinish={onFinishHandler}>
                 <Row gutter={24}>
                     <Col span={4}>
-                        <Form.Item name="name">
-                            <Input placeholder="岗位名称" allowClear />
+                        <Form.Item name="account">
+                            <Input placeholder="账号" allowClear />
                         </Form.Item>
                     </Col>
                     <Col span={4}>
@@ -157,7 +160,8 @@ export default () => {
             {/* 表格数据 */}
             <Table
                 rowSelection={{
-                    type: 'checkbox',
+                    // 【这个好像没用？】当数据被删除时不要保留选项的 key
+                    preserveSelectedRowKeys: false,
                     ...rowSelection,
                 }}
                 columns={columns({ onOpenFormHandler, onDelHandler })}
@@ -173,7 +177,13 @@ export default () => {
                 current={data?.meta.currentPage}
             />
             {/* 弹出层表单 */}
-            {showInfo && <StationEditForm clickOne={clickOne} onClose={closeAndRefetchHandler} />}
+            {showInfo && (
+                <UserEditForm
+                    clickOne={clickOne}
+                    onClose={closeAndRefetchHandler}
+                    dictListTypes={dictListTypes}
+                />
+            )}
         </div>
     );
 };

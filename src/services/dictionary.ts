@@ -2,14 +2,27 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { message } from 'antd';
 
-import { ResultType } from '@/utils/types';
-import { OutputType } from '@/views/setting/dictionaries/constants';
+import axios from 'axios';
+
+import { QueryResultType } from '@/utils/types';
+import { DictMapListType, OutputType } from '@/views/setting/dictionaries/constants';
 
 /**
- * 按type分组查询字典列表
+ * 根据类型查询字典列表
  */
 export const useListType = () => {
     return useQuery([], () => fetch('/dict/listType').then((response) => response.json()));
+};
+
+/**
+ * 多类型字典列表查询
+ */
+export const useDictListTypes = (types?: string) => {
+    return useQuery<DictMapListType>(['dictListTypes', types], () =>
+        axios
+            .get('/dict/listMultiType', { params: { type: types } })
+            .then((response) => response.data),
+    );
 };
 
 /**
@@ -36,7 +49,7 @@ export const useListDictSingleType = (
     if (name) {
         url += `&name=${name}`;
     }
-    const { data, isLoading, refetch } = useQuery<ResultType<OutputType>>(
+    const { data, isLoading, refetch } = useQuery<QueryResultType<OutputType>>(
         [clickType, page, limit],
         async () => fetch(url).then((response) => response.json()),
     );

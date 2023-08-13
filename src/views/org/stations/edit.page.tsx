@@ -2,7 +2,9 @@ import { Form, Input, Modal, Radio, TreeSelect } from 'antd';
 
 import { useState } from 'react';
 
-import { useCreateStation, useListTree, useUpdateStation } from '@/services/station';
+import { useCreateStation, useUpdateStation } from '@/services/station';
+
+import { useListOrgTree } from '@/services/org';
 
 import { OutputType } from './constants';
 
@@ -15,7 +17,7 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
     const [form] = Form.useForm();
     const { mutateAsync: updateMutate } = useUpdateStation();
     const { mutateAsync: createMutate } = useCreateStation();
-    const { data: listTree } = useListTree();
+    const { data: listOrgTree } = useListOrgTree();
     // 表单提交处理
     const submitHandle = async () => {
         const values = await form.validateFields();
@@ -59,7 +61,7 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
                         allowClear
                         treeDefaultExpandAll
                         onChange={onChange}
-                        treeData={listTree}
+                        treeData={listOrgTree}
                         fieldNames={{ value: 'id' }}
                     />
                 </Form.Item>

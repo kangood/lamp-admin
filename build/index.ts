@@ -42,6 +42,10 @@ export const createConfig = (params: ConfigEnv, configure?: Configure): UserConf
                         target: 'http://127.0.0.1:6001',
                         changeOrigin: true,
                     },
+                    '/user': {
+                        target: 'http://127.0.0.1:6001',
+                        changeOrigin: true,
+                    },
                 },
             },
         },
