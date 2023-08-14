@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Space, Tag } from 'antd';
+import { Avatar, Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 export interface InputType {
@@ -51,7 +51,8 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
 }) => [
     {
         title: '头像',
-        dataIndex: 'avatarx',
+        dataIndex: 'avatar',
+        render: (avatar) => <Avatar src={`${avatar}`} />,
     },
     {
         title: '账号',

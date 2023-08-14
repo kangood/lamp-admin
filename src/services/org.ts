@@ -1,22 +1,23 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
 import { InputType } from '@/views/org/orgs/list.page';
 import { globalError, globalSuccess } from '@/utils/antdExtract';
 import { ResponseResultType } from '@/utils/types';
+import { service } from '@/http/axios/service';
 
 /**
  * 树结构查询
  */
 export const useListOrgTree = () => {
-    return useQuery([], async () => axios.get('/org/tree').then((res) => res.data));
+    return useQuery(['listOrgTree'], async () => service.get('/org/tree').then((res) => res.data));
 };
 
 /**
  * 单个查询
  */
 export const useGetOne = (id: number) => {
-    return useQuery(['getOne', id], async () => axios.get(`/org/${id}`).then((res) => res.data));
+    return useQuery(['getOne', id], async () => service.get(`/org/${id}`).then((res) => res.data));
 };
 
 /**
@@ -24,7 +25,7 @@ export const useGetOne = (id: number) => {
  */
 export const useUpdateOne = () => {
     return useMutation(
-        async (params: InputType) => axios.patch('/org', { ...params }).then((res) => res.data),
+        async (params: InputType) => service.patch('/org', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
@@ -37,7 +38,7 @@ export const useUpdateOne = () => {
  */
 export const useCreateOne = () => {
     return useMutation(
-        async (params: InputType) => axios.post('/org', { ...params }).then((res) => res.data),
+        async (params: InputType) => service.post('/org', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
@@ -50,7 +51,7 @@ export const useCreateOne = () => {
  */
 export const useDeleteOne = () => {
     return useMutation(
-        async (ids: number[]) => axios.delete('/org', { data: { ids } }).then((res) => res.data),
+        async (ids: number[]) => service.delete('/org', { data: { ids } }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),

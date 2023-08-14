@@ -1,16 +1,17 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
 import { InputType, OutputType } from '@/views/org/stations/constants';
 import { globalError, globalSuccess } from '@/utils/antdExtract';
 import { QueryResultType, ResponseResultType } from '@/utils/types';
+import { service } from '@/http/axios/service';
 
 /**
  * 分页查询
  */
 export const useListStation = () => {
     return useQuery<QueryResultType<OutputType>>(['listStation'], () =>
-        axios.get('/station').then((res) => res.data),
+        service.get('/station').then((res) => res.data),
     );
 };
 
@@ -19,7 +20,7 @@ export const useListStation = () => {
  */
 export const useListRelate = (values?: InputType) => {
     return useQuery(['listRelate', values], () =>
-        axios
+        service
             .get('/station/listRelate', {
                 params: values,
             })
@@ -32,7 +33,8 @@ export const useListRelate = (values?: InputType) => {
  */
 export const useUpdateStation = () => {
     return useMutation(
-        async (params: InputType) => axios.patch('/station', { ...params }).then((res) => res.data),
+        async (params: InputType) =>
+            service.patch('/station', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
@@ -45,7 +47,8 @@ export const useUpdateStation = () => {
  */
 export const useCreateStation = () => {
     return useMutation(
-        async (params: InputType) => axios.post('/station', { ...params }).then((res) => res.data),
+        async (params: InputType) =>
+            service.post('/station', { ...params }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
@@ -59,7 +62,7 @@ export const useCreateStation = () => {
 export const useDeleteStation = () => {
     return useMutation(
         async (ids: number[]) =>
-            axios.delete('/station', { data: { ids } }).then((res) => res.data),
+            service.delete('/station', { data: { ids } }).then((res) => res.data),
         {
             onSuccess: () => globalSuccess(),
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),

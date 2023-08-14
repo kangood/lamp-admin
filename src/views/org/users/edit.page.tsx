@@ -10,12 +10,14 @@ import { DictMapListType } from '@/views/setting/dictionaries/constants';
 
 import { useCreateUser, useUpdateUser } from '@/services/user';
 
+import { OSSImageUpload } from '@/components/OSSImageUpload';
+
 import { OutputType } from './constants';
 
 interface UserEditFormProps {
     clickOne?: OutputType;
     onClose: (isReload?: boolean) => void;
-    dictListTypes: DictMapListType;
+    dictListTypes: DictMapListType | undefined;
 }
 
 export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, dictListTypes }) => {
@@ -27,6 +29,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
     // 表单提交处理
     const submitHandle = async () => {
         const values = await form.validateFields();
+        values.avatar = typeof values.avatar === 'string' ? values.avatar : values.avatar?.url;
         if (clickOne?.id) {
             await updateMutate(values);
         } else {
@@ -53,7 +56,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                 labelCol={{ span: 4 }}
                 wrapperCol={{ span: 18 }}
                 layout="horizontal"
-                name="form_in_modal"
+                name="form_in_edit"
                 initialValues={clickOne}
             >
                 <Form.Item name="id" hidden />
@@ -83,7 +86,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                     </Form.Item>
                 )}
                 <Form.Item name="avatar" label="头像">
-                    <Input />
+                    <OSSImageUpload />
                 </Form.Item>
                 <Form.Item name="orgId" label="机构">
                     <TreeSelect
@@ -145,7 +148,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                             (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
                         }
                         fieldNames={{ value: 'code', label: 'name' }}
-                        options={dictListTypes.NATION}
+                        options={dictListTypes?.NATION}
                     />
                 </Form.Item>
                 <Form.Item name="education" label="学历">
@@ -159,7 +162,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                             (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
                         }
                         fieldNames={{ value: 'code', label: 'name' }}
-                        options={dictListTypes.EDUCATION}
+                        options={dictListTypes?.EDUCATION}
                     />
                 </Form.Item>
                 <Form.Item name="positionStatus" label="职位状态">
@@ -173,7 +176,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                             (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
                         }
                         fieldNames={{ value: 'code', label: 'name' }}
-                        options={dictListTypes.POSITION_STATUS}
+                        options={dictListTypes?.POSITION_STATUS}
                     />
                 </Form.Item>
                 <Form.Item

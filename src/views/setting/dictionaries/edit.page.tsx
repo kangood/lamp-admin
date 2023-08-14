@@ -14,14 +14,14 @@ export const DictionaryRightEditForm: React.FC<DictionaryRightEditFormProps> = (
     onClose,
 }) => {
     const [form] = Form.useForm();
-    const { mutate: updateMutate } = useUpdateDict();
-    const { mutate: createMutate } = useCreateDict();
+    const { mutateAsync: updateMutate } = useUpdateDict();
+    const { mutateAsync: createMutate } = useCreateDict();
     const submitHandle = async () => {
         const values = await form.validateFields();
         if (clickDict?.id) {
-            updateMutate(values);
+            await updateMutate(values);
         } else {
-            createMutate(values);
+            await createMutate(values);
         }
         onClose(true);
     };

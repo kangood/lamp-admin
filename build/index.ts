@@ -22,27 +22,7 @@ export const createConfig = (params: ConfigEnv, configure?: Configure): UserConf
             plugins: createPlugins(isBuild),
             server: {
                 proxy: {
-                    '/dict': {
-                        target: 'http://127.0.0.1:6001',
-                        changeOrigin: true,
-                    },
-                    '/param': {
-                        target: 'http://127.0.0.1:6001',
-                        changeOrigin: true,
-                    },
-                    '/station': {
-                        target: 'http://127.0.0.1:6001',
-                        changeOrigin: true,
-                    },
-                    '/area': {
-                        target: 'http://127.0.0.1:6001',
-                        changeOrigin: true,
-                    },
-                    '/org': {
-                        target: 'http://127.0.0.1:6001',
-                        changeOrigin: true,
-                    },
-                    '/user': {
+                    '/api': {
                         target: 'http://127.0.0.1:6001',
                         changeOrigin: true,
                     },

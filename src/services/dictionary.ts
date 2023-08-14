@@ -2,16 +2,15 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { message } from 'antd';
 
-import axios from 'axios';
-
 import { QueryResultType } from '@/utils/types';
 import { DictMapListType, OutputType } from '@/views/setting/dictionaries/constants';
+import { service } from '@/http/axios/service';
 
 /**
  * 根据类型查询字典列表
  */
 export const useListType = () => {
-    return useQuery([], () => fetch('/dict/listType').then((response) => response.json()));
+    return useQuery([], () => fetch('api/dict/listType').then((response) => response.json()));
 };
 
 /**
@@ -19,7 +18,7 @@ export const useListType = () => {
  */
 export const useDictListTypes = (types?: string) => {
     return useQuery<DictMapListType>(['dictListTypes', types], () =>
-        axios
+        service
             .get('/dict/listMultiType', { params: { type: types } })
             .then((response) => response.data),
     );
@@ -29,7 +28,7 @@ export const useDictListTypes = (types?: string) => {
  * 根据ID查询单个字典值
  */
 export const useGetDictById = (id: number) => {
-    return useQuery([], () => fetch(`/dict/${id}`).then((response) => response.json()));
+    return useQuery([], () => fetch(`api/dict/${id}`).then((response) => response.json()));
 };
 
 /**
@@ -42,7 +41,7 @@ export const useListDictSingleType = (
     code?: string,
     name?: string,
 ) => {
-    let url = `/dict?type=${clickType}&page=${page}&limit=${limit}`;
+    let url = `api/dict?type=${clickType}&page=${page}&limit=${limit}`;
     if (code) {
         url += `&code=${code}`;
     }
@@ -66,7 +65,7 @@ export const useListDictSingleType = (
  */
 export const useDelDicts = () => {
     return useMutation(async (ids: number[]) => {
-        fetch(`/dict`, {
+        fetch(`api/dict`, {
             method: 'delete',
             body: JSON.stringify({ ids }),
             headers: {
@@ -87,7 +86,7 @@ export const useDelDicts = () => {
  */
 export const useUpdateDict = () => {
     return useMutation(async (params) => {
-        fetch(`/dict`, {
+        fetch(`api/dict`, {
             method: 'PATCH',
             body: JSON.stringify(params),
             headers: {
@@ -108,7 +107,7 @@ export const useUpdateDict = () => {
  */
 export const useCreateDict = () => {
     return useMutation(async (params) => {
-        fetch(`/dict`, {
+        fetch(`api/dict`, {
             method: 'POST',
             body: JSON.stringify(params),
             headers: {

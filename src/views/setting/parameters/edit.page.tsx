@@ -1,6 +1,7 @@
 import { Form, Input, Modal, Radio, Spin, message } from 'antd';
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+
+import { service } from '@/http/axios/service';
 
 import { DataType } from './constants';
 
@@ -19,7 +20,7 @@ export const ParameterEditForm: React.FC<ParameterEditFormProps> = ({ id, onClos
         if (!initialized.current) {
             initialized.current = true;
             setLoading(true);
-            axios
+            service
                 .get(`/param${id === 0 ? '' : `/${id}`}`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
@@ -52,7 +53,7 @@ export const ParameterEditForm: React.FC<ParameterEditFormProps> = ({ id, onClos
     // 更新请求
     const updateRequest = (values: DataType) => {
         values.id = id;
-        axios
+        service
             .patch(
                 `/param`,
                 {
@@ -77,7 +78,7 @@ export const ParameterEditForm: React.FC<ParameterEditFormProps> = ({ id, onClos
     };
     // 新增请求
     const createRequest = (values: DataType) => {
-        axios
+        service
             .post(
                 `/param`,
                 {

@@ -25,3 +25,12 @@ export interface ResponseResultType {
     message: string[];
     statusCode: number;
 }
+
+export interface OSSType {
+    expire: string;
+    policy: string;
+    signature: string;
+    accessId: string;
+    host: string;
+    dir: string;
+}
