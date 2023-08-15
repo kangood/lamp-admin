@@ -43,7 +43,9 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
             onOk={submitHandle}
         >
             <Form form={form} layout="vertical" name="form_in_station" initialValues={clickOne}>
-                <Form.Item name="id" hidden />
+                <Form.Item name="id" hidden>
+                    <Input />
+                </Form.Item>
                 <Form.Item
                     name="name"
                     label="岗位名称"

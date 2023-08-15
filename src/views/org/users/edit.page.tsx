@@ -59,7 +59,9 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                 name="form_in_edit"
                 initialValues={clickOne}
             >
-                <Form.Item name="id" hidden />
+                <Form.Item name="id" hidden>
+                    <Input />
+                </Form.Item>
                 <Form.Item
                     name="account"
                     label="账号"

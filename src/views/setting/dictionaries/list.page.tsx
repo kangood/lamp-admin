@@ -28,6 +28,9 @@ export default () => {
     );
     // ==========左边栏处理==========
     // ......
+    const onTypePageChange = (_page: number, _pageSize: number) => {
+        // ......
+    };
     // ==========右边栏处理==========
     // 字典详情分页改变处理
     const onListPageChange = (page: number, pageSize: number) => {
@@ -105,6 +108,7 @@ export default () => {
                 <Col>
                     <Card title="字典列表" style={{ width: 450 }}>
                         <Table
+                            rowKey="id"
                             bordered
                             loading={listTypeLoading}
                             columns={listTypeColumns({ onOpenFormHandler, onDelHandler })}
@@ -123,7 +127,7 @@ export default () => {
                         <Divider />
                         <Pagination
                             showSizeChanger
-                            // onChange={onPageChange}
+                            onChange={onTypePageChange}
                             total={listTypeData?.meta?.totalItems}
                             current={listTypeData?.meta?.currentPage}
                             showTotal={(total) => `共 ${total} 条`}
@@ -169,6 +173,7 @@ export default () => {
                             </Row>
                         </Form>
                         <Table
+                            rowKey="id"
                             rowSelection={{
                                 ...rowSelection,
                             }}

@@ -35,8 +35,14 @@ export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne }) => {
             initialValues={clickOne}
             onFinish={onFinishHandler}
         >
-            <Form.Item name="id" hidden />
-            {!clickOne.id && <Form.Item name="parent" hidden />}
+            <Form.Item name="id" hidden>
+                <Input />
+            </Form.Item>
+            {!clickOne.id && (
+                <Form.Item name="parent" hidden>
+                    <Input />
+                </Form.Item>
+            )}
             <Form.Item name="parentId" label="上级ID">
                 <Input disabled />
             </Form.Item>

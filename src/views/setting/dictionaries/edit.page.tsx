@@ -35,7 +35,9 @@ export const DictionaryRightEditForm: React.FC<DictionaryRightEditFormProps> = (
             onOk={submitHandle}
         >
             <Form form={form} layout="vertical" name="form_in_modal" initialValues={clickDict}>
-                <Form.Item name="id" hidden />
+                <Form.Item name="id" hidden>
+                    <Input />
+                </Form.Item>
                 <Form.Item
                     name="type"
                     label="类型"
