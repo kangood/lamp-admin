@@ -1,7 +1,7 @@
 import { Button, Card, Col, Form, Input, Row, Tree } from 'antd';
 import { useState } from 'react';
 
-import { useDeleteOne, useListOrgTree } from '@/services/org';
+import { useDeleteOrg, useListOrgTree } from '@/services/org';
 
 import { OrgEditForm } from './edit.page';
 
@@ -53,8 +53,8 @@ export default () => {
     const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
     const [clickOne, setClickOne] = useState<InputType>(defaultClickOne);
     // API-hook
-    const { data: listOrgTree, refetch } = useListOrgTree();
-    const { mutateAsync } = useDeleteOne();
+    const { data: listOrgTree } = useListOrgTree();
+    const { mutateAsync } = useDeleteOrg();
     // ==========逻辑处理==========
     // 树结构展开处理
     const onExpand = (expandedKeysValue: React.Key[]) => {
@@ -81,13 +81,8 @@ export default () => {
     // 点击删除时的处理
     const delHandler = async () => {
         if (checkedKeys?.checked) {
-            await mutateAsync(checkedKeys?.checked);
-            refetch();
+            mutateAsync(checkedKeys?.checked);
         }
-    };
-    // 刷新处理
-    const refetchHandler = () => {
-        refetch();
     };
     return (
         <div>
@@ -155,7 +150,7 @@ export default () => {
                 </Col>
                 <Col>
                     <Card title={clickOne.id ? '修改' : '新增'} style={{ width: 600 }}>
-                        <OrgEditForm clickOne={clickOne} refetch={refetchHandler} />
+                        <OrgEditForm clickOne={clickOne} />
                     </Card>
                 </Col>
             </Row>

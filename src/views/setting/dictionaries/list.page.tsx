@@ -47,23 +47,16 @@ export default () => {
         setShowInfo(true);
     };
     // 关闭模态窗口并刷新数据
-    const closeAndRefetchHandler = (isReload?: boolean) => {
+    const closeAndRefetchHandler = async (isReload?: boolean) => {
         setShowInfo(false);
         if (isReload) {
-            // 整理刷新总是返回的上一次数据，why？
+            // 内部使用fetch而不是axios，后端还是先查询再更新的
             listRefetch();
-            // const qResult: Promise<QueryObserverResult<ResultType<OutputType>>> = refetch();
-            // qResult.then((res) => {
-            //     const xx = res.data?.items.filter((item) => item.id === clickDict?.id);
-            //     console.log(xx?.[0]);
-            //     setClickDict(xx?.[0]);
-            // });
         }
     };
     // 删除处理器，点击删除按钮触发API调用
-    const onDelHandler = (ids: number[]) => {
+    const onDelHandler = async (ids: number[]) => {
         delMutate(ids);
-        listRefetch();
     };
     // 表单提交处理
     const onFinishHandler = (values: InputType) => {

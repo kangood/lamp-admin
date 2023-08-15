@@ -2,19 +2,18 @@ import { Button, Form, Input, InputNumber, Radio } from 'antd';
 
 import { useEffect } from 'react';
 
-import { useCreateOne, useUpdateOne } from '@/services/org';
+import { useCreateOrg, useUpdateOrg } from '@/services/org';
 
 import { InputType } from './list.page';
 
 interface OrgEditFormProps {
     clickOne: InputType;
-    refetch: () => void;
 }
 
-export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne, refetch }) => {
+export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne }) => {
     const [form] = Form.useForm();
-    const { mutateAsync: updateMutate } = useUpdateOne();
-    const { mutateAsync: createMutate } = useCreateOne();
+    const { mutateAsync: updateMutate } = useUpdateOrg();
+    const { mutateAsync: createMutate } = useCreateOrg();
     useEffect(() => {
         form.resetFields();
         form.setFieldsValue(clickOne);
@@ -23,11 +22,10 @@ export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne, refetch }) =
     // 表单提交并刷新
     const onFinishHandler = async (values: InputType) => {
         if (values.id) {
-            await updateMutate(values);
+            updateMutate(values);
         } else {
-            await createMutate(values);
+            createMutate(values);
         }
-        refetch();
     };
     return (
         <Form

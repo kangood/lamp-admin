@@ -18,7 +18,7 @@ export default () => {
     // 状态定义
     const [listRelateParams, setListRelateParams] = useState<InputType>();
     // API-hooks
-    const { data, refetch: listRelateRefetch } = useListUserRelate(listRelateParams);
+    const { data } = useListUserRelate(listRelateParams);
     const { mutateAsync: delMutate } = useDeleteUser();
     const { data: listOrgTree } = useListOrgTree();
     const { data: dictListTypes } = useDictListTypes("'NATION','POSITION_STATUS','EDUCATION'");
@@ -51,15 +51,11 @@ export default () => {
     };
     // 删除处理器，点击删除按钮触发API调用
     const onDelHandler = async (ids: number[]) => {
-        await delMutate(ids);
-        listRelateRefetch();
+        delMutate(ids);
     };
     // 关闭模态窗口并刷新数据
-    const closeAndRefetchHandler = (isReload?: boolean) => {
+    const closeAndRefetchHandler = () => {
         setShowInfo(false);
-        if (isReload) {
-            listRelateRefetch();
-        }
     };
     // 树结构数据处理
     const [treeValue, setTreeValue] = useState<string>();
@@ -81,8 +77,7 @@ export default () => {
     // 批量删除处理
     const [selectedIds, setSelectedIds] = useState<number[]>([]);
     const batchDelHandler = async () => {
-        await delMutate(selectedIds);
-        listRelateRefetch();
+        delMutate(selectedIds);
     };
     // 多选框处理
     const rowSelection = {

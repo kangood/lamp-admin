@@ -10,10 +10,9 @@ import { InputType } from './list.page';
 
 interface OrgEditFormProps {
     clickOne: InputType;
-    refetch: () => void;
 }
 
-export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne, refetch }) => {
+export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne }) => {
     const [form] = Form.useForm();
     const { mutateAsync: updateMutate } = useUpdateArea();
     const { mutateAsync: createMutate } = useCreateArea();
@@ -27,11 +26,10 @@ export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne, refetch }) =
     // 表单提交并刷新
     const onFinishHandler = async (values: InputType) => {
         if (values.id) {
-            await updateMutate(values);
+            updateMutate(values);
         } else {
-            await createMutate(values);
+            createMutate(values);
         }
-        refetch();
     };
     return (
         <Form

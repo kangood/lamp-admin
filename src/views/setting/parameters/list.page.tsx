@@ -1,11 +1,12 @@
 import { Button, Col, Input, Row, Table, DatePicker, message, Form, Pagination } from 'antd';
-import axios from 'axios';
 
 import { useEffect, useState } from 'react';
 
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
 import { PageMeta } from '@/utils/types';
+
+import { service } from '@/http/axios/service';
 
 import { DataType, columns } from './constants';
 import { ParameterEditForm } from './edit.page';
@@ -19,7 +20,7 @@ export default () => {
     const [showInfo, setShowInfo] = useState(false);
     // 列表查询请求
     const listRequest = (values?: DataType) => {
-        axios
+        service
             .get(`/param`, {
                 params: {
                     ...values,
@@ -55,7 +56,7 @@ export default () => {
     }, [showInfo]);
     // 删除处理器，点击删除按钮触发
     const onDelHandler = (ids: number[]) => {
-        axios
+        service
             .delete(`/param`, {
                 data: {
                     ids,

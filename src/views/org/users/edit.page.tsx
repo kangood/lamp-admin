@@ -16,7 +16,7 @@ import { OutputType } from './constants';
 
 interface UserEditFormProps {
     clickOne?: OutputType;
-    onClose: (isReload?: boolean) => void;
+    onClose: () => void;
     dictListTypes: DictMapListType | undefined;
 }
 
@@ -35,7 +35,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
         } else {
             await createMutate(values);
         }
-        onClose(true);
+        onClose();
     };
     // 树结构数据处理
     const [treeValue, setTreeValue] = useState<string>();

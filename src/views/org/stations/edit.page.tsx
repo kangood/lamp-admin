@@ -10,7 +10,7 @@ import { OutputType } from './constants';
 
 interface StationEditFormProps {
     clickOne?: OutputType;
-    onClose: (isReload?: boolean) => void;
+    onClose: () => void;
 }
 
 export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onClose }) => {
@@ -26,7 +26,7 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
         } else {
             await createMutate(values);
         }
-        onClose(true);
+        onClose();
     };
     // 树结构数据处理
     const [treeValue, setTreeValue] = useState<string>();

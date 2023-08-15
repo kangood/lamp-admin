@@ -2,15 +2,16 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { InputType } from '@/views/org/stations/constants';
-import { globalError, globalSuccess } from '@/utils/antdExtract';
+import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { ResponseResultType } from '@/utils/types';
 import { service } from '@/http/axios/service';
+import { queryClient } from '@/http/tanstack/react-query';
 
 /**
  * 关联其他的列表查询
  */
 export const useListUserRelate = (values?: InputType) => {
-    return useQuery(['listRelate', values], () =>
+    return useQuery(['listUserRelate', values], () =>
         service
             .get('/user/listRelate', {
                 params: values,
@@ -23,37 +24,37 @@ export const useListUserRelate = (values?: InputType) => {
  * 更新用户
  */
 export const useUpdateUser = () => {
-    return useMutation(
-        async (params: InputType) => service.patch('/user', { ...params }).then((res) => res.data),
-        {
-            onSuccess: () => globalSuccess(),
-            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+    return useMutation(async (params: InputType) => service.patch('/user', { ...params }), {
+        onSuccess: () => {
+            globalSuccess();
+            queryClient.invalidateQueries(['listUserRelate']);
         },
-    );
+        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+    });
 };
 
 /**
  * 新建用户
  */
 export const useCreateUser = () => {
-    return useMutation(
-        async (params: InputType) => service.post('/user', { ...params }).then((res) => res.data),
-        {
-            onSuccess: () => globalSuccess(),
-            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+    return useMutation(async (params: InputType) => service.post('/user', { ...params }), {
+        onSuccess: () => {
+            globalSuccess();
+            queryClient.invalidateQueries(['listUserRelate']);
         },
-    );
+        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+    });
 };
 
 /**
  * 删除多个用户
  */
 export const useDeleteUser = () => {
-    return useMutation(
-        async (ids: number[]) => service.delete('/user', { data: { ids } }).then((res) => res.data),
-        {
-            onSuccess: () => globalSuccess(),
-            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+    return useMutation(async (ids: number[]) => service.delete('/user', { data: { ids } }), {
+        onSuccess: () => {
+            globalSuccess();
+            queryClient.invalidateQueries(['listUserRelate']);
         },
-    );
+        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+    });
 };
