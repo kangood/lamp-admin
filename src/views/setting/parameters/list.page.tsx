@@ -8,6 +8,8 @@ import { PageMeta } from '@/utils/types';
 
 import { service } from '@/http/axios/service';
 
+import { useDeleteParam } from '@/services/parameter';
+
 import { DataType, columns } from './constants';
 import { ParameterEditForm } from './edit.page';
 
@@ -109,6 +111,36 @@ export default () => {
         const values = { page, limit: pageSize };
         listRequest(values);
     };
+    // 批量删除处理
+    const { mutateAsync: delMutate } = useDeleteParam();
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [selectedIds, setSelectedIds] = useState<number[]>();
+    const batchDelHandler = async () => {
+        if (!selectedIds) {
+            message.error('请勾选数据之后删除');
+            return;
+        }
+        await delMutate(selectedIds);
+        listRequest();
+        setSelectedIds(undefined);
+        setSelectedRowKeys([]);
+    };
+    // 多选框处理
+    const rowSelection = {
+        // 指定选中项的 key 数组，从0开始的下标，用于控制数据的勾选，自动的本来可以，手动主要用于删除后的清除
+        selectedRowKeys,
+        // 选中项发生变化时的回调
+        onChange: (newSelectedRowKeys: React.Key[], selectedRows: OutputType[]) => {
+            // 用于显示勾选项
+            setSelectedRowKeys(newSelectedRowKeys);
+            // 删除时的ids传值
+            const ids: number[] = [];
+            selectedRows.forEach((val, index) => {
+                ids[index] = val.id!;
+            });
+            setSelectedIds(ids);
+        },
+    };
     return (
         <div>
             {/* 搜索和操作栏 */}
@@ -150,7 +182,9 @@ export default () => {
                         </Button>
                     </Col>
                     <Col span={2}>
-                        <Button type="primary">删除</Button>
+                        <Button type="primary" onClick={batchDelHandler}>
+                            删除
+                        </Button>
                     </Col>
                 </Row>
             </Form>
@@ -159,6 +193,9 @@ export default () => {
                 columns={columns({ onOpenFormHandler, onDelHandler })}
                 dataSource={data}
                 pagination={false}
+                rowSelection={{
+                    ...rowSelection,
+                }}
             />
             <Pagination
                 showSizeChanger

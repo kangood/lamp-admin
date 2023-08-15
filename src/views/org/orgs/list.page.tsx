@@ -63,9 +63,11 @@ export default () => {
     };
     // 点击新增时的处理
     const addHandler = () => {
-        defaultClickOne.parent = clickOne.id;
-        defaultClickOne.parentId = clickOne.id;
-        setClickOne(defaultClickOne);
+        if (clickOne.id) {
+            defaultClickOne.parent = clickOne.id;
+            defaultClickOne.parentId = clickOne.id;
+            setClickOne(defaultClickOne);
+        }
     };
     // 点击删除时的处理
     const delHandler = async () => {
@@ -111,18 +113,20 @@ export default () => {
             <Row>
                 <Col>
                     <Card style={{ width: 650 }}>
-                        <Tree
-                            checkable
-                            checkStrictly
-                            // 默认展开所有树节点
-                            defaultExpandAll
-                            // 点击复选框触发
-                            onCheck={onCheck}
-                            // 点击树节点触发
-                            onSelect={onSelect}
-                            treeData={listOrgTree}
-                            fieldNames={{ title: 'label', key: 'id' }}
-                        />
+                        {listOrgTree && (
+                            <Tree
+                                checkable
+                                checkStrictly
+                                // 默认展开所有树节点
+                                defaultExpandAll
+                                // 点击复选框触发
+                                onCheck={onCheck}
+                                // 点击树节点触发
+                                onSelect={onSelect}
+                                treeData={listOrgTree}
+                                fieldNames={{ title: 'label', key: 'id' }}
+                            />
+                        )}
                     </Card>
                 </Col>
                 <Col>

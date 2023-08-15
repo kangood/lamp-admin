@@ -31,7 +31,7 @@ export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne }) => {
         <Form
             form={form}
             layout="vertical"
-            name="form_in_inside"
+            name="form_in_org"
             initialValues={clickOne}
             onFinish={onFinishHandler}
         >

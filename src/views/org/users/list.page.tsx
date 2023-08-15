@@ -1,4 +1,15 @@
-import { Form, Row, Col, Input, Button, Table, Pagination, DatePicker, TreeSelect } from 'antd';
+import {
+    Form,
+    Row,
+    Col,
+    Input,
+    Button,
+    Table,
+    Pagination,
+    DatePicker,
+    TreeSelect,
+    message,
+} from 'antd';
 
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
@@ -75,16 +86,29 @@ export default () => {
         setListRelateParams(values);
     };
     // 批量删除处理
-    const [selectedIds, setSelectedIds] = useState<number[]>([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [selectedIds, setSelectedIds] = useState<number[]>();
     const batchDelHandler = async () => {
+        if (!selectedIds) {
+            message.error('请勾选数据之后删除');
+            return;
+        }
         delMutate(selectedIds);
+        setSelectedIds(undefined);
+        setSelectedRowKeys([]);
     };
     // 多选框处理
     const rowSelection = {
-        onChange: (_selectedRowKeys: React.Key[], selectedRows: OutputType[]) => {
+        // 指定选中项的 key 数组，从0开始的下标，用于控制数据的勾选，自动的本来可以，手动主要用于删除后的清除
+        selectedRowKeys,
+        // 选中项发生变化时的回调
+        onChange: (newSelectedRowKeys: React.Key[], selectedRows: OutputType[]) => {
+            // 用于显示勾选项
+            setSelectedRowKeys(newSelectedRowKeys);
+            // 删除时的ids传值
             const ids: number[] = [];
             selectedRows.forEach((val, index) => {
-                ids[index] = val?.id;
+                ids[index] = val.id!;
             });
             setSelectedIds(ids);
         },
@@ -155,8 +179,6 @@ export default () => {
             {/* 表格数据 */}
             <Table
                 rowSelection={{
-                    // 【这个好像没用？】当数据被删除时不要保留选项的 key
-                    preserveSelectedRowKeys: false,
                     ...rowSelection,
                 }}
                 columns={columns({ onOpenFormHandler, onDelHandler })}

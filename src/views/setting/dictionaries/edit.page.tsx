@@ -21,7 +21,7 @@ export const DictionaryRightEditForm: React.FC<DictionaryRightEditFormProps> = (
         if (clickDict?.id) {
             await updateMutate(values);
         } else {
-            await createMutate(values);
+            createMutate(values);
         }
         onClose(true);
     };

@@ -1,4 +1,4 @@
-import { Button, Card, Col, Divider, Form, Input, Pagination, Row, Table } from 'antd';
+import { Button, Card, Col, Divider, Form, Input, Pagination, Row, Table, message } from 'antd';
 
 import { useState } from 'react';
 
@@ -71,6 +71,34 @@ export default () => {
         setName('');
         listRefetch();
     };
+    // 多选框处理
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [selectedIds, setSelectedIds] = useState<number[]>();
+    const batchDelHandler = async () => {
+        if (!selectedIds) {
+            message.error('请勾选数据之后删除');
+            return;
+        }
+        delMutate(selectedIds);
+        setSelectedIds(undefined);
+        setSelectedRowKeys([]);
+    };
+    const rowSelection = {
+        // 指定选中项的 key 数组，从0开始的下标，用于控制数据的勾选，自动的本来可以，手动主要用于删除后的清除
+        selectedRowKeys,
+        // 选中项发生变化时的回调
+        onChange: (newSelectedRowKeys: React.Key[], selectedRows: OutputType[]) => {
+            console.log('newSelectedRowKeys', newSelectedRowKeys, 'selectedRows', selectedRows);
+            // 用于显示勾选项
+            setSelectedRowKeys(newSelectedRowKeys);
+            // 删除时的ids传值
+            const ids: number[] = [];
+            selectedRows.forEach((val, index) => {
+                ids[index] = val.id!;
+            });
+            setSelectedIds(ids);
+        },
+    };
     return (
         <div>
             <Row>
@@ -134,11 +162,16 @@ export default () => {
                                     </Button>
                                 </Col>
                                 <Col span={3}>
-                                    <Button type="primary">删除</Button>
+                                    <Button type="primary" onClick={batchDelHandler}>
+                                        删除
+                                    </Button>
                                 </Col>
                             </Row>
                         </Form>
                         <Table
+                            rowSelection={{
+                                ...rowSelection,
+                            }}
                             bordered
                             loading={delLoading || listLoading}
                             columns={listColumns({ onOpenFormHandler, onDelHandler })}

@@ -22,9 +22,9 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
     const submitHandle = async () => {
         const values = await form.validateFields();
         if (clickOne?.id) {
-            await updateMutate(values);
+            updateMutate(values);
         } else {
-            await createMutate(values);
+            createMutate(values);
         }
         onClose();
     };
@@ -42,7 +42,7 @@ export const StationEditForm: React.FC<StationEditFormProps> = ({ clickOne, onCl
             onCancel={() => onClose()}
             onOk={submitHandle}
         >
-            <Form form={form} layout="vertical" name="form_in_modal" initialValues={clickOne}>
+            <Form form={form} layout="vertical" name="form_in_station" initialValues={clickOne}>
                 <Form.Item name="id" hidden />
                 <Form.Item
                     name="name"

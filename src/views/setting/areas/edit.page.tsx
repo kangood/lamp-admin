@@ -35,7 +35,7 @@ export const AreaEditForm: React.FC<AreaEditFormProps> = ({ clickOne }) => {
         <Form
             form={form}
             layout="vertical"
-            name="form_in_inside"
+            name="form_in_area"
             initialValues={clickOne}
             onFinish={onFinishHandler}
         >
@@ -82,7 +82,11 @@ export const AreaEditForm: React.FC<AreaEditFormProps> = ({ clickOne }) => {
             >
                 <Radio.Group buttonStyle="solid">
                     {listDataItems &&
-                        listDataItems.map((item) => <Radio value={item.code}>{item.name}</Radio>)}
+                        listDataItems.map((item) => (
+                            <Radio key={item.id?.toString()} value={item.code}>
+                                {item.name}
+                            </Radio>
+                        ))}
                 </Radio.Group>
             </Form.Item>
             <Form.Item name="sortValue" label="排序">

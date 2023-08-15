@@ -31,9 +31,9 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
         const values = await form.validateFields();
         values.avatar = typeof values.avatar === 'string' ? values.avatar : values.avatar?.url;
         if (clickOne?.id) {
-            await updateMutate(values);
+            updateMutate(values);
         } else {
-            await createMutate(values);
+            createMutate(values);
         }
         onClose();
     };

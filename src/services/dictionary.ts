@@ -101,6 +101,7 @@ export const useCreateDict = () => {
     return useMutation(async (params) => service.post('dict', params), {
         onSuccess: () => {
             globalSuccess();
+            queryClient.invalidateQueries(['listDictSingleType']);
         },
         onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
