@@ -38,37 +38,26 @@ export interface OutputType {
     updatedBy?: number;
 }
 
-interface CheckedKeysType {
-    checked: number[];
-    halfChecked: number[];
-}
-
 export default () => {
     const [form] = Form.useForm();
     const defaultClickOne: InputType = { type: '01', state: true };
     // 状态定义
-    const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
-    const [checkedKeys, setCheckedKeys] = useState<CheckedKeysType>();
-    const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
-    const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
+    const [checkedKeys, setCheckedKeys] = useState<number[]>();
     const [clickOne, setClickOne] = useState<InputType>(defaultClickOne);
     // API-hook
     const { data: listOrgTree } = useListOrgTree();
     const { mutateAsync } = useDeleteOrg();
     // ==========逻辑处理==========
-    // 树结构展开处理
-    const onExpand = (expandedKeysValue: React.Key[]) => {
-        setExpandedKeys(expandedKeysValue);
-        setAutoExpandParent(false);
-    };
     // 复选框点击时处理
-    const onCheck = (checked: CheckedKeysType) => {
-        setCheckedKeys(checked);
+    const onCheck = (checked: React.Key[] | { checked: React.Key[] }) => {
+        if (!Array.isArray(checked)) {
+            const { checked: checkedValues } = checked;
+            setCheckedKeys(checkedValues.map((key) => Number(key)));
+        }
     };
     // 树节点点击时处理
     const onSelect = async (selectedKeysValue: React.Key[], info: any) => {
         if (selectedKeysValue && selectedKeysValue.length > 0) {
-            setSelectedKeys(selectedKeysValue);
             setClickOne(info.selectedNodes[0]);
         }
     };
@@ -80,8 +69,8 @@ export default () => {
     };
     // 点击删除时的处理
     const delHandler = async () => {
-        if (checkedKeys?.checked) {
-            mutateAsync(checkedKeys?.checked);
+        if (checkedKeys) {
+            mutateAsync(checkedKeys);
         }
     };
     return (
@@ -122,30 +111,18 @@ export default () => {
             <Row>
                 <Col>
                     <Card style={{ width: 650 }}>
-                        {listOrgTree && (
-                            <Tree
-                                checkable
-                                checkStrictly
-                                // 默认展开所有树节点
-                                defaultExpandAll
-                                // 展开/收起节点时触发
-                                onExpand={onExpand}
-                                // （受控）展开指定的树节点
-                                expandedKeys={expandedKeys}
-                                // 是否自动展开父节点
-                                autoExpandParent={autoExpandParent}
-                                // 点击复选框触发
-                                onCheck={onCheck}
-                                // （受控）选中复选框的树节点
-                                checkedKeys={checkedKeys}
-                                // 点击树节点触发
-                                onSelect={onSelect}
-                                // （受控）设置选中的树节点
-                                selectedKeys={selectedKeys}
-                                treeData={listOrgTree}
-                                fieldNames={{ title: 'label', key: 'id' }}
-                            />
-                        )}
+                        <Tree
+                            checkable
+                            checkStrictly
+                            // 默认展开所有树节点
+                            defaultExpandAll
+                            // 点击复选框触发
+                            onCheck={onCheck}
+                            // 点击树节点触发
+                            onSelect={onSelect}
+                            treeData={listOrgTree}
+                            fieldNames={{ title: 'label', key: 'id' }}
+                        />
                     </Card>
                 </Col>
                 <Col>

@@ -8,11 +8,11 @@ import { useGetDictById, useListDictSingleType } from '@/services/dictionary';
 
 import { InputType } from './list.page';
 
-interface OrgEditFormProps {
+interface AreaEditFormProps {
     clickOne: InputType;
 }
 
-export const OrgEditForm: React.FC<OrgEditFormProps> = ({ clickOne }) => {
+export const AreaEditForm: React.FC<AreaEditFormProps> = ({ clickOne }) => {
     const [form] = Form.useForm();
     const { mutateAsync: updateMutate } = useUpdateArea();
     const { mutateAsync: createMutate } = useCreateArea();
