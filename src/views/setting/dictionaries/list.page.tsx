@@ -91,7 +91,6 @@ export default () => {
         selectedRowKeys,
         // 选中项发生变化时的回调
         onChange: (newSelectedRowKeys: React.Key[], selectedRows: OutputType[]) => {
-            console.log('newSelectedRowKeys', newSelectedRowKeys, 'selectedRows', selectedRows);
             // 用于显示勾选项
             setSelectedRowKeys(newSelectedRowKeys);
             // 删除时的ids传值
