@@ -26,6 +26,7 @@
         "darkreader": "^4.9.58",
         "dayjs": "^1.11.9",
         "deepmerge": "^4.3.1",
+        "file-saver": "^2.0.5",
         "immer": "^10.0.2",
         "lodash": "^4.17.21",
         "p-min-delay": "^4.0.2",

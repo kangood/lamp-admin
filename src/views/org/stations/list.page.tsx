@@ -9,25 +9,30 @@ import {
     DatePicker,
     TreeSelect,
     message,
+    Dropdown,
+    MenuProps,
 } from 'antd';
 
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
 import { useState } from 'react';
 
-import { useDeleteStation, useListStationRelate } from '@/services/station';
+import { DownOutlined } from '@ant-design/icons';
+
+import { exportStationExcel, useDeleteStation, useListStationRelate } from '@/services/station';
 
 import { useListOrgTree } from '@/services/org';
 
 import { InputType, OutputType, columns } from './constants';
 import { StationEditForm } from './edit.page';
+import { StationImportForm } from './import.page';
 
 export default () => {
     const [form] = Form.useForm();
     // 状态定义
     const [listRelateParams, setListRelateParams] = useState<InputType>();
     // API-hooks
-    const { data } = useListStationRelate(listRelateParams);
+    const { data, refetch } = useListStationRelate(listRelateParams);
     const { mutateAsync: delMutate } = useDeleteStation();
     const { data: listOrgTree } = useListOrgTree();
     // ==========逻辑处理==========
@@ -117,6 +122,25 @@ export default () => {
             data.items[i].key = key;
         }
     }
+    // 「更多」按钮
+    const [importShowInfo, setImportShowInfo] = useState(false);
+    // 这里导入Excel之后的刷新，queryClient.invalidateQueries和await+refetch()都失效了
+    const closeAndRefetchImportHandler = (isReload?: boolean) => {
+        if (isReload) {
+            refetch();
+        }
+        setImportShowInfo(false);
+    };
+    const items: MenuProps['items'] = [
+        {
+            key: '1',
+            label: <span onClick={() => exportStationExcel(listRelateParams)}>导出</span>,
+        },
+        {
+            key: '2',
+            label: <span onClick={() => setImportShowInfo(true)}>导入</span>,
+        },
+    ];
     return (
         <div>
             {/* 搜索和操作栏 */}
@@ -171,6 +195,14 @@ export default () => {
                             删除
                         </Button>
                     </Col>
+                    <Col span={2}>
+                        <Dropdown menu={{ items }}>
+                            <Button>
+                                更多
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                    </Col>
                 </Row>
             </Form>
             {/* 表格数据 */}
@@ -190,8 +222,10 @@ export default () => {
                 showTotal={(total) => `共 ${total} 条`}
                 current={data?.meta.currentPage}
             />
-            {/* 弹出层表单 */}
+            {/* 编辑弹出层表单 */}
             {showInfo && <StationEditForm clickOne={clickOne} onClose={closeAndRefetchHandler} />}
+            {/* 导入Excel表单 */}
+            {importShowInfo && <StationImportForm onClose={closeAndRefetchImportHandler} />}
         </div>
     );
 };

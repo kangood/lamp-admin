@@ -56,6 +56,9 @@ dependencies:
   deepmerge:
     specifier: ^4.3.1
     version: 4.3.1
+  file-saver:
+    specifier: ^2.0.5
+    version: 2.0.5
   immer:
     specifier: ^10.0.2
     version: 10.0.2
@@ -3654,6 +3657,10 @@ packages:
     dependencies:
       flat-cache: 3.0.4
     dev: true
+
+  /file-saver@2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
 
   /fill-range@7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}

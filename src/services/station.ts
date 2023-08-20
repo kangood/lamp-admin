@@ -1,6 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
+import FileSaver from 'file-saver';
+
+import { UploadFile } from 'antd';
+
 import { InputType, OutputType } from '@/views/org/stations/constants';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { QueryResultType, ResponseResultType } from '@/utils/types';
@@ -66,4 +70,38 @@ export const useDeleteStation = () => {
         },
         onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
+};
+
+/**
+ * 导出Excel
+ */
+export const exportStationExcel = async (values?: InputType) => {
+    const response = await service.get('/station/exportExcel', {
+        params: values,
+        responseType: 'arraybuffer',
+    });
+    const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    FileSaver.saveAs(blob, '导出岗位数据.xlsx');
+};
+
+/**
+ * 导入Excel
+ */
+export const useImportStationExcel = () => {
+    return useMutation(
+        async (file: UploadFile) =>
+            service.post(
+                '/station/importExcel',
+                { file },
+                { headers: { 'Content-Type': 'multipart/form-data' } },
+            ),
+        {
+            onSuccess: async () => {
+                globalSuccess();
+            },
+            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
+        },
+    );
 };
