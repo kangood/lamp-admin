@@ -12,6 +12,7 @@ import { useFetcher } from '@/components/fetcher/hooks';
 import { useRouterStore } from '@/components/router/hooks';
 import { useAuth } from '@/components/auth/hooks';
 import { FetcherStore } from '@/components/fetcher/store';
+import { AUTH_TOKEN } from '@/components/auth/constants';
 
 const CredentialForm: FC = () => {
     const { message } = App.useApp();
@@ -44,14 +45,19 @@ const CredentialForm: FC = () => {
                 onFinish={async (values) => {
                     try {
                         const {
-                            data: { token },
-                        } = await fetcher.post('/user/auth/login', values);
-                        if (!isNil(token)) {
+                            data: { code, message: resMsg, result },
+                        } = await fetcher.post('/auth/login', values);
+                        if (code === 200 && !isNil(result)) {
+                            // 3R框架原有token的存储位置，用于验证登录并跳转
                             FetcherStore.setState((state) => {
-                                state.token = token;
+                                state.token = result;
                             });
+                            // 我自定义存储在session中的token，用于加入统一请求头中Authorization
+                            sessionStorage.setItem(AUTH_TOKEN, result);
+                            message.success(resMsg);
+                        } else {
+                            message.error(resMsg);
                         }
-                        message.success('登录成功');
                         // waitTime();
                     } catch (err) {
                         message.error('用户名或密码错误');
@@ -75,15 +81,12 @@ const CredentialForm: FC = () => {
                         size: 'large',
                         // prefix: <MobileOutlined />,
                     }}
-                    name="credential"
-                    placeholder="请输入用户名,手机号或邮箱地址"
+                    name="account"
+                    placeholder="请输入账号"
                     rules={[
                         {
                             required: true,
-                            message: '请输入手机号!',
-                        },
-                        {
-                            message: '不合法的手机号格式!',
+                            message: '请输入账号!',
                         },
                     ]}
                 />
@@ -93,6 +96,12 @@ const CredentialForm: FC = () => {
                     }}
                     name="password"
                     placeholder="请输入密码"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入密码!',
+                        },
+                    ]}
                 />
             </ProForm>
         </div>

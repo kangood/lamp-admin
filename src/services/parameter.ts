@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { AxiosError } from 'axios';
 
-import useFetch from '@/hooks/useFetch';
+import useFetch from '@/http/fetch/useFetch';
 import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { ResponseResultType } from '@/utils/types';
