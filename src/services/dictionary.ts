@@ -9,12 +9,19 @@ import { DictMapListType, OutputType } from '@/views/setting/dictionaries/consta
 import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { queryClient } from '@/http/tanstack/react-query';
+import { AUTH_TOKEN } from '@/components/auth/constants';
+
+const token = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TOKEN);
 
 /**
  * 根据类型查询字典列表
  */
 export const useListType = () => {
-    return useQuery([], () => fetch('api/dict/listType').then((response) => response.json()));
+    return useQuery([], () =>
+        fetch('api/dict/listType', {
+            headers: { Authorization: token ? `Bearer ${token}` : '' },
+        }).then((response) => response.json()),
+    );
 };
 
 /**
@@ -32,7 +39,11 @@ export const useDictListTypes = (types?: string) => {
  * 根据ID查询单个字典值
  */
 export const useGetDictById = (id: number) => {
-    return useQuery([], () => fetch(`api/dict/${id}`).then((response) => response.json()));
+    return useQuery([], () =>
+        fetch(`api/dict/${id}`, {
+            headers: { Authorization: token ? `Bearer ${token}` : '' },
+        }).then((response) => response.json()),
+    );
 };
 
 /**
@@ -83,6 +94,7 @@ export const useUpdateDict = () => {
             body: JSON.stringify(params),
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
+                Authorization: token ? `Bearer ${token}` : '',
             },
         })
             .then((res) => {

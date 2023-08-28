@@ -23,6 +23,8 @@ import { useDictListTypes } from '@/services/dictionary';
 
 import { InputType, OutputType, columns } from './constants';
 import { UserEditForm } from './edit.page';
+import { UserDetailPage } from './detail.page';
+import { ResetPwdForm } from './reset-pwd.page';
 
 export default () => {
     const [form] = Form.useForm();
@@ -120,6 +122,18 @@ export default () => {
             data.items[i].key = key;
         }
     }
+    // ==========详情页处理==========
+    const [showInfoDetail, setShowInfoDetail] = useState(false);
+    const onOpenDetailHanler = (record: OutputType) => {
+        setShowInfoDetail(true);
+        setClickOne(record);
+    };
+    // ==========重置密码页处理==========
+    const [showInfoResetPwd, setShowInfoResetPwd] = useState(false);
+    const onOpenResetPwdHanler = (record: OutputType) => {
+        setShowInfoResetPwd(true);
+        setClickOne(record);
+    };
     return (
         <div>
             {/* 搜索和操作栏 */}
@@ -181,9 +195,15 @@ export default () => {
                 rowSelection={{
                     ...rowSelection,
                 }}
-                columns={columns({ onOpenFormHandler, onDelHandler })}
+                columns={columns({
+                    onOpenFormHandler,
+                    onDelHandler,
+                    onOpenDetailHanler,
+                    onOpenResetPwdHanler,
+                })}
                 dataSource={data?.items}
                 pagination={false}
+                scroll={{ x: 1450 }}
             />
             {/* 自定义分页 */}
             <Pagination
@@ -200,6 +220,14 @@ export default () => {
                     onClose={closeAndRefetchHandler}
                     dictListTypes={dictListTypes}
                 />
+            )}
+            {/* 详情页弹出页面 */}
+            {showInfoDetail && (
+                <UserDetailPage clickOne={clickOne} onClose={() => setShowInfoDetail(false)} />
+            )}
+            {/* 重设密码页弹出页面 */}
+            {showInfoResetPwd && (
+                <ResetPwdForm clickId={clickOne?.id} onClose={() => setShowInfoResetPwd(false)} />
             )}
         </div>
     );
