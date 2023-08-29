@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { useCreateArea, useUpdateArea } from '@/services/area';
 
-import { useGetDictById, useListDictSingleType } from '@/services/dictionary';
+import { useListDictSingleType } from '@/services/dictionary';
 
 import { InputType } from './list.page';
 
@@ -17,7 +17,6 @@ export const AreaEditForm: React.FC<AreaEditFormProps> = ({ clickOne }) => {
     const { mutateAsync: updateMutate } = useUpdateArea();
     const { mutateAsync: createMutate } = useCreateArea();
     const { listDataItems } = useListDictSingleType('AREA_LEVEL', 1, 100);
-    useGetDictById;
     useEffect(() => {
         form.resetFields();
         form.setFieldsValue(clickOne);

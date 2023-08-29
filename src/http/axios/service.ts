@@ -20,13 +20,16 @@ export const service = axios.create({
         Authorization: token ? `Bearer ${token}` : '',
     },
 });
+service.interceptors.request.use(async (request) => {
+    const resToken = request.headers.getAuthorization();
+    // 如果请求头中带有token并且和session中不同，以session为准，更新请求头中的token
+    if (resToken && sessionStorage.getItem(AUTH_TOKEN) !== resToken.toString()) {
+        request.headers.setAuthorization(`Bearer ${sessionStorage.getItem(AUTH_TOKEN)}`);
+    }
+    return request;
+});
 service.interceptors.response.use(
     async (response) => {
-        // const resToken = response.headers.authorization;
-        // // 如果返回头中带有token并且和当前token不同则储存新的token
-        // if (resToken && sessionStorage.getItem(AUTH_TOKEN) !== resToken) {
-        //     sessionStorage.setItem(AUTH_TOKEN, resToken);
-        // }
         return response;
     },
     async (error) => {

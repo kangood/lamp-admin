@@ -16,16 +16,16 @@ export const setting: RouteOption = {
             loader: () => redirect('/setting/parameters/list'),
         },
         {
-            id: 'parameter.list',
-            path: 'parameters/list',
-            page: 'setting/parameters/list',
-            meta: { name: '参数管理' },
+            id: 'role.list',
+            path: 'roles/list',
+            page: 'setting/roles/list',
+            meta: { name: '角色管理' },
         },
         {
-            id: 'parameters.edit',
+            id: 'roles.edit',
             menu: false,
-            path: 'parameters/edit',
-            page: 'setting/parameters/edit',
+            path: 'roles/edit',
+            page: 'setting/roles/edit',
         },
         {
             id: 'dictionary.list',
@@ -50,6 +50,18 @@ export const setting: RouteOption = {
             menu: false,
             path: 'areas/edit',
             page: 'setting/areas/edit',
+        },
+        {
+            id: 'parameter.list',
+            path: 'parameters/list',
+            page: 'setting/parameters/list',
+            meta: { name: '参数管理' },
+        },
+        {
+            id: 'parameters.edit',
+            menu: false,
+            path: 'parameters/edit',
+            page: 'setting/parameters/edit',
         },
     ],
 };
