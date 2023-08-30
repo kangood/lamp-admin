@@ -57,7 +57,7 @@ export const RoleAllotPage: React.FC<RoleAllotPageProps> = ({
     };
     // 表单提交处理
     const submitHandle = async () => {
-        mutateAsync({ roleId: clickRoleId, userIdList: targetKeys.map(Number) });
+        await mutateAsync({ roleId: clickRoleId, userIdList: targetKeys.map(Number) });
         onClose();
     };
     return (

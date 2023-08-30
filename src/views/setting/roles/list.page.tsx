@@ -120,7 +120,7 @@ export default () => {
         setShowInfoRoleAllot(true);
     };
     // 关闭
-    const onCloseForRoleAllotHandler = () => {
+    const onCloseForRoleAllotHandler = async () => {
         setShowInfoRoleAllot(false);
         setShouldFetch(false);
     };

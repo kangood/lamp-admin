@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { ResponseResultType } from '@/utils/types';
+import { queryClient } from '@/http/tanstack/react-query';
 
 interface InputType {
     roleId: number;
@@ -40,6 +41,7 @@ export const useSaveUserRoleList = () => {
         {
             onSuccess: () => {
                 globalSuccess();
+                queryClient.invalidateQueries(['listUserRoleRelate']);
             },
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
