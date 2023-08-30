@@ -8,8 +8,13 @@ import { useDeleteRole, useListRoleRelate } from '@/services/role';
 
 import { useListDictSingleType } from '@/services/dictionary';
 
+import { useListUserRelate } from '@/services/user';
+
+import { useListUserRoleRelate } from '@/services/user-role';
+
 import { InputType, OutputType, columns } from './constants';
 import { StationEditForm } from './edit.page';
+import { RoleAllotPage } from './role-allot.page';
 
 export default () => {
     const [form] = Form.useForm();
@@ -17,8 +22,9 @@ export default () => {
     const [listRelateParams, setListRelateParams] = useState<InputType>();
     // API-hooks
     const { data } = useListRoleRelate(listRelateParams);
-    const { mutateAsync: delMutate } = useDeleteRole();
     const { listDataItems: listDict } = useListDictSingleType('ROLE_CATEGORY', 1, 100);
+    const { data: userData } = useListUserRelate({ page: 1, limit: 10000 });
+    const { mutateAsync: delMutate } = useDeleteRole();
     // ==========逻辑处理==========
     // 时间改变时回调，更新时间传值
     const [timedate, setDate] = useState<string[]>([]);
@@ -101,6 +107,23 @@ export default () => {
             data.items[i].key = key;
         }
     }
+    // ==========角色分配处理==========
+    const [showInfoRoleAllot, setShowInfoRoleAllot] = useState<boolean>(false);
+    const [shouldFetch, setShouldFetch] = useState(false);
+    const [clickRoleId, setClickRoleId] = useState(0);
+    // 点击后就去查询，在当前页面查完再传到role-allot页面
+    const { data: listUserRoleRelate } = useListUserRoleRelate(clickRoleId, shouldFetch);
+    // 打开
+    const onOpenRoleAllotHandler = (roleId: number) => {
+        setClickRoleId(roleId);
+        setShouldFetch(true);
+        setShowInfoRoleAllot(true);
+    };
+    // 关闭
+    const onCloseForRoleAllotHandler = () => {
+        setShowInfoRoleAllot(false);
+        setShouldFetch(false);
+    };
     return (
         <div>
             {/* 搜索和操作栏 */}
@@ -151,7 +174,7 @@ export default () => {
                 rowSelection={{
                     ...rowSelection,
                 }}
-                columns={columns({ onOpenFormHandler, onDelHandler })}
+                columns={columns({ onOpenFormHandler, onDelHandler, onOpenRoleAllotHandler })}
                 dataSource={data?.items}
                 pagination={false}
             />
@@ -169,6 +192,15 @@ export default () => {
                     clickOne={clickOne}
                     listDict={listDict}
                     onClose={closeAndRefetchHandler}
+                />
+            )}
+            {/* 角色分配页弹出页面 */}
+            {showInfoRoleAllot && listUserRoleRelate && (
+                <RoleAllotPage
+                    listUser={userData?.items}
+                    clickRoleId={clickRoleId}
+                    clickUserRoleList={listUserRoleRelate}
+                    onClose={onCloseForRoleAllotHandler}
                 />
             )}
         </div>

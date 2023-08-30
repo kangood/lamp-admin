@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, MenuOutlined, UserSwitchOutlined } from '@ant-design/icons';
 import { Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
@@ -32,11 +32,17 @@ export interface OutputType {
 interface IProps {
     onOpenFormHandler: (clickOne: OutputType) => void;
     onDelHandler: (ids: number[]) => void;
+    onOpenRoleAllotHandler: (id: number) => void;
 }
 
-export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsType<OutputType> = ({
+export const columns: ({
     onOpenFormHandler,
     onDelHandler,
+    onOpenRoleAllotHandler,
+}: IProps) => ColumnsType<OutputType> = ({
+    onOpenFormHandler,
+    onDelHandler,
+    onOpenRoleAllotHandler,
 }) => [
     {
         title: '编码',
@@ -89,6 +95,13 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
                     icon={<DeleteOutlined />}
                     onClick={() => onDelHandler([record.id])}
                 />
+                <Button
+                    key="roleAction"
+                    type="text"
+                    icon={<UserSwitchOutlined />}
+                    onClick={() => onOpenRoleAllotHandler(record.id)}
+                />
+                <Button key="menuAction" type="text" icon={<MenuOutlined />} />
             </Space>
         ),
     },
