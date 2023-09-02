@@ -34,3 +34,10 @@ export interface OSSType {
     host: string;
     dir: string;
 }
+
+export interface TreeNode {
+    id: number;
+    label: string;
+    parent: TreeNode | null;
+    children: TreeNode[];
+}

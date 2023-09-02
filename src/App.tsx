@@ -2,9 +2,9 @@ import 'dayjs/locale/zh-cn';
 
 import { FC, useEffect, useState } from 'react';
 
-import { MappingAlgorithm, ThemeConfig } from 'antd/es/config-provider/context';
+import { ThemeConfig } from 'antd/es/config-provider/context';
 
-import { ConfigProvider, theme, App as AntdApp } from 'antd';
+import { ConfigProvider, theme, App as AntdApp, MappingAlgorithm } from 'antd';
 
 import { Locale } from 'antd/es/locale';
 

@@ -25,7 +25,7 @@ export interface InputType {
     limit?: number;
 }
 
-interface OutputType {
+export interface OutputType {
     id?: number;
     menuId?: number;
     menuLabel?: string;
@@ -159,10 +159,11 @@ export const ResourceListPage: React.FC<ResourceListPageProps> = ({
                     {clickMenuLabel ? `【${clickMenuLabel}】` : ''}资源列表
                 </span>
                 <Space>
-                    <Button type="primary" onClick={batchDelHandler}>
+                    <Button disabled={!clickMenuId} type="primary" onClick={batchDelHandler}>
                         删除
                     </Button>
                     <Button
+                        disabled={!clickMenuId}
                         type="primary"
                         onClick={() => onOpenFormHandler({ menuId: clickMenuId })}
                     >
@@ -194,7 +195,7 @@ export const ResourceListPage: React.FC<ResourceListPageProps> = ({
             {/* 编辑弹出层表单 */}
             {resourceEditShowInfo && (
                 <ResourceEditForm
-                    clickReourceOne={clickReourceOne}
+                    clickReourceOne={clickReourceOne!}
                     onClose={() => setResourceEditShowInfo(false)}
                 />
             )}

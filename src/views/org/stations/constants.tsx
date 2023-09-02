@@ -76,7 +76,7 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id])}
+                    onClick={() => onDelHandler([record.id!])}
                 />
             </Space>
         ),

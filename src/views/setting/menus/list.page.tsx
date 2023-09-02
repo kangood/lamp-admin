@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { SearchOutlined } from '@ant-design/icons';
 
+import { DataNode } from 'antd/es/tree';
+
 import { useDeleteMenu, useListMenuTree } from '@/services/menu';
 
 import { MenuEditForm } from './edit.page';
@@ -30,11 +32,12 @@ export interface InputType {
 
 export interface OutputType {
     id?: number;
+    key?: number;
     parent?: OutputType;
     children?: OutputType[];
     depth?: number;
     label?: string;
-    type?: string;
+    resourceType?: string;
     parentId?: number;
     sortValue?: number;
     state?: boolean;
@@ -131,7 +134,7 @@ export default () => {
                                     onCheck={onCheck}
                                     // 点击树节点触发
                                     onSelect={onSelect}
-                                    treeData={listMenuTree}
+                                    treeData={listMenuTree as DataNode[]}
                                     fieldNames={{ title: 'label', key: 'id' }}
                                 />
                             )}

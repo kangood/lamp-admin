@@ -72,7 +72,7 @@ export const listTypeColumns: ({
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id])}
+                    onClick={() => onDelHandler([record.id!])}
                 />
             </Space>
         ),
@@ -122,7 +122,7 @@ export const listColumns: ({
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id])}
+                    onClick={() => onDelHandler([record.id!])}
                 />
             </Space>
         ),

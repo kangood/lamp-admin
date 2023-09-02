@@ -1,7 +1,7 @@
 import { Button, Space, Tooltip, message } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
-import { OutputType } from './list.page';
+import { OutputType } from './resource-list.page';
 
 interface IProps {
     onOpenFormHandler: (clickOne: OutputType) => void;

@@ -2,6 +2,8 @@ import deepmerge from 'deepmerge';
 import { isNil } from 'lodash';
 import { MutableRefObject } from 'react';
 
+import { TreeNode } from './types';
+
 /**
  * 检测当前路径是否为一个URL
  * @param path 路径(字符串)
@@ -71,4 +73,17 @@ export const debounceRun = (
             }
         }, wait ?? 10);
     }
+};
+
+/**
+ * 递归遍历数结构
+ */
+export const traverseTree = (node: TreeNode) => {
+    // 处理当前节点
+    console.log(node.id); // 在这里执行你想要的操作
+
+    // 递归处理子节点
+    node.children.forEach((child) => {
+        traverseTree(child);
+    });
 };

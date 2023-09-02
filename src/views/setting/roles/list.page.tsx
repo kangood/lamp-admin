@@ -17,6 +17,7 @@ import { PAGE_MAX_LIMIT } from '@/utils/constants';
 import { InputType, OutputType, columns } from './constants';
 import { StationEditForm } from './edit.page';
 import { RoleAllotPage } from './role-allot.page';
+import { ResourceAllotPage } from './resource-allot.page';
 
 export default () => {
     const [form] = Form.useForm();
@@ -116,15 +117,26 @@ export default () => {
     // 点击后就去查询，在当前页面查完再传到role-allot页面
     const { data: listUserRoleRelate } = useListUserRoleRelate(clickRoleId, shouldFetch);
     // 打开
-    const onOpenRoleAllotHandler = (roleId: number) => {
+    const onOpenRoleAllotHandler = async (roleId: number) => {
         setClickRoleId(roleId);
         setShouldFetch(true);
         setShowInfoRoleAllot(true);
     };
     // 关闭
     const onCloseForRoleAllotHandler = async () => {
-        setShowInfoRoleAllot(false);
         setShouldFetch(false);
+        setShowInfoRoleAllot(false);
+    };
+    // ==========资源分配处理==========
+    const [showInfoResourceAllot, setShowInfoResourceAllot] = useState<boolean>(false);
+    // 打开
+    const onOpenResourceAllotHandler = async (roleId: number) => {
+        setClickRoleId(roleId);
+        setShowInfoResourceAllot(true);
+    };
+    // 关闭
+    const onCloseForResourceAllotHandler = async () => {
+        setShowInfoResourceAllot(false);
     };
     return (
         <div>
@@ -176,7 +188,12 @@ export default () => {
                 rowSelection={{
                     ...rowSelection,
                 }}
-                columns={columns({ onOpenFormHandler, onDelHandler, onOpenRoleAllotHandler })}
+                columns={columns({
+                    onOpenFormHandler,
+                    onDelHandler,
+                    onOpenRoleAllotHandler,
+                    onOpenResourceAllotHandler,
+                })}
                 dataSource={data?.items}
                 pagination={false}
             />
@@ -203,6 +220,13 @@ export default () => {
                     clickRoleId={clickRoleId}
                     clickUserRoleList={listUserRoleRelate}
                     onClose={onCloseForRoleAllotHandler}
+                />
+            )}
+            {/* 角色分配页弹出页面 */}
+            {showInfoResourceAllot && (
+                <ResourceAllotPage
+                    clickRoleId={clickRoleId}
+                    onClose={onCloseForResourceAllotHandler}
                 />
             )}
         </div>

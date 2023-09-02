@@ -70,7 +70,7 @@ export default () => {
             .then((res) => {
                 // 剔除掉删除的数据，使用useState重新加载数据
                 const updatedData = data.filter((item: DataType) => {
-                    return !ids.includes(item.id);
+                    return !ids.includes(item.id!);
                 });
                 setData(updatedData);
                 // Antd全局提示
@@ -130,7 +130,7 @@ export default () => {
         // 指定选中项的 key 数组，从0开始的下标，用于控制数据的勾选，自动的本来可以，手动主要用于删除后的清除
         selectedRowKeys,
         // 选中项发生变化时的回调
-        onChange: (newSelectedRowKeys: React.Key[], selectedRows: OutputType[]) => {
+        onChange: (newSelectedRowKeys: React.Key[], selectedRows: DataType[]) => {
             // 用于显示勾选项
             setSelectedRowKeys(newSelectedRowKeys);
             // 删除时的ids传值

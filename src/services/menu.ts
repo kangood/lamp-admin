@@ -1,19 +1,29 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import { InputType } from '@/views/setting/menus/list.page';
+import { InputType, OutputType } from '@/views/setting/menus/list.page';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { ResponseResultType } from '@/utils/types';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
+import { traverseTree } from '@/views/setting/roles/resource-allot.page';
 
 /**
  * 树结构查询
  */
 export const useListMenuTree = () => {
-    return useQuery(['listMenuTree'], async () =>
+    const { data } = useQuery<OutputType[]>(['listMenuTree'], async () =>
         service.get('/menu/tree').then((res) => res.data),
     );
+    const dataAfterProcessLabel = () => {
+        if (data) {
+            data.forEach((rootNode) => {
+                traverseTree(rootNode);
+            });
+        }
+        return { data };
+    };
+    return { data, dataAfterProcessLabel };
 };
 
 /**

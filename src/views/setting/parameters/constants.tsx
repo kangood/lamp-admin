@@ -68,13 +68,13 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
                     key="edit"
                     type="text"
                     icon={<EditOutlined />}
-                    onClick={() => onOpenFormHandler(record.id)}
+                    onClick={() => onOpenFormHandler(record.id!)}
                 />
                 <Button
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id])}
+                    onClick={() => onDelHandler([record.id!])}
                 />
             </Space>
         ),

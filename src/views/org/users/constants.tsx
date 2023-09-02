@@ -180,7 +180,7 @@ export const columns: ({
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id])}
+                    onClick={() => onDelHandler([record.id!])}
                 />
                 <Button
                     key="resetPwd"

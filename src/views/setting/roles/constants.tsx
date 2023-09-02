@@ -33,16 +33,19 @@ interface IProps {
     onOpenFormHandler: (clickOne: OutputType) => void;
     onDelHandler: (ids: number[]) => void;
     onOpenRoleAllotHandler: (id: number) => void;
+    onOpenResourceAllotHandler: (id: number) => void;
 }
 
 export const columns: ({
     onOpenFormHandler,
     onDelHandler,
     onOpenRoleAllotHandler,
+    onOpenResourceAllotHandler,
 }: IProps) => ColumnsType<OutputType> = ({
     onOpenFormHandler,
     onDelHandler,
     onOpenRoleAllotHandler,
+    onOpenResourceAllotHandler,
 }) => [
     {
         title: '编码',
@@ -93,15 +96,20 @@ export const columns: ({
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id])}
+                    onClick={() => onDelHandler([record.id!])}
                 />
                 <Button
                     key="roleAction"
                     type="text"
                     icon={<UserSwitchOutlined />}
-                    onClick={() => onOpenRoleAllotHandler(record.id)}
+                    onClick={() => onOpenRoleAllotHandler(record.id!)}
                 />
-                <Button key="menuAction" type="text" icon={<MenuOutlined />} />
+                <Button
+                    key="menuAction"
+                    type="text"
+                    icon={<MenuOutlined />}
+                    onClick={() => onOpenResourceAllotHandler(record.id!)}
+                />
             </Space>
         ),
     },
