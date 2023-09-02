@@ -12,6 +12,8 @@ import { useListUserRelate } from '@/services/user';
 
 import { useListUserRoleRelate } from '@/services/user-role';
 
+import { PAGE_MAX_LIMIT } from '@/utils/constants';
+
 import { InputType, OutputType, columns } from './constants';
 import { StationEditForm } from './edit.page';
 import { RoleAllotPage } from './role-allot.page';
@@ -22,8 +24,8 @@ export default () => {
     const [listRelateParams, setListRelateParams] = useState<InputType>();
     // API-hooks
     const { data } = useListRoleRelate(listRelateParams);
-    const { listDataItems: listDict } = useListDictSingleType('ROLE_CATEGORY', 1, 100);
-    const { data: userData } = useListUserRelate({ page: 1, limit: 10000 });
+    const { listDataItems: listDict } = useListDictSingleType('ROLE_CATEGORY', 1, PAGE_MAX_LIMIT);
+    const { data: userData } = useListUserRelate({ page: 1, limit: PAGE_MAX_LIMIT });
     const { mutateAsync: delMutate } = useDeleteRole();
     // ==========逻辑处理==========
     // 时间改变时回调，更新时间传值

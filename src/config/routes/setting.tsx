@@ -16,6 +16,18 @@ export const setting: RouteOption = {
             loader: () => redirect('/setting/parameters/list'),
         },
         {
+            id: 'menu.list',
+            path: 'menus/list',
+            page: 'setting/menus/list',
+            meta: { name: '菜单管理' },
+        },
+        {
+            id: 'menus.edit',
+            menu: false,
+            path: 'menus/edit',
+            page: 'setting/menus/edit',
+        },
+        {
             id: 'role.list',
             path: 'roles/list',
             page: 'setting/roles/list',

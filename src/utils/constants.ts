@@ -18,3 +18,20 @@ export const defaultScreenConfig: { [key in `${ScreenSizeType}`]: number } = {
     xl: 1200,
     '2xl': 1400,
 };
+
+/**
+ * 字典值：资源类型-菜单
+ */
+export const RESOURCE_TYPE_MENU = '20';
+/**
+ * 字典值：资源类型-数据
+ */
+export const RESOURCE_TYPE_DATA = '60';
+/**
+ * 字典值：数据范围-自定义
+ */
+export const DATA_SCOPE_CUSTOM = '07';
+/**
+ * 最大查询值，用于把所有数据都查出来，不分页
+ */
+export const PAGE_MAX_LIMIT = 10000;

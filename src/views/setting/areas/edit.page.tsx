@@ -6,6 +6,8 @@ import { useCreateArea, useUpdateArea } from '@/services/area';
 
 import { useListDictSingleType } from '@/services/dictionary';
 
+import { PAGE_MAX_LIMIT } from '@/utils/constants';
+
 import { InputType } from './list.page';
 
 interface AreaEditFormProps {
@@ -16,7 +18,7 @@ export const AreaEditForm: React.FC<AreaEditFormProps> = ({ clickOne }) => {
     const [form] = Form.useForm();
     const { mutateAsync: updateMutate } = useUpdateArea();
     const { mutateAsync: createMutate } = useCreateArea();
-    const { listDataItems } = useListDictSingleType('AREA_LEVEL', 1, 100);
+    const { listDataItems } = useListDictSingleType('AREA_LEVEL', 1, PAGE_MAX_LIMIT);
     useEffect(() => {
         form.resetFields();
         form.setFieldsValue(clickOne);
