@@ -114,7 +114,7 @@ export default () => {
                             dataSource={listTypeData?.items}
                             pagination={false}
                             // record的类型为Antd中的InputType，找不到所以抽取不了，就写在这里了
-                            onRow={(record) => {
+                            onRow={(record: OutputType) => {
                                 return {
                                     onClick: () => {
                                         setClickType(record.type);
@@ -129,12 +129,15 @@ export default () => {
                             onChange={onTypePageChange}
                             total={listTypeData?.meta?.totalItems}
                             current={listTypeData?.meta?.currentPage}
-                            showTotal={(total) => `共 ${total} 条`}
+                            showTotal={(total: number) => `共 ${total} 条`}
                         />
                     </Card>
                 </Col>
                 <Col>
-                    <Card title={`[${listTitle || ''}]字典详情`} style={{ width: 800 }}>
+                    <Card
+                        title={`${listTitle ? `[${listTitle}]` : ''}字典详情`}
+                        style={{ width: 800 }}
+                    >
                         <Form form={form} onFinish={onFinishHandler}>
                             <Row gutter={24}>
                                 <Col span={6}>
@@ -188,7 +191,7 @@ export default () => {
                                 <Pagination
                                     showSizeChanger
                                     onChange={onListPageChange}
-                                    showTotal={(total) => `共 ${total} 条`}
+                                    showTotal={(total: number) => `共 ${total} 条`}
                                     total={listMeta?.totalItems}
                                     current={listMeta?.currentPage}
                                 />

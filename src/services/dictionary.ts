@@ -5,7 +5,7 @@ import { message } from 'antd';
 import { AxiosError } from 'axios';
 
 import { QueryResultType, ResponseResultType } from '@/utils/types';
-import { DictMapListType, OutputType } from '@/views/setting/dictionaries/constants';
+import { DictMapListType, InputType, OutputType } from '@/views/setting/dictionaries/constants';
 import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { queryClient } from '@/http/tanstack/react-query';
@@ -17,11 +17,7 @@ const token = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TO
  * 根据类型查询字典列表
  */
 export const useListType = () => {
-    return useQuery([], () =>
-        fetch('api/dict/listType', {
-            headers: { Authorization: token ? `Bearer ${token}` : '' },
-        }).then((response) => response.json()),
-    );
+    return useQuery([], () => service.get('dict/listType').then((response) => response.data));
 };
 
 /**
@@ -30,7 +26,7 @@ export const useListType = () => {
 export const useDictListTypes = (types?: string) => {
     return useQuery<DictMapListType>(['dictListTypes', types], () =>
         service
-            .get('/dict/listMultiType', { params: { type: types } })
+            .get('dict/listMultiType', { params: { type: types } })
             .then((response) => response.data),
     );
 };
@@ -39,11 +35,7 @@ export const useDictListTypes = (types?: string) => {
  * 根据ID查询单个字典值
  */
 export const useGetDictById = (id: number) => {
-    return useQuery([], () =>
-        fetch(`api/dict/${id}`, {
-            headers: { Authorization: token ? `Bearer ${token}` : '' },
-        }).then((response) => response.json()),
-    );
+    return useQuery([], () => service.get(`dict/${id}`).then((response) => response.data));
 };
 
 /**
@@ -88,7 +80,7 @@ export const useDelDicts = () => {
  * 更新单个字典值
  */
 export const useUpdateDict = () => {
-    return useMutation(async (params) => {
+    return useMutation(async (params: InputType) => {
         fetch(`api/dict`, {
             method: 'PATCH',
             body: JSON.stringify(params),
@@ -110,7 +102,7 @@ export const useUpdateDict = () => {
  * 新建单个字典值
  */
 export const useCreateDict = () => {
-    return useMutation(async (params) => service.post('dict', params), {
+    return useMutation(async (params: InputType) => service.post('dict', params), {
         onSuccess: () => {
             globalSuccess();
             queryClient.invalidateQueries(['listDictSingleType']);
