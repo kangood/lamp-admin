@@ -79,6 +79,6 @@
         "typescript": "^5.1.6",
         "unplugin-icons": "^0.16.5",
         "vite": "^4.4.4",
-        "vite-plugin-mock": "^3.0.0"
+        "vite-plugin-mock": "^2.9.6"
     }
 }
