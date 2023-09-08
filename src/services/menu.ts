@@ -6,24 +6,23 @@ import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { ResponseResultType } from '@/utils/types';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
-import { traverseTree } from '@/views/setting/roles/resource-allot.page';
 
 /**
  * 树结构查询
  */
 export const useListMenuTree = () => {
-    const { data } = useQuery<OutputType[]>(['listMenuTree'], async () =>
+    return useQuery<OutputType[]>(['listMenuTree'], async () =>
         service.get('menu/tree').then((res) => res.data),
     );
-    const dataAfterProcessLabel = () => {
-        if (data) {
-            data.forEach((rootNode) => {
-                traverseTree(rootNode);
-            });
-        }
-        return { data };
-    };
-    return { data, dataAfterProcessLabel };
+};
+
+/**
+ * 树结构查询：给角色模块提供，用于数据隔离
+ */
+export const useListMenuTreeForRole = () => {
+    return useQuery<OutputType[]>(['listMenuTreeForRole'], async () =>
+        service.get('menu/tree').then((res) => res.data),
+    );
 };
 
 /**

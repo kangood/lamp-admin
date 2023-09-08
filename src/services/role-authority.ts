@@ -4,7 +4,6 @@ import { AxiosError } from 'axios';
 
 import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { queryClient } from '@/http/tanstack/react-query';
 import { ResponseResultType } from '@/utils/types';
 import { InputType } from '@/views/setting/roles/resource-allot.page';
 
@@ -29,7 +28,6 @@ export const useSaveBatchRoleAutority = () => {
         {
             onSuccess: () => {
                 globalSuccess();
-                queryClient.invalidateQueries(['listRoleAuthorityId']);
             },
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },

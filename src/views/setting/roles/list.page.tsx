@@ -14,7 +14,7 @@ import { useListUserRoleRelate } from '@/services/user-role';
 
 import { PAGE_MAX_LIMIT } from '@/utils/constants';
 
-import { useListMenuTree } from '@/services/menu';
+import { useListMenuTreeForRole } from '@/services/menu';
 
 import { deepCopy } from '@/utils';
 
@@ -137,9 +137,10 @@ export default () => {
     const [showInfoResourceAllot, setShowInfoResourceAllot] = useState<boolean>(false);
     const { data: clickListRoleAuthorityId } = useListRoleAuthorityId({ roleId: clickRoleId });
     // 在当前页面查完再传到resource-allot页面，只查询一次
-    const { data: listMenuTree } = useListMenuTree();
+    const { data: listMenuTree } = useListMenuTreeForRole();
     // 初始加载处理节点名称
     useEffect(() => {
+        console.log(123);
         listMenuTree?.forEach((rootNode) => {
             traverseTree(rootNode);
         });
