@@ -87,3 +87,33 @@ export const traverseTree = (node: TreeNode) => {
         traverseTree(child);
     });
 };
+
+/**
+ * 深度复制
+ */
+export function deepCopy(obj: any, cache = new WeakMap()): any {
+    // 如果是基本数据类型或 null，则直接返回
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+
+    // 如果对象已经被复制过，直接返回缓存中的副本，避免无限循环
+    if (cache.has(obj)) {
+        return cache.get(obj);
+    }
+
+    // 根据原始对象的类型创建对应的空对象或数组
+    const copy = Array.isArray(obj) ? [] : {};
+
+    // 将当前对象存入缓存
+    cache.set(obj, copy);
+
+    // 递归复制对象的属性
+    for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+            copy[key] = deepCopy(obj[key], cache);
+        }
+    }
+
+    return copy;
+}

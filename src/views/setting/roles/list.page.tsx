@@ -2,7 +2,7 @@ import { Form, Row, Col, Input, Button, Table, Pagination, DatePicker, message }
 
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDeleteRole, useListRoleRelate } from '@/services/role';
 
@@ -14,10 +14,16 @@ import { useListUserRoleRelate } from '@/services/user-role';
 
 import { PAGE_MAX_LIMIT } from '@/utils/constants';
 
+import { useListMenuTree } from '@/services/menu';
+
+import { deepCopy } from '@/utils';
+
+import { useListRoleAuthorityId } from '@/services/role-authority';
+
 import { InputType, OutputType, columns } from './constants';
 import { StationEditForm } from './edit.page';
 import { RoleAllotPage } from './role-allot.page';
-import { ResourceAllotPage } from './resource-allot.page';
+import { ResourceAllotPage, traverseTree } from './resource-allot.page';
 
 export default () => {
     const [form] = Form.useForm();
@@ -129,6 +135,15 @@ export default () => {
     };
     // ==========资源分配处理==========
     const [showInfoResourceAllot, setShowInfoResourceAllot] = useState<boolean>(false);
+    const { data: clickListRoleAuthorityId } = useListRoleAuthorityId({ roleId: clickRoleId });
+    // 在当前页面查完再传到resource-allot页面，只查询一次
+    const { data: listMenuTree } = useListMenuTree();
+    // 初始加载处理节点名称
+    useEffect(() => {
+        listMenuTree?.forEach((rootNode) => {
+            traverseTree(rootNode);
+        });
+    }, [listMenuTree]);
     // 打开
     const onOpenResourceAllotHandler = async (roleId: number) => {
         setClickRoleId(roleId);
@@ -223,12 +238,16 @@ export default () => {
                 />
             )}
             {/* 角色分配页弹出页面 */}
-            {showInfoResourceAllot && (
+            {showInfoResourceAllot && clickListRoleAuthorityId && (
                 <ResourceAllotPage
                     clickRoleId={clickRoleId}
+                    clickListRoleAuthorityId={clickListRoleAuthorityId}
+                    listMenuTreeInitData={deepCopy(listMenuTree) as OutputType[]}
+                    listMenuTreeVariable={listMenuTree as OutputType[]}
                     onClose={onCloseForResourceAllotHandler}
                 />
             )}
+            {/* <Unique /> */}
         </div>
     );
 };

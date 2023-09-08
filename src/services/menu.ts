@@ -13,7 +13,7 @@ import { traverseTree } from '@/views/setting/roles/resource-allot.page';
  */
 export const useListMenuTree = () => {
     const { data } = useQuery<OutputType[]>(['listMenuTree'], async () =>
-        service.get('/menu/tree').then((res) => res.data),
+        service.get('menu/tree').then((res) => res.data),
     );
     const dataAfterProcessLabel = () => {
         if (data) {
