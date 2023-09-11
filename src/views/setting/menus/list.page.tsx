@@ -151,6 +151,7 @@ export default () => {
                         <ResourceListPage
                             clickMenuId={clickOne.id ?? 0}
                             clickMenuLabel={clickOne.label}
+                            clickMenuResourceType={clickOne.resourceType}
                         />
                     </Card>
                 </Col>

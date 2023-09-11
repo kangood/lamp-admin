@@ -140,7 +140,6 @@ export default () => {
     const { data: listMenuTree } = useListMenuTreeForRole();
     // 初始加载处理节点名称
     useEffect(() => {
-        console.log(123);
         listMenuTree?.forEach((rootNode) => {
             traverseTree(rootNode);
         });

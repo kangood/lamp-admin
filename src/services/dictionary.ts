@@ -1,7 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { message } from 'antd';
-
 import { AxiosError } from 'axios';
 
 import { QueryResultType, ResponseResultType } from '@/utils/types';
@@ -9,9 +7,6 @@ import { DictMapListType, InputType, OutputType } from '@/views/setting/dictiona
 import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { queryClient } from '@/http/tanstack/react-query';
-import { AUTH_TOKEN } from '@/components/auth/constants';
-
-const token = sessionStorage.getItem(AUTH_TOKEN) || localStorage.getItem(AUTH_TOKEN);
 
 /**
  * 根据类型查询字典列表
@@ -80,21 +75,12 @@ export const useDelDicts = () => {
  * 更新单个字典值
  */
 export const useUpdateDict = () => {
-    return useMutation(async (params: InputType) => {
-        fetch(`api/dict`, {
-            method: 'PATCH',
-            body: JSON.stringify(params),
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                Authorization: token ? `Bearer ${token}` : '',
-            },
-        })
-            .then((res) => {
-                if (res) message.success('更新成功');
-            })
-            .catch((err) => {
-                message.error(err.message);
-            });
+    return useMutation(async (params: InputType) => service.patch('dict', { ...params }), {
+        onSuccess: () => {
+            globalSuccess();
+            queryClient.invalidateQueries(['listDictSingleType']);
+        },
+        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 

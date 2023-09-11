@@ -37,7 +37,7 @@ export const useListUserRoleRelate = (roleId: number, shouldFetch: boolean) => {
  */
 export const useSaveUserRoleList = () => {
     return useMutation(
-        async (params: InputType) => service.post('user-role/createListAfterDelete', { ...params }),
+        async (params: InputType) => service.post('user-role/saveListAfterDelete', { ...params }),
         {
             onSuccess: () => {
                 globalSuccess();

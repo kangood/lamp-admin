@@ -7,12 +7,15 @@ import { isEmpty } from 'lodash';
 
 import { useDeleteResource, useListResource } from '@/services/resource';
 
+import { RESOURCE_TYPE_DATA } from '@/utils/constants';
+
 import { columns } from './resource-constants';
 import { ResourceEditForm } from './resource-edit.page';
 
 interface ResourceListPageProps {
     clickMenuId: number;
     clickMenuLabel: string | undefined;
+    clickMenuResourceType: string | undefined;
 }
 
 export interface InputType {
@@ -35,9 +38,10 @@ export interface OutputType {
 export const ResourceListPage: React.FC<ResourceListPageProps> = ({
     clickMenuId,
     clickMenuLabel,
+    clickMenuResourceType,
 }) => {
     const [form] = Form.useForm();
-    const [listRequestParams, setlistRequestParams] = useState<InputType>();
+    const [listRequestParams, setlistRequestParams] = useState<InputType>({ menuId: clickMenuId });
     const { data } = useListResource(listRequestParams);
     const { mutateAsync: delMutate } = useDeleteResource();
     useEffect(() => {
@@ -159,11 +163,15 @@ export const ResourceListPage: React.FC<ResourceListPageProps> = ({
                     {clickMenuLabel ? `【${clickMenuLabel}】` : ''}资源列表
                 </span>
                 <Space>
-                    <Button disabled={!clickMenuId} type="primary" onClick={batchDelHandler}>
+                    <Button
+                        disabled={!clickMenuId || clickMenuResourceType === RESOURCE_TYPE_DATA}
+                        type="primary"
+                        onClick={batchDelHandler}
+                    >
                         删除
                     </Button>
                     <Button
-                        disabled={!clickMenuId}
+                        disabled={!clickMenuId || clickMenuResourceType === RESOURCE_TYPE_DATA}
                         type="primary"
                         onClick={() => onOpenFormHandler({ menuId: clickMenuId })}
                     >

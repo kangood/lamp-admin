@@ -1,21 +1,39 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Card, Form, Input, Modal, Row, Space, Tree, message } from 'antd';
+import {
+    Button,
+    Card,
+    Col,
+    Form,
+    Input,
+    Modal,
+    Row,
+    Space,
+    Table,
+    Tooltip,
+    Tree,
+    message,
+} from 'antd';
 
 import { DataNode } from 'antd/es/tree';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { isEmpty } from 'lodash';
 
-import { RESOURCE_TYPE_DATA, RESOURCE_TYPE_MENU } from '@/utils/constants';
+import { ColumnsType } from 'antd/es/table';
+
+import { RESOURCE_TYPE_MENU } from '@/utils/constants';
 
 import { useSaveBatchRoleAutority } from '@/services/role-authority';
 
+import { useListResource } from '@/services/resource';
+
 import { OutputType } from '../menus/list.page';
+import { OutputType as ResourceOutputType } from '../menus/resource-list.page';
 
 interface ResourceAllotPageProps {
     clickRoleId: number;
-    clickListRoleAuthorityId: number[];
+    clickListRoleAuthorityId: any;
     listMenuTreeInitData: OutputType[];
     listMenuTreeVariable: OutputType[];
     onClose: () => void;
@@ -32,7 +50,7 @@ export interface InputType {
  */
 export const traverseTree = (node: OutputType) => {
     // 处理节点的标签值
-    node.label = `${node.resourceType === RESOURCE_TYPE_MENU ? '「菜单」' : '「资源」'}${
+    node.label = `${node.resourceType === RESOURCE_TYPE_MENU ? '「菜单」' : '「数据」'}${
         node.label
     }`;
     // 递归处理子节点
@@ -94,23 +112,32 @@ export const ResourceAllotPage: React.FC<ResourceAllotPageProps> = ({
     onClose,
 }) => {
     const [treeData] = useState<OutputType[]>(listMenuTreeInitData);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const { mutateAsync } = useSaveBatchRoleAutority();
     const [checkedNodes, setCheckedNodes] = useState<InputType>();
     // console.log('123', listMenuTreeInitData, listMenuTreeVariable);
     // setTimeout(() => {
     //     setTreeData(listMenuTreeInitData);
     // }, 10);
+    useEffect(() => {
+        // 赋初始值，避免没有改动就保存时的无值状态
+        setCheckedNodes({
+            roleId: clickRoleId,
+            menuIdList: clickListRoleAuthorityId.menuIdList,
+            resourceIdList: clickListRoleAuthorityId.resourceIdList,
+        });
+        // 资源多选框初始值
+        setSelectedRowKeys(clickListRoleAuthorityId.resourceIdList);
+    }, []);
     // 复选框点击时处理
     const onCheck = (_checked: React.Key[] | { checked: React.Key[] }, info: any) => {
         if (!isEmpty(info.checkedNodes)) {
-            const menuIdList = info.checkedNodes
-                .filter((item: OutputType) => item.resourceType === RESOURCE_TYPE_MENU)
-                .map((item: OutputType) => item.id);
-            const resourceIdList = info.checkedNodes
-                .filter((item: OutputType) => item.resourceType === RESOURCE_TYPE_DATA)
-                .map((item: OutputType) => item.id);
-            setCheckedNodes({ roleId: clickRoleId, menuIdList, resourceIdList });
-            console.log('123', menuIdList, resourceIdList);
+            const menuIdList = info.checkedNodes.map((item: OutputType) => item.id);
+            setCheckedNodes({
+                roleId: clickRoleId,
+                menuIdList,
+                resourceIdList: selectedRowKeys.map((item) => item as number),
+            });
         } else {
             setCheckedNodes(undefined);
         }
@@ -147,52 +174,118 @@ export const ResourceAllotPage: React.FC<ResourceAllotPageProps> = ({
         // console.log('prunedTree', prunedTree);
         // setTreeData(prunedTree);
     };
-
+    // ==========资源表格处理==========
+    // 点击树节点触发
+    const [clickMenuId, setClickMenuId] = useState<number>(0);
+    const onSelect = (selectedKeys: React.Key[]) => {
+        if (!isEmpty(selectedKeys)) {
+            setClickMenuId(selectedKeys[0] as number);
+        }
+    };
+    const { data: resourceData } = useListResource({ menuId: clickMenuId });
+    const reourceColumns: () => ColumnsType<ResourceOutputType> = () => [
+        {
+            className: 'tw-text-center',
+            title: '编码',
+            dataIndex: 'code',
+            render: (code) => (
+                <Tooltip placement="topLeft" title={code}>
+                    {code}
+                </Tooltip>
+            ),
+            ellipsis: {
+                showTitle: false,
+            },
+            width: 380,
+        },
+        {
+            className: 'tw-text-center',
+            title: '名称',
+            dataIndex: 'name',
+        },
+    ];
+    // 多选框处理
+    const rowSelection = {
+        // 指定选中项的 key 数组
+        selectedRowKeys,
+        onChange: (newSelectedRowKeys: React.Key[]) => {
+            // 用于追加变化后的选中项
+            const finalSelectedRowKeys = selectedRowKeys.concat(newSelectedRowKeys);
+            setSelectedRowKeys(finalSelectedRowKeys);
+            // 修改数据状态，调用API
+            setCheckedNodes({
+                roleId: clickRoleId,
+                menuIdList: checkedNodes?.menuIdList,
+                resourceIdList: finalSelectedRowKeys.map((item) => Number(item)),
+            });
+        },
+    };
     return (
         <Modal
             open
-            title="分配资源"
+            title="分配菜单和资源"
             okText="提交"
             cancelText="取消"
             onCancel={() => onClose()}
             onOk={submitHandle}
+            width={1000}
         >
-            <Card>
-                <Row>
-                    <Form onFinish={() => message.success('还没做')}>
-                        <Space>
-                            <Form.Item name="name">
-                                <Input placeholder="搜索" allowClear onChange={onChange} />
-                            </Form.Item>
-                            <Form.Item name="search">
-                                <Button icon={<SearchOutlined />} htmlType="submit" />
-                            </Form.Item>
-                        </Space>
-                    </Form>
-                </Row>
-                <Row>
-                    <Tree
-                        // 开启复选框
-                        checkable
-                        // 父子节点选中状态不再关联
-                        checkStrictly
-                        // 默认展开所有树节点
-                        defaultExpandAll
-                        // 默认选中复选框的树节点
-                        defaultCheckedKeys={clickListRoleAuthorityId}
-                        // 点击复选框触发
-                        onCheck={onCheck}
-                        // 异步加载数据
-                        // loadData={onLoadData}
-                        // 展开/收起时触发
-                        // onExpand={onExpand}
-                        // 是否自动展开父节点
-                        // autoExpandParent
-                        treeData={treeData as DataNode[]}
-                        fieldNames={{ title: 'label', key: 'id' }}
-                    />
-                </Row>
-            </Card>
+            <Row>
+                <Col>
+                    <Card style={{ width: 350 }} title="菜单">
+                        <Row>
+                            <Form onFinish={() => message.success('还没做')}>
+                                <Space>
+                                    <Form.Item name="name">
+                                        <Input placeholder="搜索" allowClear onChange={onChange} />
+                                    </Form.Item>
+                                    <Form.Item name="search">
+                                        <Button icon={<SearchOutlined />} htmlType="submit" />
+                                    </Form.Item>
+                                </Space>
+                            </Form>
+                        </Row>
+                        <Row>
+                            <Tree
+                                // 开启复选框
+                                checkable
+                                // 父子节点选中状态不再关联
+                                checkStrictly
+                                // 默认展开所有树节点
+                                defaultExpandAll
+                                // 默认选中复选框的树节点
+                                defaultCheckedKeys={clickListRoleAuthorityId.menuIdList}
+                                // 点击复选框触发
+                                onCheck={onCheck}
+                                // 点击树节点触发
+                                onSelect={onSelect}
+                                // 异步加载数据
+                                // loadData={onLoadData}
+                                // 展开/收起时触发
+                                // onExpand={onExpand}
+                                // 是否自动展开父节点
+                                // autoExpandParent
+                                treeData={treeData as DataNode[]}
+                                fieldNames={{ title: 'label', key: 'id' }}
+                            />
+                        </Row>
+                    </Card>
+                </Col>
+                <Col>
+                    <Card style={{ width: 600 }} title="资源">
+                        <Table
+                            rowKey="id"
+                            rowSelection={{
+                                ...rowSelection,
+                            }}
+                            bordered
+                            columns={reourceColumns()}
+                            dataSource={resourceData?.items}
+                            pagination={false}
+                        />
+                    </Card>
+                </Col>
+            </Row>
         </Modal>
     );
 };

@@ -6,6 +6,7 @@ import { service } from '@/http/axios/service';
 import { globalError, globalSuccess } from '@/utils/antd-extract';
 import { ResponseResultType } from '@/utils/types';
 import { InputType } from '@/views/setting/roles/resource-allot.page';
+import { queryClient } from '@/http/tanstack/react-query';
 
 /**
  * 分组菜单和资源的查询
@@ -28,6 +29,7 @@ export const useSaveBatchRoleAutority = () => {
         {
             onSuccess: () => {
                 globalSuccess();
+                queryClient.invalidateQueries(['listRoleAuthorityId']);
             },
             onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
