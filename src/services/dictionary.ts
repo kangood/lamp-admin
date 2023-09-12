@@ -1,11 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { AxiosError } from 'axios';
-
-import { QueryResultType, ResponseResultType } from '@/utils/types';
+import { QueryResultType } from '@/utils/types';
 import { DictMapListType, InputType, OutputType } from '@/views/setting/dictionaries/constants';
 import { service } from '@/http/axios/service';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
+import { globalSuccess } from '@/utils/antd-extract';
 import { queryClient } from '@/http/tanstack/react-query';
 
 /**
@@ -67,7 +65,6 @@ export const useDelDicts = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listDictSingleType']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -80,7 +77,6 @@ export const useUpdateDict = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listDictSingleType']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -93,6 +89,5 @@ export const useCreateDict = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listDictSingleType']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };

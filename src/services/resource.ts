@@ -1,8 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
 import { InputType } from '@/views/setting/menus/resource-list.page';
@@ -29,7 +27,6 @@ export const useUpdateResource = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listResource']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -42,7 +39,6 @@ export const useCreateResource = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listResource']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -55,6 +51,5 @@ export const useDeleteResource = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listResource']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };

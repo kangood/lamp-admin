@@ -1,13 +1,12 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import FileSaver from 'file-saver';
 
 import { UploadFile } from 'antd';
 
 import { InputType, OutputType } from '@/views/org/stations/constants';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { QueryResultType, ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
+import { QueryResultType } from '@/utils/types';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
 
@@ -42,7 +41,6 @@ export const useUpdateStation = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listStationRelate']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -55,7 +53,6 @@ export const useCreateStation = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listStationRelate']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -68,7 +65,6 @@ export const useDeleteStation = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listStationRelate']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -101,7 +97,6 @@ export const useImportStationExcel = () => {
             onSuccess: async () => {
                 globalSuccess();
             },
-            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
     );
 };

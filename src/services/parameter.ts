@@ -1,11 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { AxiosError } from 'axios';
-
 import useFetch from '@/http/fetch/useFetch';
 import { service } from '@/http/axios/service';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
 
 /**
  * 查询参数带分页
@@ -30,6 +27,5 @@ export const useDeleteParam = () => {
         onSuccess: () => {
             globalSuccess();
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };

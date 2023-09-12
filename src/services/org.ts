@@ -1,9 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import { InputType } from '@/views/org/orgs/list.page';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
 
@@ -23,7 +21,6 @@ export const useUpdateOrg = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listOrgTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -36,7 +33,6 @@ export const useCreateOrg = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listOrgTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -49,6 +45,5 @@ export const useDeleteOrg = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listOrgTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };

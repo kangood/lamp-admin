@@ -1,9 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import { InputType, OutputType } from '@/views/setting/menus/list.page';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
 
@@ -34,7 +32,6 @@ export const useUpdateMenu = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listMenuTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -47,7 +44,6 @@ export const useCreateMenu = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listMenuTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -60,6 +56,5 @@ export const useDeleteMenu = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listMenuTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };

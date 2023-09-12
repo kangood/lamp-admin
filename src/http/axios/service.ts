@@ -4,6 +4,7 @@ import { isNil } from 'lodash';
 
 import { AUTH_TOKEN } from '@/components/auth/constants';
 import { FetcherStore } from '@/components/fetcher/store';
+import { globalError } from '@/utils/antd-extract';
 
 // 保存环境变量
 const isPrd = process.env.NODE_ENV === 'production';
@@ -44,6 +45,7 @@ service.interceptors.response.use(
                     break;
                 }
                 default:
+                    globalError(error);
                     break;
             }
         return Promise.reject(error);

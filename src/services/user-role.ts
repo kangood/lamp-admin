@@ -1,10 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { AxiosError } from 'axios';
-
 import { service } from '@/http/axios/service';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
 import { queryClient } from '@/http/tanstack/react-query';
 
 interface InputType {
@@ -28,7 +25,9 @@ export const useListUserRoleRelate = (roleId: number, shouldFetch: boolean) => {
             service
                 .get('user-role/listUserRoleByRoleId', { params: { roleId } })
                 .then((res) => res.data),
-        { enabled: shouldFetch },
+        {
+            enabled: shouldFetch,
+        },
     );
 };
 
@@ -43,7 +42,6 @@ export const useSaveUserRoleList = () => {
                 globalSuccess();
                 queryClient.invalidateQueries(['listUserRoleRelate']);
             },
-            onError: (error: AxiosError<ResponseResultType>) => globalError(error),
         },
     );
 };

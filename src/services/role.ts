@@ -1,12 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { AxiosError } from 'axios';
-
 import { service } from '@/http/axios/service';
 import { InputType } from '@/views/setting/roles/constants';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
+import { globalSuccess } from '@/utils/antd-extract';
 import { queryClient } from '@/http/tanstack/react-query';
-import { ResponseResultType } from '@/utils/types';
 
 /**
  * 关联其他的列表查询
@@ -26,7 +23,6 @@ export const useDeleteRole = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listRoleRelate']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -39,7 +35,6 @@ export const useUpdateRole = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listRoleRelate']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -52,6 +47,5 @@ export const useCreateRole = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listRoleRelate']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };

@@ -1,9 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 import { InputType } from '@/views/org/orgs/list.page';
-import { globalError, globalSuccess } from '@/utils/antd-extract';
-import { ResponseResultType } from '@/utils/types';
+import { globalSuccess } from '@/utils/antd-extract';
 import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
 
@@ -25,7 +23,6 @@ export const useUpdateArea = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listAreaTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -38,7 +35,6 @@ export const useCreateArea = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listAreaTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
 
@@ -51,6 +47,5 @@ export const useDeleteMultiArea = () => {
             globalSuccess();
             queryClient.invalidateQueries(['listAreaTree']);
         },
-        onError: (error: AxiosError<ResponseResultType>) => globalError(error),
     });
 };
