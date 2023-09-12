@@ -20,6 +20,8 @@ export interface SwrConfig<D = any, E = any>
 export interface FetchOption {
     /** 当前账户验证token */
     token?: string | null;
+    /** 刷新验证token */
+    refresh_token?: string | null;
     /** 是否禁止重复请求 */
     cancel_repeat?: boolean;
     /** 自定义axios请求和响应函数 */

@@ -12,7 +12,6 @@ import { useFetcher } from '@/components/fetcher/hooks';
 import { useRouterStore } from '@/components/router/hooks';
 import { useAuth } from '@/components/auth/hooks';
 import { FetcherStore } from '@/components/fetcher/store';
-import { AUTH_TOKEN } from '@/components/auth/constants';
 
 const CredentialForm: FC = () => {
     const { message } = App.useApp();
@@ -45,15 +44,18 @@ const CredentialForm: FC = () => {
                 onFinish={async (values) => {
                     try {
                         const {
-                            data: { code, message: resMsg, result },
+                            data: {
+                                code,
+                                message: resMsg,
+                                result: { accessToken, refreshToken },
+                            },
                         } = await fetcher.post('/auth/login', values);
-                        if (code === 200 && !isNil(result)) {
-                            // 3R框架原有token的存储位置，用于验证登录并跳转
+                        if (code === 200 && !isNil(accessToken)) {
+                            // 3R框架原有token的存储位置，用于验证登录并跳转，使用这个就不存sessionStorage了
                             FetcherStore.setState((state) => {
-                                state.token = result;
+                                state.token = accessToken;
+                                state.refresh_token = refreshToken;
                             });
-                            // 我自定义存储在session中的token，用于加入统一请求头中Authorization
-                            sessionStorage.setItem(AUTH_TOKEN, result);
                             message.success(resMsg);
                         } else {
                             message.error(resMsg);
