@@ -37,6 +37,11 @@ export interface OutputType {
     children?: OutputType[];
     depth?: number;
     label?: string;
+    path?: string;
+    component?: string;
+    isDef?: boolean;
+    mpath: string;
+    icon?: string;
     resourceType?: string;
     parentId?: number;
     sortValue?: number;

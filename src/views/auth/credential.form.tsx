@@ -51,10 +51,10 @@ const CredentialForm: FC = () => {
                             },
                         } = await fetcher.post('/auth/login', values);
                         if (code === 200 && !isNil(accessToken)) {
-                            // 3R框架原有token的存储位置，用于验证登录并跳转，使用这个就不存sessionStorage了
+                            // 3R框架原有token的存储位置是FetcherStore.setState，用于验证登录并跳转，refresh_token加在localStorage中
                             FetcherStore.setState((state) => {
                                 state.token = accessToken;
-                                state.refresh_token = refreshToken;
+                                localStorage.setItem('refresh_token', refreshToken);
                             });
                             message.success(resMsg);
                         } else {

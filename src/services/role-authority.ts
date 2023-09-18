@@ -8,11 +8,20 @@ import { queryClient } from '@/http/tanstack/react-query';
 /**
  * 分组菜单和资源的查询
  */
-export const useListRoleAuthorityId = (values?: InputType) => {
-    return useQuery(['listRoleAuthorityId', values], () =>
+export const useListRoleAuthorityIdByRoleId = (values?: InputType) => {
+    return useQuery(['listRoleAuthorityIdByRoleId', values], () =>
         service
-            .get('role-authority/listRoleAuthorityId', { params: values })
+            .get('role-authority/listRoleAuthorityIdByRoleId', { params: values })
             .then((res) => res.data),
+    );
+};
+
+/**
+ * 查询角色的菜单分配数据
+ */
+export const useListRoleMenuByRoleIds = (values?: InputType) => {
+    return useQuery(['listRoleMenuByRoleIds', values], () =>
+        service.post('role-authority/listRoleMenuByRoleIds', { ...values }).then((res) => res.data),
     );
 };
 

@@ -18,7 +18,7 @@ import { useListMenuTreeForRole } from '@/services/menu';
 
 import { deepCopy } from '@/utils';
 
-import { useListRoleAuthorityId } from '@/services/role-authority';
+import { useListRoleAuthorityIdByRoleId } from '@/services/role-authority';
 
 import { InputType, OutputType, columns } from './constants';
 import { StationEditForm } from './edit.page';
@@ -135,7 +135,9 @@ export default () => {
     };
     // ==========资源分配处理==========
     const [showInfoResourceAllot, setShowInfoResourceAllot] = useState<boolean>(false);
-    const { data: clickListRoleAuthorityId } = useListRoleAuthorityId({ roleId: clickRoleId });
+    const { data: clickListRoleAuthorityId } = useListRoleAuthorityIdByRoleId({
+        roleId: clickRoleId,
+    });
     // 在当前页面查完再传到resource-allot页面，只查询一次
     const { data: listMenuTree } = useListMenuTreeForRole();
     // 初始加载处理节点名称

@@ -16,7 +16,6 @@ export const config = (): IConfig => ({
     router: {
         basename: import.meta.env.BASE_URL,
         window: undefined,
-        // 这里换成hash路由，browser路由在我新增的模块中F5刷新一直报404
         hash: false,
         routes: [
             {

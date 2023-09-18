@@ -20,7 +20,7 @@ export interface SwrConfig<D = any, E = any>
 export interface FetchOption {
     /** 当前账户验证token */
     token?: string | null;
-    /** 刷新验证token */
+    /** 刷新验证token，原先我新加在这里，后来获取不灵，就直接放在localStorage里面了 */
     refresh_token?: string | null;
     /** 是否禁止重复请求 */
     cancel_repeat?: boolean;

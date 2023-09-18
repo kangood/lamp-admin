@@ -36,6 +36,8 @@ export interface RouterConfig<T extends RecordAnyOrNever = RecordNever> {
 export interface RouteOption<T extends RecordAnyOrNever = RecordNever>
     extends Omit<DataRouteObject, 'children' | 'Component' | 'ErrorBoundary' | 'lazy' | 'id'> {
     id: string;
+    /** 节点id */
+    nodeid?: number;
     /** 默认为菜单路由，如果设置成false则不是菜单路由 */
     menu?: boolean;
     devide?: boolean;

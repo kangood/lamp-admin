@@ -15,23 +15,23 @@ export const basicUrl = isPrd ? 'http://127.0.0.1:7001' : 'http://127.0.0.1:6001
 
 // 这里的token必须实时获取，固定常量在这儿是不更新的
 // const accessToken = FetcherStore.getState().token;
-// const refreshToken = FetcherStore.getState().refresh_token;
+// const refreshToken = localStorage.getItem('refresh_token');
 
 // 刷新token的API调用
 const refreshTokenApi = async () => {
     // 调用API
     const res = await service.get('auth/refresh', {
         params: {
-            refreshToken: FetcherStore.getState().refresh_token,
+            refreshToken: localStorage.getItem('refresh_token'),
         },
     });
-    // 更新token数据
-    FetcherStore.setState((state) => {
-        state.token = res.data.accessToken;
-    });
-    FetcherStore.setState((state) => {
-        state.refresh_token = res.data.refreshToken;
-    });
+    if (res) {
+        // 更新token数据
+        FetcherStore.setState((state) => {
+            state.token = res.data.accessToken;
+        });
+        localStorage.setItem('refresh_token', res.data.refreshToken);
+    }
     return res;
 };
 // 设置axios的额外配置

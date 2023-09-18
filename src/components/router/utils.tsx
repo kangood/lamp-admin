@@ -1,4 +1,4 @@
-import { isNil, omit, trim } from 'lodash';
+import { isEmpty, isNil, omit, trim } from 'lodash';
 
 import { Suspense } from 'react';
 
@@ -6,12 +6,19 @@ import { DataRouteObject } from 'react-router';
 
 import { isUrl } from '@/utils';
 
+import { OutputType } from '@/views/setting/menus/list.page';
+
+import { RESOURCE_TYPE_DATA } from '@/utils/constants';
+
 import { IAuth } from '../auth/type';
 
 import { RouteOption, RouterConfig } from './types';
 
 import { getAsyncImport } from './views';
 import { RouterStore } from './store';
+
+import OrganisationIcon from '~icons/gg/organisation';
+import SettingIcon from '~icons/clarity/settings-outline-alerted';
 
 export const getAuthRoutes = (routes: RouteOption[], auth: IAuth | null): RouteOption[] =>
     routes
@@ -29,6 +36,84 @@ export const getAuthRoutes = (routes: RouteOption[], auth: IAuth | null): RouteO
             return [route];
         })
         .reduce((o, n) => [...o, ...n], []);
+
+/**
+ * 递归树结构，处理菜单节点
+ */
+export const traverseMenuTree = (
+    node: OutputType,
+    fetchRoutes: RouteOption[],
+    roleMenuList: any,
+) => {
+    // 只处理菜单，不返回数据
+    if (node.resourceType === RESOURCE_TYPE_DATA) {
+        return;
+    }
+    // 剔除角色之外的菜单
+    if (roleMenuList) {
+        const menuIdList = roleMenuList.map((item: any) => {
+            return item.authorityId;
+        });
+        if (!menuIdList.includes(node.id)) {
+            return;
+        }
+    }
+    // 生成路由节点
+    const fetchRoute: RouteOption = {
+        id: node.path!,
+        nodeid: node.id,
+        path: node.path!,
+        page: !isEmpty(node.component) ? node.component : undefined,
+        meta: { name: node.label, icon: getIconComponent(node.icon!) },
+        children: [],
+    };
+    // 判断是否加入子路由
+    if (node.parentId === null) {
+        fetchRoutes.push(fetchRoute);
+    } else {
+        fetchRoutes.forEach((item) => {
+            if (node.parentId === item.nodeid) {
+                item.children?.push(fetchRoute);
+            }
+        });
+    }
+    // 额外添加一个默认节点（不加也没事，因为父级菜单不用点）
+    // if (node.isDef) {
+    //     const fetchRouteDef: RouteOption = {
+    //         id: `${node.path!}/def`,
+    //         index: true,
+    //         menu: false,
+    //         loader: () => redirect(node.component!),
+    //     };
+    //     fetchRoutes.push(fetchRouteDef);
+    // }
+    // 递归调用子节点
+    node.children?.forEach((child) => {
+        traverseMenuTree(child, fetchRoutes, roleMenuList);
+    });
+};
+
+/**
+ * 获取icon的组件
+ */
+const getIconComponent = (iconCode: string) => {
+    let iconComponent;
+    if (iconCode) {
+        switch (iconCode) {
+            case 'SettingIcon':
+                iconComponent = SettingIcon;
+                break;
+            case 'OrganisationIcon':
+                iconComponent = OrganisationIcon;
+                break;
+            default:
+                break;
+        }
+    } else {
+        iconComponent = undefined;
+    }
+    return iconComponent;
+};
 
 /**
  * 获取路由表

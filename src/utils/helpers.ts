@@ -76,7 +76,7 @@ export const debounceRun = (
 };
 
 /**
- * 递归遍历数结构
+ * 递归遍历树结构
  */
 export const traverseTree = (node: TreeNode) => {
     // 处理当前节点

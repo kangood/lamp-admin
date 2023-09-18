@@ -42,11 +42,12 @@ interface ResourceAllotPageProps {
 export interface InputType {
     menuIdList?: number[];
     resourceIdList?: number[];
-    roleId: number;
+    roleId?: number;
+    roleIds?: number[];
 }
 
 /**
- * 递归遍历数结构，并处理节点标签值
+ * 递归遍历树结构，并处理节点标签值
  */
 export const traverseTree = (node: OutputType) => {
     // 处理节点的标签值
@@ -59,7 +60,7 @@ export const traverseTree = (node: OutputType) => {
 };
 
 // /**
-//  * 递归遍历数结构，并处理节点标签值
+//  * 递归遍历树结构，并处理节点标签值
 //  */
 // const traverseTreeOnSearch = (node: OutputType, value: string, searchNodeList: OutputType[]) => {
 //     // 处理节点的标签值
@@ -74,7 +75,7 @@ export const traverseTree = (node: OutputType) => {
 // };
 
 // /**
-//  * 递归遍历数结构，并处理节点标签值，只push节点ID
+//  * 递归遍历树结构，并处理节点标签值，只push节点ID
 //  */
 // const traverseTreeOnSearchToId = (node: OutputType, value: string, searchNodeList: number[]) => {
 //     // 处理节点的标签值
