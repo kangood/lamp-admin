@@ -61,7 +61,6 @@ export const useRouterSetuped = () => {
             });
             // 2.3重新把处理好的路由节点push进去
             fixedRouter?.routes[0].children?.push(...fetchRoutes);
-            console.log('fixedRouter', fixedRouter);
             // ==========E:菜单替换成API获取的路由，并加工处理==========
             const { routes: defaultRoutes } = deepMerge(
                 getDefaultRouterConfig(),

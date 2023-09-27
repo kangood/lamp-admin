@@ -81,7 +81,7 @@ export const getLayoutClasses = (
     style: CSSModuleClasses,
     isMobile: boolean,
 ) => {
-    const items = ['!tw-min-h-screen'];
+    const items = ['!min-h-screen'];
     if (fixed.header || fixed.sidebar || fixed.embed) {
         items.push(style.layoutFixed);
     }
