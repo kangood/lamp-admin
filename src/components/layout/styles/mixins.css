@@ -30,10 +30,10 @@
 
 @define-mixin fixedKeepAliveTabs {
     & :global(.ant-layout-content) > .layoutContent {
-        @apply tw-max-h-full tw-overflow-hidden;
+        @apply max-h-full overflow-hidden;
 
         & > .keepAlive {
-            @apply tw-overflow-y-auto;
+            @apply overflow-y-auto;
         }
     }
 }

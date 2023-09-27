@@ -1,3 +1,3 @@
 export default () => {
-    return <div className="tw-h-[300rem]">monitor</div>;
+    return <div className="h-[300rem]">monitor</div>;
 };

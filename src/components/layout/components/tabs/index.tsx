@@ -104,7 +104,7 @@ const ExtraButtons: FC<{ actived: string }> = memo(({ actived }) => {
     );
     return (
         <Dropdown menu={{ items: menus }} placement="bottomRight" trigger={['click']}>
-            <span className="tw-bg-white dark:tw-bg-slate-900 tw-flex tw-py-1 tw-px-1 tw-cursor-pointer">
+            <span className="bg-white dark:bg-slate-900 flex py-1 px-1 cursor-pointer">
                 <Icon component={IconArrowDown} />
             </span>
         </Dropdown>

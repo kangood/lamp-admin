@@ -1,18 +1,18 @@
 .container {
-    @apply tw-relative tw-w-full tw-h-full tw-px-4;
+    @apply relative w-full h-full px-4;
 
     & > .main {
-        @apply tw-container tw-relative tw-h-full tw-py-2 tw-mx-auto sm:tw-px-10;
+        @apply container relative h-full py-2 mx-auto sm:px-10;
 
         & .leftBlock {
-            @apply tw-hidden xl:tw-flex xl:tw-flex-col xl:tw-w-6/12 tw-min-h-full tw-mr-4 tw-pl-4;
+            @apply hidden xl:flex xl:flex-col xl:w-6/12 min-h-full mr-4 pl-4;
         }
 
         & .rightBlock {
-            @apply tw-h-full xl:tw-h-auto tw-flex tw-py-5 xl:tw-py-0 xl:tw-my-0 tw-w-full xl:tw-w-6/12;
+            @apply h-full xl:h-auto flex py-5 xl:py-0 xl:my-0 w-full xl:w-6/12;
 
             & > .formBlock {
-                @apply tw-my-auto tw-mx-auto xl:tw-ml-20 xl:tw-bg-transparent tw-px-5 tw-py-8 sm:tw-px-8 xl:tw-p-4 tw-rounded-md tw-shadow-md xl:tw-shadow-none tw-w-full sm:tw-w-3/4 lg:tw-w-2/4 xl:tw-w-auto tw-relative;
+                @apply my-auto mx-auto xl:ml-20 xl:bg-transparent px-5 py-8 sm:px-8 xl:p-4 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto relative;
             }
         }
     }

@@ -1,17 +1,17 @@
 .layoutMode,
 .layoutTheme {
-    @apply tw-flex tw-justify-around;
+    @apply flex justify-around;
 
     :global {
         & .item {
-            @apply tw-relative tw-w-14 tw-h-12 tw-mr-4 tw-overflow-hidden
-        tw-cursor-pointer tw-bg-[color:#f0f2f5] tw-rounded
-        before:tw-absolute before:tw-content-[''] after:tw-absolute after:tw-content-[''];
+            @apply relative w-14 h-12 mr-4 overflow-hidden
+        cursor-pointer bg-[color:#f0f2f5] rounded
+        before:absolute before:content-[''] after:absolute after:content-[''];
             box-shadow: 0 1px 2.5px 0 rgb(0 0 0 / 18%);
 
             &:hover,
             &.active {
-                @apply before:tw-rounded-none before:tw-content-[''] after:tw-rounded-none after:tw-content-[''];
+                @apply before:rounded-none before:content-[''] after:rounded-none after:content-[''];
             }
 
             &.side,
@@ -20,56 +20,56 @@
             &.light-light,
             &.dark-dark {
                 &::before {
-                    @apply tw-content-[''] tw-top-0 tw-left-0 tw-z-[1] tw-w-[33%] tw-h-full tw-rounded-l-[0.25rem] tw-rounded-r-none;
+                    @apply content-[''] top-0 left-0 z-[1] w-[33%] h-full rounded-l-[0.25rem] rounded-r-none;
                 }
 
                 &::after {
-                    @apply tw-content-[''] tw-top-0 tw-left-0 tw-w-full tw-h-1/4;
+                    @apply content-[''] top-0 left-0 w-full h-1/4;
                 }
             }
 
             &.side,
             &.dark-light {
-                @apply before:tw-content-[''] after:tw-content-[''] before:tw-bg-[color:#273352] after:tw-bg-[color:#fff];
+                @apply before:content-[''] after:content-[''] before:bg-[color:#273352] after:bg-[color:#fff];
             }
 
             &.light-dark {
-                @apply before:tw-content-[''] after:tw-content-[''] before:tw-bg-[color:#fff] after:tw-bg-[color:#273352];
+                @apply before:content-[''] after:content-[''] before:bg-[color:#fff] after:bg-[color:#273352];
             }
 
             &.light-light {
-                @apply before:tw-content-[''] after:tw-content-[''] before:tw-bg-[color:#fff] after:tw-bg-[color:#fff];
+                @apply before:content-[''] after:content-[''] before:bg-[color:#fff] after:bg-[color:#fff];
             }
 
             &.dark-dark {
-                @apply before:tw-content-[''] after:tw-content-[''] before:tw-bg-[color:#273352] after:tw-bg-[color:#273352];
+                @apply before:content-[''] after:content-[''] before:bg-[color:#273352] after:bg-[color:#273352];
             }
 
             &.content {
                 &::before {
-                    @apply tw-content-[''] tw-top-0 tw-left-0 tw-w-[33%] tw-h-full tw-bg-[color:#273352] tw-rounded-l-[0.25rem] tw-rounded-r-none;
+                    @apply content-[''] top-0 left-0 w-[33%] h-full bg-[color:#273352] rounded-l-[0.25rem] rounded-r-none;
                 }
 
                 &::after {
-                    @apply tw-content-[''] tw-top-0 tw-left-0 tw-z-[1] tw-w-full tw-h-1/4 tw-bg-[color:#fff];
+                    @apply content-[''] top-0 left-0 z-[1] w-full h-1/4 bg-[color:#fff];
                 }
             }
 
             &.top {
-                @apply before:tw-content-[''] after:tw-content-[''] after:tw-top-0 after:tw-left-0 after:tw-w-full after:tw-h-1/4 after:tw-bg-[color:#273352];
+                @apply before:content-[''] after:content-[''] after:top-0 after:left-0 after:w-full after:h-1/4 after:bg-[color:#273352];
             }
 
             &.embed {
                 &::before {
-                    @apply tw-content-[''] tw-top-0 tw-left-0 tw-z-[1] tw-w-[15%] tw-h-full tw-bg-[color:#273352] tw-rounded-l-[0.25rem] tw-rounded-r-none;
+                    @apply content-[''] top-0 left-0 z-[1] w-[15%] h-full bg-[color:#273352] rounded-l-[0.25rem] rounded-r-none;
                 }
 
                 &::after {
-                    @apply tw-content-[''] tw-top-0 tw-left-0 tw-w-full tw-h-1/4 tw-bg-[color:#fff];
+                    @apply content-[''] top-0 left-0 w-full h-1/4 bg-[color:#fff];
                 }
 
                 & > .content-sidebar {
-                    @apply tw-absolute tw-left-[15%] tw-w-1/5 tw-h-full tw-bg-[color:#fff];
+                    @apply absolute left-[15%] w-1/5 h-full bg-[color:#fff];
                 }
             }
         }

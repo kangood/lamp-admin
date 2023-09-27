@@ -105,22 +105,22 @@ export default () => {
                             <Form form={form} onFinish={() => message.success('还没做')}>
                                 <Space>
                                     <Button onClick={addHandler}>添加节点</Button>
-                                    <Button className="tw-ml-8" onClick={delHandler}>
+                                    <Button className="ml-8" onClick={delHandler}>
                                         删除
                                     </Button>
                                 </Space>
                                 <Space>
-                                    <span className="tw-text-base">菜单列表</span>
+                                    <span className="text-base">菜单列表</span>
                                     <Form.Item name="name">
                                         <Input
-                                            className="tw-w-32 tw-mt-6"
+                                            className="w-32 mt-6"
                                             placeholder="搜索"
                                             allowClear
                                         />
                                     </Form.Item>
                                     <Form.Item name="search">
                                         <Button
-                                            className="tw-mt-6"
+                                            className="mt-6"
                                             icon={<SearchOutlined />}
                                             htmlType="submit"
                                         />

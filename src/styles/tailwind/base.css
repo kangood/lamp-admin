@@ -16,26 +16,26 @@ h1 {
     }
 
     h1 {
-        @apply tw-text-3xl;
+        @apply text-3xl;
     }
 
     h2 {
-        @apply tw-text-2xl;
+        @apply text-2xl;
     }
 
     h3 {
-        @apply tw-text-xl;
+        @apply text-xl;
     }
 
     h4 {
-        @apply tw-text-lg;
+        @apply text-lg;
     }
 
     h5 {
-        @apply tw-text-sm;
+        @apply text-sm;
     }
 
     h6 {
-        @apply tw-text-xs;
+        @apply text-xs;
     }
 }

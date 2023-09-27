@@ -82,11 +82,11 @@ export const Sidebar = () => {
             closable={false}
             bodyStyle={{ padding: 0 }}
         >
-            <Layout className="tw-h-full">
+            <Layout className="h-full">
                 <Sider
                     collapsible={false}
                     width="100%"
-                    className="tw-h-full"
+                    className="h-full"
                     style={styles}
                     trigger={null}
                 >

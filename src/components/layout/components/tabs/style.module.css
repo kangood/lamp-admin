@@ -1,10 +1,10 @@
 .container {
     border-bottom-style: solid;
 
-    @apply tw-border-b-2 tw-border-zinc-500/20  tw-px-2;
+    @apply border-b-2 border-zinc-500/20  px-2;
 
     & > :global(.ant-tabs) {
-        @apply !tw-py-1;
+        @apply !py-1;
     }
 
     & > :global(.ant-tabs > .ant-tabs-nav)::before {
@@ -12,18 +12,18 @@
     }
 
     & > :global(.ant-tabs .ant-tabs-nav-list > .ant-tabs-tab) {
-        @apply !tw-rounded-[0.25rem] !tw-pl-3 !tw-pr-1;
+        @apply !rounded-[0.25rem] !pl-3 !pr-1;
 
         &:global(.ant-tabs-tab-active) {
-            @apply !tw-bg-[color:var(--controlItemBgActive)] !tw-border-b-[color:var(--colorBorderSecondary)];
+            @apply !bg-[color:var(--controlItemBgActive)] !border-b-[color:var(--colorBorderSecondary)];
         }
 
         &:global(.ant-tabs-tab-with-remove > .ant-tabs-tab-remove) {
-            @apply !tw-ml-0;
+            @apply !ml-0;
         }
     }
 }
 
 :global(.ant-tabs-nav .ant-tabs-nav-list) {
-    @apply !tw-transition;
+    @apply !transition;
 }

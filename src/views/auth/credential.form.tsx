@@ -39,9 +39,9 @@ const CredentialForm: FC = () => {
         }
     }, [routerReady, auth]);
     return (
-        <div className="tw-p-4 tw-w-full">
+        <div className="p-4 w-full">
             <ProForm
-                className="tw-enter-x"
+                className="enter-x"
                 onFinish={async (values) => {
                     try {
                         const {

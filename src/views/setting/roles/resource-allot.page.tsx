@@ -186,7 +186,7 @@ export const ResourceAllotPage: React.FC<ResourceAllotPageProps> = ({
     const { data: resourceData } = useListResource({ menuId: clickMenuId });
     const reourceColumns: () => ColumnsType<ResourceOutputType> = () => [
         {
-            className: 'tw-text-center',
+            className: 'text-center',
             title: '编码',
             dataIndex: 'code',
             render: (code) => (
@@ -200,7 +200,7 @@ export const ResourceAllotPage: React.FC<ResourceAllotPageProps> = ({
             width: 380,
         },
         {
-            className: 'tw-text-center',
+            className: 'text-center',
             title: '名称',
             dataIndex: 'name',
         },

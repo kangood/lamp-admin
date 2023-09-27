@@ -119,14 +119,14 @@ const Feature: FC = () => {
     const { changeFixed, changeCollapse } = useLayoutAction();
     return (
         <>
-            <div className="tw-flex tw-justify-between tw-mb-2">
+            <div className="flex justify-between mb-2">
                 <span>固定顶栏</span>
                 <Switch
                     checked={fixed.header}
                     onChange={(checked) => changeFixed('header', checked)}
                 />
             </div>
-            <div className="tw-flex tw-justify-between tw-my-2">
+            <div className="flex justify-between my-2">
                 <span>固定侧边栏</span>
                 <Switch
                     checked={fixed.sidebar}
@@ -135,7 +135,7 @@ const Feature: FC = () => {
             </div>
 
             {mode === 'embed' ? (
-                <div className="tw-flex tw-justify-between tw-my-2">
+                <div className="flex justify-between my-2">
                     <span>固定子侧边栏</span>
                     <Switch
                         checked={fixed.embed}
@@ -144,7 +144,7 @@ const Feature: FC = () => {
                 </div>
             ) : null}
 
-            <div className="tw-flex tw-justify-between tw-mb-2">
+            <div className="flex justify-between mb-2">
                 <span>折叠边栏</span>
                 <Switch checked={collapsed} onChange={(checked) => changeCollapse(checked)} />
             </div>

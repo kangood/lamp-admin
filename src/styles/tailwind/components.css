@@ -11,23 +11,23 @@
 
 @layer components {
     /* 一个毛玻璃块 */
-    .tw-panel {
-        @apply tw-mt-6
-                    tw-bg-zinc-300/25
-                    tw-shadow-slate-700/20
-                    tw-shadow-md
-                    hover:tw-shadow-lg
-                    hover:tw-shadow-slate-700/20
-                    tw-transition-shadow
-                    tw-rounded-lg
-                    tw-backdrop-blur-sm
-                    tw-flex
-                    tw-items-center
-                    tw-justify-center
-                    tw-text-black/75
-                    dark:tw-bg-black/20 
-           dark:tw-text-white/75   
-             dark:tw-shadow-slate-200/20
-             dark:hover:tw-shadow-slate-200/20;
+    .panel {
+        @apply mt-6
+                    bg-zinc-300/25
+                    shadow-slate-700/20
+                    shadow-md
+                    hover:shadow-lg
+                    hover:shadow-slate-700/20
+                    transition-shadow
+                    rounded-lg
+                    backdrop-blur-sm
+                    flex
+                    items-center
+                    justify-center
+                    text-black/75
+                    dark:bg-black/20 
+           dark:text-white/75   
+             dark:shadow-slate-200/20
+             dark:hover:shadow-slate-200/20;
     }
 }

@@ -1,7 +1,7 @@
 // const RouteLoading = () => {
 //     return (
 //         <Loading
-//             className="tw-bg-white/80 dark:tw-bg-black/70 -tw-ml-2 -tw-mt-2 !tw-w-[calc(100%_+_theme(space.4))] !tw-h-[calc(100%_+_theme(space.4))] tw-transition-opacity tw-duration-300"
+//             className="bg-white/80 dark:bg-black/70 -ml-2 -mt-2 !w-[calc(100%_+_theme(space.4))] !h-[calc(100%_+_theme(space.4))] transition-opacity duration-300"
 //             component={<Spinner name="Coffee" darkColor="rgb(252, 193, 105)" />}
 //         />
 //     );

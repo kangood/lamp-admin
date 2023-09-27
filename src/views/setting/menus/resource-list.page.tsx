@@ -141,13 +141,13 @@ export const ResourceListPage: React.FC<ResourceListPageProps> = ({
                 <Space>
                     <Form.Item name="rangePicker" label="创建时间">
                         <DatePicker.RangePicker
-                            className="tw-w-28"
+                            className="w-28"
                             locale={locale}
                             onChange={dateChangeHandler}
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button className="tw-ml-11" onClick={resetHandler}>
+                        <Button className="ml-11" onClick={resetHandler}>
                             重置
                         </Button>
                     </Form.Item>
@@ -159,7 +159,7 @@ export const ResourceListPage: React.FC<ResourceListPageProps> = ({
                 </Space>
             </Form>
             <Space>
-                <span className="tw-text-sm">
+                <span className="text-sm">
                     {clickMenuLabel ? `【${clickMenuLabel}】` : ''}资源列表
                 </span>
                 <Space>

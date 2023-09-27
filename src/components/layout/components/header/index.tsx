@@ -45,11 +45,11 @@ export const LayoutHeader = () => {
         [theme.header, layoutStyles],
     );
     const classes = useMemo(() => {
-        if (theme.header === 'dark') return '!tw-text-[rgba(255,255,255,0.65)]';
+        if (theme.header === 'dark') return '!text-[rgba(255,255,255,0.65)]';
         return '!bg-white';
     }, [theme.header]);
     return (
-        <Header style={styles} className={clsx(`tw-flex tw-content-between !tw-px-2 ${classes}`)}>
+        <Header style={styles} className={clsx(`flex content-between !px-2 ${classes}`)}>
             <Space>
                 {!isMobile && mode !== 'side' ? (
                     <div className="flex-none">
@@ -69,12 +69,12 @@ export const LayoutHeader = () => {
                     />
                 )}
             </Space>
-            <div className="tw-flex-auto">
+            <div className="flex-auto">
                 {mode === 'top' ? (
                     <SideMenu mode="horizontal" theme={theme.header} menu={menu} />
                 ) : null}
             </div>
-            <Space className="tw-flex-none">
+            <Space className="flex-none">
                 <Theme />
                 <Setting />
             </Space>

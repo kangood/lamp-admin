@@ -116,24 +116,20 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         <Popover
                             color="#404040"
                             content={
-                                <div className="tw-text-white">
+                                <div className="text-white">
                                     菜单：即左侧显示的菜单（肉眼可见的菜单）（包括N级菜单）
                                     <br />
                                     数据：即页面或视图请求后台接口时，返回不同的数据，参考用户管理、岗位管理
                                 </div>
                             }
                         >
-                            <InfoCircleOutlined className="tw-mt-2" />
+                            <InfoCircleOutlined className="mt-2" />
                         </Popover>
                         {children}
                     </div>
                 )}
             >
-                <Radio.Group
-                    className="tw-mx-3"
-                    buttonStyle="solid"
-                    onChange={onChangeResourceType}
-                >
+                <Radio.Group className="mx-3" buttonStyle="solid" onChange={onChangeResourceType}>
                     {dictListTypes?.RESOURCE_TYPE &&
                         dictListTypes?.RESOURCE_TYPE.map((item) => (
                             <Radio key={item.id?.toString()} value={item.code}>
@@ -156,22 +152,22 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         render={(children) => (
                             <div>
                                 <Popover
-                                    className="tw-mx-3"
+                                    className="mx-3"
                                     color="#404040"
                                     content={
-                                        <span className="tw-text-white">
+                                        <span className="text-white">
                                             无需分配给角色，大家都拥有的菜单
                                         </span>
                                     }
                                 >
-                                    <InfoCircleOutlined className="tw-mt-2" />
+                                    <InfoCircleOutlined className="mt-2" />
                                 </Popover>
                                 {children}
                             </div>
                         )}
                     >
                         <Switch
-                            className="tw--mr-5" // 这里没起作用
+                            className="-mr-5" // 这里没起作用
                             checkedChildren="是"
                             unCheckedChildren="否"
                             defaultChecked={false}
@@ -191,7 +187,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         label="分组"
                         tooltip={{
                             title: '一个应用中有多组不同的菜单时使用',
-                            icon: <InfoCircleOutlined className="tw-mt-2" />,
+                            icon: <InfoCircleOutlined className="mt-2" />,
                         }}
                     >
                         <Input />
@@ -205,7 +201,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         label="地址栏路径"
                         tooltip={{
                             title: '浏览器地址栏 # 号后的路径',
-                            icon: <InfoCircleOutlined className="tw-mt-2" />,
+                            icon: <InfoCircleOutlined className="mt-2" />,
                         }}
                     >
                         <Input />
@@ -215,7 +211,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         label="页面路径"
                         tooltip={{
                             title: '前端项目src/views后的页面路径',
-                            icon: <InfoCircleOutlined className="tw-mt-2" />,
+                            icon: <InfoCircleOutlined className="mt-2" />,
                         }}
                     >
                         <Input />
@@ -228,7 +224,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
             {!isShowMenu && (
                 <div>
                     <MyFormItem
-                        className="tw--translate-x-6"
+                        className="-translate-x-6"
                         name="dataScope"
                         label="数据范围"
                         render={(children) => (
@@ -237,7 +233,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                                     <Popover
                                         color="#404040"
                                         content={
-                                            <div className="tw-text-white">
+                                            <div className="text-white">
                                                 每种数据范围对应一个DataScopeProvider接口的实现类，
                                                 <br />
                                                 “自定义”需要自己编写实现类，并implements
@@ -245,7 +241,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                                             </div>
                                         }
                                     >
-                                        <InfoCircleOutlined className="tw-mt-2" />
+                                        <InfoCircleOutlined className="mt-2" />
                                     </Popover>
                                 </Col>
                                 <Col span={22}>{children}</Col>
@@ -253,7 +249,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         )}
                     >
                         <Radio.Group
-                            className="tw-mx-0.5"
+                            className="mx-0.5"
                             buttonStyle="solid"
                             onChange={onChangeDataScope}
                         >
@@ -268,22 +264,22 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                     <Row gutter={24}>
                         <Col offset={2} span={14}>
                             <MyFormItem
-                                className="tw--translate-x-6"
+                                className="-translate-x-6"
                                 name="isDef"
                                 label="是否默认"
                                 valuePropName="checked"
                                 render={(children) => (
                                     <div>
                                         <Popover
-                                            className="tw-mr-3"
+                                            className="mr-3"
                                             color="#404040"
                                             content={
-                                                <span className="tw-text-white">
+                                                <span className="text-white">
                                                     若某个菜单或视图决定后台接口启用了数据权限，请至少为该菜单或视图配置一个默认数据权限
                                                 </span>
                                             }
                                         >
-                                            <InfoCircleOutlined className="tw-mt-2 tw-ml-1" />
+                                            <InfoCircleOutlined className="mt-2 ml-1" />
                                         </Popover>
                                         {children}
                                     </div>
@@ -299,17 +295,17 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         <Col span={8}>
                             {isShowImplementClass && (
                                 <MyFormItem
-                                    className="tw--translate-x-24"
+                                    className="-translate-x-24"
                                     name="customClass"
                                     label="实现类"
                                     render={(children) => (
                                         <Row gutter={24}>
                                             <Col span={1}>
                                                 <Popover
-                                                    className="tw-mr-3"
+                                                    className="mr-3"
                                                     color="#404040"
                                                     content={
-                                                        <div className="tw-text-white">
+                                                        <div className="text-white">
                                                             1.
                                                             自行创建一个类，并实现DataScopeProvider接口
                                                             <br />
@@ -320,7 +316,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                                                         </div>
                                                     }
                                                 >
-                                                    <InfoCircleOutlined className="tw-mt-2" />
+                                                    <InfoCircleOutlined className="mt-2" />
                                                 </Popover>
                                             </Col>
                                             <Col span={20}>{children}</Col>

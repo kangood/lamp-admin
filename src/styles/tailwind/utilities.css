@@ -11,7 +11,7 @@
 
 @layer utilities {
     /* 鼠标移动到文字出现渐进式下划线 */
-    .tw-animate-decoration {
+    .animate-decoration {
         background: linear-gradient(red, blue) 0% 100% / 0% 1px no-repeat;
         transition: background-size ease-out 200ms;
 

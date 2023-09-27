@@ -10,15 +10,15 @@ import CredentialForm from './credential.form';
 const Login: FC = () => {
     return (
         <div className={$styles.container}>
-            <span className="-enter-x xl:tw-hidden" />
+            <span className="-enter-x xl:hidden" />
 
             <div className={$styles.main}>
-                <div className="tw-flex tw-h-full">
+                <div className="flex h-full">
                     <div className={$styles.leftBlock}>
-                        <div className="tw-my-auto">
-                            <img alt="title" src={bgimg} className="tw-w-1/2 -tw-mt-16 -enter-x" />
-                            <div className="tw-mt-10 tw-font-medium tw-text-white -tw-enter-x">
-                                <span className="tw-mt-4 tw-text-3xl tw-inline-block">
+                        <div className="my-auto">
+                            <img alt="title" src={bgimg} className="w-1/2 -mt-16 -enter-x" />
+                            <div className="mt-10 font-medium text-white -enter-x">
+                                <span className="mt-4 text-3xl inline-block">
                                     基于Vite+React的管理面板
                                 </span>
                             </div>

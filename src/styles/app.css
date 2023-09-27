@@ -1,13 +1,13 @@
 html,
 body,
 #root {
-    @apply tw-w-full tw-p-0 tw-m-0;
+    @apply w-full p-0 m-0;
 }
 
 html {
     font-size: 100%;
 
-    @apply tw-h-[100vh];
+    @apply h-[100vh];
 }
 
 body,
@@ -15,5 +15,5 @@ body,
 .ant-app {
     font-size: 0.875rem;
 
-    @apply tw-h-full;
+    @apply h-full;
 }
