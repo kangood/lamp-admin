@@ -34,7 +34,8 @@ const CredentialForm: FC = () => {
     useEffect(() => {
         const redirect = getRedirect();
         if (routerReady && !isNil(auth)) {
-            navigate(redirect, { replace: true });
+            // 设置默认跳转路径为home
+            navigate(redirect === '/' ? '/home' : redirect, { replace: true });
         }
     }, [routerReady, auth]);
     return (

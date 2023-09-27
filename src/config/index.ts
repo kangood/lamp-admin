@@ -16,7 +16,7 @@ export const config = (): IConfig => ({
     router: {
         basename: import.meta.env.BASE_URL,
         window: undefined,
-        hash: false,
+        hash: true,
         routes: [
             {
                 id: 'layout.master',
