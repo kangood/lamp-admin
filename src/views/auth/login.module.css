@@ -2,7 +2,7 @@
     @apply relative w-full h-full px-4;
 
     & > .main {
-        @apply container relative h-full py-2 mx-auto sm:px-10;
+        @apply relative h-full py-2 mx-auto sm:px-10;
 
         & .leftBlock {
             @apply hidden xl:flex xl:flex-col xl:w-6/12 min-h-full mr-4 pl-4;
