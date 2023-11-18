@@ -40,7 +40,7 @@ export interface OutputType {
     path?: string;
     component?: string;
     isDef?: boolean;
-    mpath: string;
+    mpath?: string;
     icon?: string;
     resourceType?: string;
     parentId?: number;
