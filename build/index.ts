@@ -19,12 +19,12 @@ export const createConfig = (params: ConfigEnv, configure?: Configure): UserConf
                     localsConvention: 'camelCaseOnly',
                 },
             },
-            plugins: createPlugins(isBuild),
+            plugins: createPlugins(),
             server: {
-                port: 5173,
+                port: 7442,
                 proxy: {
                     '/api': {
-                        target: 'http://127.0.0.1:6001',
+                        target: 'http://127.0.0.1:7441',
                         changeOrigin: true,
                     },
                 },

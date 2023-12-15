@@ -3,14 +3,15 @@ import react from '@vitejs/plugin-react';
 import Icons from 'unplugin-icons/vite';
 import { viteMockServe } from 'vite-plugin-mock';
 
-export function createPlugins(isBuild: boolean) {
+export function createPlugins() {
     const vitePlugins: (PluginOption | PluginOption[])[] = [
         react(),
         Icons({ compiler: 'jsx', jsx: 'react' }),
         viteMockServe({
             ignore: /^_/,
             mockPath: 'mock',
-            enable: !isBuild,
+            localEnabled: true,
+            prodEnabled: false,
         }),
     ];
     return vitePlugins;

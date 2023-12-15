@@ -7,11 +7,7 @@ import { message } from 'antd';
 import { FetcherStore } from '@/components/fetcher/store';
 import { globalError } from '@/utils/antd-extract';
 
-// 保存环境变量
-const isPrd = process.env.NODE_ENV === 'production';
-
-// 区分开发环境还是生产环境基础URL
-export const basicUrl = isPrd ? 'http://127.0.0.1:7001' : 'http://127.0.0.1:6001';
+export const basicUrl = 'http://127.0.0.1:7441';
 
 // 这里的token必须实时获取，固定常量在这儿是不更新的
 // const accessToken = FetcherStore.getState().token;
