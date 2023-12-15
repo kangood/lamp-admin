@@ -8,14 +8,13 @@ import { ProForm, ProFormText } from '@ant-design/pro-components';
 
 import { App } from 'antd';
 
-import { useFetcher } from '@/components/fetcher/hooks';
 import { useRouterStore } from '@/components/router/hooks';
 import { useAuth } from '@/components/auth/hooks';
 import { FetcherStore } from '@/components/fetcher/store';
+import { service } from '@/http/axios/service';
 
 const CredentialForm: FC = () => {
     const { message } = App.useApp();
-    const fetcher = useFetcher();
     const basePath = useRouterStore((state) => state.config.basename)!;
     const routerReady = useRouterStore((state) => state.ready);
     const auth = useAuth();
@@ -50,7 +49,7 @@ const CredentialForm: FC = () => {
                                 message: resMsg,
                                 result: { accessToken, refreshToken },
                             },
-                        } = await fetcher.post('/auth/login', values);
+                        } = await service.post('/auth/login', values);
                         if (code === 200 && !isNil(accessToken)) {
                             // 3R框架原有token的存储位置是FetcherStore.setState，用于验证登录并跳转，refresh_token加在localStorage中
                             FetcherStore.setState((state) => {

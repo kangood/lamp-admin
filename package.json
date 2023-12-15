@@ -6,7 +6,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "preview": "vite preview --port 7442"
+        "preview": "vite preview"
     },
     "dependencies": {
         "@ant-design/cssinjs": "^1.11.2",

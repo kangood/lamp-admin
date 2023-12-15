@@ -21,6 +21,7 @@ export const createConfig = (params: ConfigEnv, configure?: Configure): UserConf
             },
             plugins: createPlugins(),
             server: {
+                host: '0.0.0.0',
                 port: 7442,
                 proxy: {
                     '/api': {
@@ -28,6 +29,10 @@ export const createConfig = (params: ConfigEnv, configure?: Configure): UserConf
                         changeOrigin: true,
                     },
                 },
+            },
+            // 生产端口
+            preview: {
+                port: 7442,
             },
         },
         typeof configure === 'function' ? configure(params, isBuild) : {},
