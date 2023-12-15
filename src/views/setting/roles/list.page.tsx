@@ -16,8 +16,6 @@ import { PAGE_MAX_LIMIT } from '@/utils/constants';
 
 import { useListMenuTreeForRole } from '@/services/menu';
 
-import { deepCopy } from '@/utils';
-
 import { useListRoleAuthorityIdByRoleId } from '@/services/role-authority';
 
 import { InputType, OutputType, columns } from './constants';
@@ -244,8 +242,7 @@ export default () => {
                 <ResourceAllotPage
                     clickRoleId={clickRoleId}
                     clickListRoleAuthorityId={clickListRoleAuthorityId}
-                    listMenuTreeInitData={deepCopy(listMenuTree) as OutputType[]}
-                    listMenuTreeVariable={listMenuTree as OutputType[]}
+                    listMenuTreeInitData={listMenuTree as OutputType[]}
                     onClose={onCloseForResourceAllotHandler}
                 />
             )}

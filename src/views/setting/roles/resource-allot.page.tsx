@@ -35,7 +35,7 @@ interface ResourceAllotPageProps {
     clickRoleId: number;
     clickListRoleAuthorityId: any;
     listMenuTreeInitData: OutputType[];
-    listMenuTreeVariable: OutputType[];
+    listMenuTreeVariable?: OutputType[];
     onClose: () => void;
 }
 
