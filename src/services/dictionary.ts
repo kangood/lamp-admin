@@ -47,6 +47,7 @@ export const useListDictSingleType = (
             service
                 .get('dict', { params: { type: clickType, page, limit, code, name } })
                 .then((res) => res.data),
+        { enabled: clickType !== '' },
     );
     return {
         listDataItems: data?.items,

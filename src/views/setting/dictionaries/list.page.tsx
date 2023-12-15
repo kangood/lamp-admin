@@ -10,7 +10,7 @@ import { DictionaryRightEditForm } from './edit.page';
 export default () => {
     const [form] = Form.useForm();
     // 状态定义
-    const [clickType, setClickType] = useState<string>('0');
+    const [clickType, setClickType] = useState<string>('');
     const [code, setCode] = useState<string>();
     const [name, setName] = useState<string>();
     const [pageQ, setPageQ] = useState<number>(1);
@@ -180,7 +180,7 @@ export default () => {
                                 ...rowSelection,
                             }}
                             bordered
-                            loading={delLoading || listLoading}
+                            loading={delLoading || (clickType !== '' && listLoading)}
                             columns={listColumns({ onOpenFormHandler, onDelHandler })}
                             dataSource={listDataItems}
                             pagination={false}
