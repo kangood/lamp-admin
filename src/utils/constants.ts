@@ -38,4 +38,4 @@ export const PAGE_MAX_LIMIT = 10000;
 /**
  * JWT密钥
  */
-export const JWT_SECRET = 'panlore';
+export const JWT_SECRET = 'FpaThV';
