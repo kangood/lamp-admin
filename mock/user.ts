@@ -36,7 +36,7 @@ export function createFakeUserList(): IAuth[] {
 export default [
     // mock user login
     {
-        url: '/api/user/auth/login',
+        url: '/user/auth/login',
         timeout: 200,
         method: 'post',
         response({ body }: { body: any }) {
@@ -55,7 +55,7 @@ export default [
         },
     },
     {
-        url: '/api/user/info',
+        url: '/user/info',
         method: 'get',
         response: (request: RequestParams) => {
             const token = getRequestToken(request);

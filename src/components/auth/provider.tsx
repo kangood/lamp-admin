@@ -6,15 +6,13 @@ import { config } from '@/config';
 
 import { FetcherStore } from '../fetcher/store';
 
-import { useFetcher } from '../fetcher/hooks';
-
-import { IAuth } from './type';
 import { AuthContext } from './constants';
 
 const Auth: FC<{ children?: ReactNode }> = ({ children }) => {
     const token = FetcherStore((state) => state.token);
-    const fetcher = useFetcher();
-    const [auth, setAuth] = useState<IAuth | null>(null);
+    // const fetcher = useFetcher();
+    // const [auth, setAuth] = useState<IAuth | null>(null);
+    const [auth, setAuth] = useState<any>(null);
     const { api, error } = config().auth ?? {};
     const requested = useRef(false);
     useEffect(() => {
@@ -23,8 +21,13 @@ const Auth: FC<{ children?: ReactNode }> = ({ children }) => {
                 setAuth(null);
             } else {
                 try {
-                    const { data } = await fetcher.get(api);
-                    setAuth(data);
+                    // const { data } = await fetcher.get(api);
+                    setAuth({
+                        code: 0,
+                        result: null,
+                        message: 'user info fetch success',
+                        type: 'success',
+                    });
                 } catch (err) {
                     setAuth(null);
                     !isNil(error) ? error() : console.log(err);
