@@ -1,13 +1,10 @@
 import { IConfig } from '../types';
 
-import { account } from './routes/account';
-import { content } from './routes/content';
 import { dashboard } from './routes/dashboard';
 import { errors } from './routes/errors';
 import { home } from './routes/home';
 
 import { addLoading } from './routes/loading';
-import { media } from './routes/media';
 import { org } from './routes/org';
 import { setting } from './routes/setting';
 
@@ -16,7 +13,7 @@ export const config = (): IConfig => ({
     router: {
         basename: import.meta.env.BASE_URL,
         window: undefined,
-        hash: true,
+        hash: false,
         routes: [
             {
                 id: 'layout.master',
@@ -24,7 +21,7 @@ export const config = (): IConfig => ({
                 path: '/',
                 page: 'layouts/master',
                 error: 'errors/404',
-                children: addLoading([home, org, dashboard, account, content, media, setting]),
+                children: addLoading([home, org, dashboard, setting]),
             },
             errors,
         ],
