@@ -18,8 +18,11 @@ import { getAsyncImport } from './views';
 import { RouterStore } from './store';
 
 import OrganisationIcon from '~icons/gg/organisation';
-import HomeSharpIcon from '~icons/ion/home-sharp';
+import HomeIcon from '~icons/ion/home-outline';
 import SettingIcon from '~icons/clarity/settings-outline-alerted';
+import LockIcon from '~icons/clarity/lock-line';
+import LayersIcon from '~icons/clarity/layers-line';
+import FolderIcon from '~icons/material-symbols/folder-managed-outline';
 
 export const getAuthRoutes = (routes: RouteOption[], auth: IAuth | null): RouteOption[] =>
     routes
@@ -104,11 +107,20 @@ const getIconComponent = (iconCode: string) => {
             case 'SettingIcon':
                 iconComponent = SettingIcon;
                 break;
+            case 'LockIcon':
+                iconComponent = LockIcon;
+                break;
+            case 'LayersIcon':
+                iconComponent = LayersIcon;
+                break;
+            case 'FolderIcon':
+                iconComponent = FolderIcon;
+                break;
             case 'OrganisationIcon':
                 iconComponent = OrganisationIcon;
                 break;
-            case 'HomeSharpIcon':
-                iconComponent = HomeSharpIcon;
+            case 'HomeIcon':
+                iconComponent = HomeIcon;
                 break;
             default:
                 break;
