@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons/lib/icons';
-import { Button, Space, Tag } from 'antd';
+import { Button, Space, Tag, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 export interface InputType {
@@ -31,20 +31,32 @@ export interface DictMapListType {
     [key: string]: OutputType[];
 }
 
+interface IPropsLeft {
+    onOpenFormHandlerLeft: (clickDict: OutputType) => void;
+    onDelHandlerLeft: (ids: number[]) => void;
+}
+
 interface IProps {
     onOpenFormHandler: (clickDict: OutputType) => void;
     onDelHandler: (ids: number[]) => void;
 }
 
 export const listTypeColumns: ({
-    onOpenFormHandler,
-    onDelHandler,
-}: IProps) => ColumnsType<OutputType> = ({ onOpenFormHandler, onDelHandler }) => [
+    onOpenFormHandlerLeft,
+    onDelHandlerLeft,
+}: IPropsLeft) => ColumnsType<OutputType> = ({ onOpenFormHandlerLeft, onDelHandlerLeft }) => [
     {
         title: '类型',
         dataIndex: 'type',
         width: 120,
-        ellipsis: true,
+        render: (type) => (
+            <Tooltip placement="topLeft" title={type}>
+                {type}
+            </Tooltip>
+        ),
+        ellipsis: {
+            showTitle: false,
+        },
     },
     {
         title: '类型标签',
@@ -66,13 +78,13 @@ export const listTypeColumns: ({
                     key="edit"
                     type="text"
                     icon={<EditOutlined />}
-                    onClick={() => onOpenFormHandler(record)}
+                    onClick={() => onOpenFormHandlerLeft(record)}
                 />
                 <Button
                     key="del"
                     type="text"
                     icon={<DeleteOutlined />}
-                    onClick={() => onDelHandler([record.id!])}
+                    onClick={() => onDelHandlerLeft([record.id!])}
                 />
             </Space>
         ),
