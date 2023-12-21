@@ -16,7 +16,7 @@ export interface InputType {
 export interface OutputType {
     id?: number;
     code?: string;
-    category?: number;
+    category?: string;
     bucketName?: string;
     accessKey?: string;
     secretKey?: string;

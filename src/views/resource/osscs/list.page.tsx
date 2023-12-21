@@ -9,7 +9,7 @@ import { useDictListTypes } from '@/services/dictionary';
 import { useDeleteOssc, useListOsscRelate } from '@/services/ossc';
 
 import { InputType, OutputType, columns } from './constants';
-import { UserEditForm } from './edit.page';
+import { OsscEditForm } from './edit.page';
 import { OsscDetailPage } from './detail.page';
 
 export default () => {
@@ -173,7 +173,7 @@ export default () => {
             />
             {/* 弹出层表单 */}
             {showInfo && (
-                <UserEditForm
+                <OsscEditForm
                     clickOne={clickOne}
                     onClose={closeAndRefetchHandler}
                     dictListTypes={dictListTypes}

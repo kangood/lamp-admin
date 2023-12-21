@@ -6,7 +6,7 @@ import { OutputType } from './constants';
 
 interface OsscDetailPageProps {
     clickOne?: OutputType;
-    dictListTypes: DictMapListType;
+    dictListTypes: DictMapListType | undefined;
     onClose: () => void;
 }
 
@@ -20,10 +20,10 @@ export const OsscDetailPage: React.FC<OsscDetailPageProps> = ({
             key: 'category',
             label: '种类',
             children: (
-                <Radio.Group buttonStyle="solid" value={clickOne?.category?.toString()}>
+                <Radio.Group disabled buttonStyle="solid" value={clickOne?.category}>
                     {dictListTypes &&
                         dictListTypes?.OSSC_CATEGORY.map((item) => (
-                            <Radio disabled key={item.id?.toString()} value={item.code}>
+                            <Radio key={item.id?.toString()} value={item.code}>
                                 {item.name}
                             </Radio>
                         ))}
@@ -73,7 +73,14 @@ export const OsscDetailPage: React.FC<OsscDetailPageProps> = ({
     ];
     return (
         <Modal width={820} onCancel={() => onClose()} open footer={null}>
-            <Descriptions title="用户详情" bordered column={1} layout="horizontal" items={items} />
+            <Descriptions
+                labelStyle={{ textAlign: 'right', width: '100px' }}
+                title="用户详情"
+                bordered
+                column={1}
+                layout="horizontal"
+                items={items}
+            />
         </Modal>
     );
 };

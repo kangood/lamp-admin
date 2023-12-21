@@ -1,31 +1,21 @@
-import { Form, Input, Modal, Radio, Select, Tooltip, TreeSelect } from 'antd';
-
-import { useState } from 'react';
-
-import { useListStation } from '@/services/station';
-
-import { useListOrgTree } from '@/services/org';
+import { Form, Input, Modal, Radio } from 'antd';
 
 import { DictMapListType } from '@/views/setting/dictionaries/constants';
 
 import { useCreateUser, useUpdateUser } from '@/services/user';
 
-import { OSSImageUpload } from '@/components/OSSImageUpload';
-
 import { OutputType } from './constants';
 
-interface UserEditFormProps {
+interface OsscEditFormProps {
     clickOne?: OutputType;
     onClose: () => void;
     dictListTypes: DictMapListType | undefined;
 }
 
-export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, dictListTypes }) => {
+export const OsscEditForm: React.FC<OsscEditFormProps> = ({ clickOne, onClose, dictListTypes }) => {
     const [form] = Form.useForm();
     const { mutateAsync: updateMutate } = useUpdateUser();
     const { mutateAsync: createMutate } = useCreateUser();
-    const { data: listOrgTree } = useListOrgTree();
-    const { data: listStation } = useListStation();
     // 表单提交处理
     const submitHandle = async () => {
         const values = await form.validateFields();
@@ -37,13 +27,9 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
         }
         onClose();
     };
-    // 树结构数据处理
-    const [treeValue, setTreeValue] = useState<string>();
-    const onChange = (newValue: string) => {
-        setTreeValue(newValue);
-    };
     return (
         <Modal
+            width={820}
             open
             title={clickOne?.id ? '编辑' : '新建'}
             okText="提交"
@@ -63,123 +49,46 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name="account"
-                    label="账号"
-                    rules={[{ required: true, message: '账号名称不能为空' }]}
+                    name="category"
+                    label="种类"
+                    rules={[{ required: true, message: '种类不能为空' }]}
+                >
+                    <Radio.Group buttonStyle="solid">
+                        {dictListTypes &&
+                            dictListTypes?.OSSC_CATEGORY.map((item) => (
+                                <Radio key={item.id?.toString()} value={item.code}>
+                                    {item.name}
+                                </Radio>
+                            ))}
+                    </Radio.Group>
+                </Form.Item>
+                <Form.Item
+                    name="code"
+                    label="资源编码"
+                    rules={[{ required: true, message: '资源编码不能为空' }]}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name="name"
-                    label="姓名"
-                    rules={[{ required: true, message: '姓名不能为空' }]}
+                    name="bucketName"
+                    label="空间名"
+                    rules={[{ required: true, message: '空间名不能为空' }]}
                 >
-                    <Input />
-                </Form.Item>
-                {!clickOne?.id && (
-                    <Form.Item
-                        name="password"
-                        label="密码"
-                        rules={[{ required: true, message: '密码不能为空' }]}
-                    >
-                        <Tooltip placement="topLeft" title="用户的默认密码为123456">
-                            <Input.Password defaultValue="123456" />
-                        </Tooltip>
-                    </Form.Item>
-                )}
-                <Form.Item name="avatar" label="头像">
-                    <OSSImageUpload />
-                </Form.Item>
-                <Form.Item name="orgId" label="机构">
-                    <TreeSelect
-                        showSearch
-                        style={{ width: '100%' }}
-                        value={treeValue}
-                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        placeholder="选择一个机构"
-                        allowClear
-                        treeDefaultExpandAll
-                        onChange={onChange}
-                        treeData={listOrgTree}
-                        fieldNames={{ value: 'id' }}
-                    />
-                </Form.Item>
-                <Form.Item name="stationId" label="岗位">
-                    <Select
-                        showSearch
-                        placeholder="选择一个岗位"
-                        // optionFilterProp="label"
-                        // onChange={onChange}
-                        // onSearch={onSearch}
-                        filterOption={(input, option) =>
-                            (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
-                        }
-                        fieldNames={{ value: 'id', label: 'name' }}
-                        options={listStation?.items}
-                    />
-                </Form.Item>
-                <Form.Item name="email" label="邮箱">
-                    <Input />
-                </Form.Item>
-                <Form.Item name="mobile" label="电话">
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name="sex"
-                    label="性别"
-                    rules={[{ required: true, message: '性别不能为空' }]}
+                    name="accessKey"
+                    label="accessKey"
+                    rules={[{ required: true, message: 'accessKey 不能为空' }]}
                 >
-                    <Select
-                        showSearch
-                        placeholder="选择性别"
-                        options={[
-                            { label: '男', value: 'M' },
-                            { label: '女', value: 'W' },
-                            { label: '未知', value: 'N' },
-                        ]}
-                    />
+                    <Input />
                 </Form.Item>
-                <Form.Item name="nation" label="民族">
-                    <Select
-                        showSearch
-                        placeholder="选择一个民族"
-                        optionFilterProp="label"
-                        // onChange={onChange}
-                        // onSearch={onSearch}
-                        filterOption={(input, option) =>
-                            (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
-                        }
-                        fieldNames={{ value: 'code', label: 'name' }}
-                        options={dictListTypes?.NATION}
-                    />
-                </Form.Item>
-                <Form.Item name="education" label="学历">
-                    <Select
-                        showSearch
-                        placeholder="选择一个学历"
-                        optionFilterProp="label"
-                        // onChange={onChange}
-                        // onSearch={onSearch}
-                        filterOption={(input, option) =>
-                            (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
-                        }
-                        fieldNames={{ value: 'code', label: 'name' }}
-                        options={dictListTypes?.EDUCATION}
-                    />
-                </Form.Item>
-                <Form.Item name="positionStatus" label="职位状态">
-                    <Select
-                        showSearch
-                        placeholder="选择一个职位状态"
-                        optionFilterProp="label"
-                        // onChange={onChange}
-                        // onSearch={onSearch}
-                        filterOption={(input, option) =>
-                            (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
-                        }
-                        fieldNames={{ value: 'code', label: 'name' }}
-                        options={dictListTypes?.POSITION_STATUS}
-                    />
+                <Form.Item
+                    name="secretKey"
+                    label="secretKey"
+                    rules={[{ required: true, message: 'secretKey 不能为空' }]}
+                >
+                    <Input />
                 </Form.Item>
                 <Form.Item
                     name="state"
@@ -191,7 +100,7 @@ export const UserEditForm: React.FC<UserEditFormProps> = ({ clickOne, onClose, d
                         <Radio.Button value={false}>禁用</Radio.Button>
                     </Radio.Group>
                 </Form.Item>
-                <Form.Item name="workDescribe" label="个人描述">
+                <Form.Item name="describe" label="描述">
                     <Input />
                 </Form.Item>
             </Form>
