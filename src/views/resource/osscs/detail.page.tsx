@@ -1,85 +1,79 @@
-import { Descriptions, DescriptionsProps, Modal } from 'antd';
+import { Descriptions, DescriptionsProps, Modal, Radio } from 'antd';
 
-import { OutputType, translateSex } from './constants';
+import { DictMapListType } from '@/views/setting/dictionaries/constants';
 
-interface UserDetailPageProps {
+import { OutputType } from './constants';
+
+interface OsscDetailPageProps {
     clickOne?: OutputType;
+    dictListTypes: DictMapListType;
     onClose: () => void;
 }
 
-export const UserDetailPage: React.FC<UserDetailPageProps> = ({ clickOne, onClose }) => {
+export const OsscDetailPage: React.FC<OsscDetailPageProps> = ({
+    clickOne,
+    dictListTypes,
+    onClose,
+}) => {
     const items: DescriptionsProps['items'] = [
         {
-            key: 'account',
-            label: '账号',
-            children: clickOne?.account,
+            key: 'category',
+            label: '种类',
+            children: (
+                <Radio.Group buttonStyle="solid" value={clickOne?.category?.toString()}>
+                    {dictListTypes &&
+                        dictListTypes?.OSSC_CATEGORY.map((item) => (
+                            <Radio disabled key={item.id?.toString()} value={item.code}>
+                                {item.name}
+                            </Radio>
+                        ))}
+                </Radio.Group>
+            ),
         },
         {
-            key: 'name',
-            label: '姓名',
-            children: clickOne?.name,
+            key: 'code',
+            label: '资源编码',
+            children: clickOne?.code,
         },
         {
-            key: 'email',
-            label: '邮箱',
-            children: clickOne?.email,
+            key: 'endpoint',
+            label: '资源地址',
+            children: clickOne?.endpoint,
         },
         {
-            key: 'mobile',
-            label: '电话',
-            children: clickOne?.mobile,
+            key: 'bucketName',
+            label: '空间名',
+            children: clickOne?.bucketName,
         },
         {
-            key: 'sex',
-            label: '性别',
-            children: translateSex(clickOne?.sex),
+            key: 'accessKey',
+            label: 'accessKey',
+            children: clickOne?.accessKey,
         },
         {
-            key: 'state',
-            label: '状态',
-            children: clickOne?.state ? '启用' : '禁用',
+            key: 'secretKey',
+            label: 'secretKey',
+            children: clickOne?.secretKey,
         },
         {
-            key: 'workDescribe',
-            label: '个人描述',
-            children: clickOne?.workDescribe,
+            key: 'describe',
+            label: '描述',
+            children: clickOne?.describe,
         },
         {
             key: 'createdAt',
             label: '创建时间',
-            span: 3,
             children: clickOne?.createdAt?.toString(),
         },
         {
             key: 'updatedAt',
             label: '修改时间',
-            span: 3,
             children: clickOne?.updatedAt?.toString(),
-        },
-        {
-            key: 'lastLoginTime',
-            label: '最后登录时间',
-            children: '',
-        },
-        {
-            key: 'passwordExpireTime',
-            label: '密码过期时间',
-            children: '',
-        },
-        {
-            key: 'passwordErrorLastTime',
-            label: '最后一次输错密码时间',
-            children: '',
-        },
-        {
-            key: 'passwordErrorNum',
-            label: '密码错误次数',
-            children: '',
         },
     ];
     return (
-        <Modal onCancel={() => onClose()} open footer={null}>
-            <Descriptions title="用户详情" layout="vertical" items={items} />
+        <Modal width={820} onCancel={() => onClose()} open footer={null}>
+            <Descriptions title="用户详情" bordered column={1} layout="horizontal" items={items} />
         </Modal>
     );
 };

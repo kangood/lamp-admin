@@ -1,5 +1,5 @@
 import { DeleteOutlined, DiffOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Space, Tag } from 'antd';
+import { Button, Space, Tag, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 export interface InputType {
@@ -14,24 +14,20 @@ export interface InputType {
 }
 
 export interface OutputType {
-    key?: React.Key;
     id?: number;
-    account?: string;
-    name?: string;
-    email?: string;
-    password?: string;
-    mobile?: string;
-    orgId?: number;
-    stationId?: number;
-    sex?: string;
+    code?: string;
+    category?: number;
+    bucketName?: string;
+    accessKey?: string;
+    secretKey?: string;
+    endpoint?: string;
+    describe?: string;
     state?: boolean;
-    workDescribe?: string;
     deletedAt?: Date;
     createdAt?: Date;
     createdBy?: number;
     updatedAt?: Date;
     updatedBy?: number;
-    createdOrgId?: number;
 }
 
 interface IProps {
@@ -61,56 +57,68 @@ export const columns: ({
 }) => [
     {
         title: '种类',
-        dataIndex: 'category',
-        render: (category) => <Tag color="blue">{category}</Tag>,
-        width: 65,
+        dataIndex: 'osscEchoDto',
+        key: 'category',
+        render: (osscEchoDto) => <Tag color="blue">{osscEchoDto?.category}</Tag>,
+        width: 100,
         fixed: 'left',
     },
     {
         title: '资源编码',
         dataIndex: 'code',
-        fixed: 'left',
-        width: 105,
+        width: 150,
     },
     {
         title: '资源地址',
         dataIndex: 'endpoint',
-        fixed: 'left',
-        width: 100,
+        width: 250,
     },
     {
         title: '空间名',
         dataIndex: 'bucketName',
-        fixed: 'left',
-        width: 75,
+        width: 130,
     },
     {
         title: 'accessKey',
         dataIndex: 'accessKey',
-        fixed: 'left',
-        width: 175,
+        render: (accessKey) => (
+            <Tooltip placement="topLeft" title={accessKey}>
+                {accessKey}
+            </Tooltip>
+        ),
+        ellipsis: {
+            showTitle: false,
+        },
+        width: 200,
     },
     {
         title: 'secretKey',
         dataIndex: 'secretKey',
-        fixed: 'left',
-        width: 175,
+        render: (secretKey) => (
+            <Tooltip placement="topLeft" title={secretKey}>
+                {secretKey}
+            </Tooltip>
+        ),
+        ellipsis: {
+            showTitle: false,
+        },
+        width: 200,
     },
     {
         title: '描述',
         dataIndex: 'description',
-        fixed: 'left',
         width: 175,
+    },
+    {
+        title: '创建时间',
+        dataIndex: 'createdAt',
     },
     {
         title: '状态',
         dataIndex: 'state',
         render: (state) => <Tag color={state ? 'green' : 'volcano'}>{state ? '启用' : '禁用'}</Tag>,
+        fixed: 'right',
         width: 80,
-    },
-    {
-        title: '创建时间',
-        dataIndex: 'createdAt',
     },
     {
         title: '操作',

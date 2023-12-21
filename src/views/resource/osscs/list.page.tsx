@@ -6,18 +6,18 @@ import { useState } from 'react';
 
 import { useDictListTypes } from '@/services/dictionary';
 
-import { useDeleteOssc, useListOssc } from '@/services/ossc';
+import { useDeleteOssc, useListOsscRelate } from '@/services/ossc';
 
 import { InputType, OutputType, columns } from './constants';
 import { UserEditForm } from './edit.page';
-import { UserDetailPage } from './detail.page';
+import { OsscDetailPage } from './detail.page';
 
 export default () => {
     const [form] = Form.useForm();
     // 状态定义
     const [listRelateParams, setListRelateParams] = useState<InputType>();
     // API-hooks
-    const { data } = useListOssc(listRelateParams);
+    const { data } = useListOsscRelate(listRelateParams);
     const { mutateAsync: delMutate } = useDeleteOssc();
     const { data: dictListTypes } = useDictListTypes("'OSSC_CATEGORY'");
     // ==========逻辑处理==========
@@ -161,7 +161,7 @@ export default () => {
                 })}
                 dataSource={data?.items}
                 pagination={false}
-                scroll={{ x: 1450 }}
+                scroll={{ x: 1700 }}
             />
             {/* 自定义分页 */}
             <Pagination
@@ -181,7 +181,11 @@ export default () => {
             )}
             {/* 详情页弹出页面 */}
             {showInfoDetail && (
-                <UserDetailPage clickOne={clickOne} onClose={() => setShowInfoDetail(false)} />
+                <OsscDetailPage
+                    clickOne={clickOne}
+                    dictListTypes={dictListTypes}
+                    onClose={() => setShowInfoDetail(false)}
+                />
             )}
         </div>
     );

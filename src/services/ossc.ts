@@ -6,15 +6,20 @@ import { service } from '@/http/axios/service';
 import { queryClient } from '@/http/tanstack/react-query';
 
 /**
+ * 关联其他的列表查询
+ */
+export const useListOsscRelate = (values?: InputType) => {
+    return useQuery(['listOsscRelate', values], () =>
+        service.get('/ossc/listRelate', { params: values }).then((res) => res.data),
+    );
+};
+
+/**
  * 列表查询
  */
 export const useListOssc = (values?: InputType) => {
     return useQuery(['listOssc', values], () =>
-        service
-            .get('/ossc', {
-                params: values,
-            })
-            .then((res) => res.data),
+        service.get('/ossc', { params: values }).then((res) => res.data),
     );
 };
 
@@ -25,7 +30,7 @@ export const useUpdateOssc = () => {
     return useMutation(async (params: InputType) => service.patch('/ossc', { ...params }), {
         onSuccess: () => {
             globalSuccess();
-            queryClient.invalidateQueries(['listOssc']);
+            queryClient.invalidateQueries(['listOsscRelate']);
         },
     });
 };
@@ -37,7 +42,7 @@ export const useCreateOssc = () => {
     return useMutation(async (params: InputType) => service.post('/ossc', { ...params }), {
         onSuccess: () => {
             globalSuccess();
-            queryClient.invalidateQueries(['listOssc']);
+            queryClient.invalidateQueries(['listOsscRelate']);
         },
     });
 };
@@ -49,7 +54,7 @@ export const useDeleteOssc = () => {
     return useMutation(async (ids: number[]) => service.delete('/ossc', { data: { ids } }), {
         onSuccess: () => {
             globalSuccess();
-            queryClient.invalidateQueries(['listOssc']);
+            queryClient.invalidateQueries(['listOsscRelate']);
         },
     });
 };
