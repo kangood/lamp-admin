@@ -71,11 +71,27 @@ export const columns: ({
     {
         title: '资源地址',
         dataIndex: 'endpoint',
+        render: (endpoint) => (
+            <Tooltip placement="topLeft" title={endpoint}>
+                {endpoint}
+            </Tooltip>
+        ),
+        ellipsis: {
+            showTitle: false,
+        },
         width: 250,
     },
     {
         title: '空间名',
         dataIndex: 'bucketName',
+        render: (bucketName) => (
+            <Tooltip placement="topLeft" title={bucketName}>
+                {bucketName}
+            </Tooltip>
+        ),
+        ellipsis: {
+            showTitle: false,
+        },
         width: 130,
     },
     {
