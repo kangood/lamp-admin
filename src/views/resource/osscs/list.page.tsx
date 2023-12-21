@@ -1,6 +1,4 @@
-import { Form, Row, Col, Input, Button, Table, Pagination, DatePicker, message } from 'antd';
-
-import locale from 'antd/es/date-picker/locale/zh_CN';
+import { Form, Row, Col, Input, Button, Table, Pagination, message, Select } from 'antd';
 
 import { useState } from 'react';
 
@@ -21,18 +19,8 @@ export default () => {
     const { mutateAsync: delMutate } = useDeleteOssc();
     const { data: dictListTypes } = useDictListTypes("'OSSC_CATEGORY'");
     // ==========逻辑处理==========
-    // 时间改变时回调，更新时间传值
-    const [timedate, setDate] = useState<string[]>([]);
-    const dateChangeHandler = (_date: any, dateString: [string, string]) => {
-        setDate(dateString);
-    };
-    // 表单提交时把范围时间传入values参数中
+    // 表单提交
     const onFinishHandler = (values: InputType) => {
-        if (timedate.length > 0 && timedate[0] !== '' && timedate[1] !== '') {
-            values.timeRange = `'${timedate[0]} 00:00:00','${timedate[1]} 23:56:59'`;
-        }
-        // 清空表单中的rangePicker值，传参由timedate控制
-        values.rangePicker = undefined;
         setListRelateParams(values);
     };
     // 打开编辑表单处理器，点击按钮触发
@@ -42,7 +30,7 @@ export default () => {
         if (record) {
             setClickOne(record);
         } else {
-            const defaultRecord = { state: true, password: '123456' };
+            const defaultRecord = { state: true };
             setClickOne(defaultRecord);
         }
         setShowInfo(true);
@@ -58,8 +46,6 @@ export default () => {
     // 重置功能处理
     const resetHandler = () => {
         form.resetFields();
-        // 清空时间组件，无参请求API
-        setDate([]);
         setListRelateParams(undefined);
     };
     // 字典详情分页改变处理
@@ -113,18 +99,36 @@ export default () => {
             {/* 搜索和操作栏 */}
             <Form form={form} onFinish={onFinishHandler}>
                 <Row gutter={24}>
+                    <Col span={1} />
                     <Col span={4}>
-                        <Form.Item name="account">
-                            <Input placeholder="账号" allowClear />
+                        <Form.Item name="category">
+                            {dictListTypes && (
+                                <Select
+                                    showSearch
+                                    allowClear
+                                    placeholder="种类"
+                                    optionFilterProp="label"
+                                    filterOption={(input, option) =>
+                                        (option?.name ?? '')
+                                            .toLowerCase()
+                                            .includes(input.toLowerCase())
+                                    }
+                                    fieldNames={{ value: 'code', label: 'name' }}
+                                    options={dictListTypes?.OSSC_CATEGORY}
+                                />
+                            )}
                         </Form.Item>
                     </Col>
-                    <Col span={4} />
                     <Col span={4}>
-                        <Form.Item name="rangePicker">
-                            <DatePicker.RangePicker locale={locale} onChange={dateChangeHandler} />
+                        <Form.Item name="code">
+                            <Input placeholder="资源编码" allowClear />
                         </Form.Item>
                     </Col>
-                    <Col span={2} />
+                    <Col span={4}>
+                        <Form.Item name="accessKey">
+                            <Input placeholder="accessKey" allowClear />
+                        </Form.Item>
+                    </Col>
                     <Col span={2}>
                         <Form.Item name="search">
                             <Button type="primary" htmlType="submit">

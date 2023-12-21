@@ -2,7 +2,7 @@ import { Form, Input, Modal, Radio } from 'antd';
 
 import { DictMapListType } from '@/views/setting/dictionaries/constants';
 
-import { useCreateUser, useUpdateUser } from '@/services/user';
+import { useCreateOssc, useUpdateOssc } from '@/services/ossc';
 
 import { OutputType } from './constants';
 
@@ -14,12 +14,11 @@ interface OsscEditFormProps {
 
 export const OsscEditForm: React.FC<OsscEditFormProps> = ({ clickOne, onClose, dictListTypes }) => {
     const [form] = Form.useForm();
-    const { mutateAsync: updateMutate } = useUpdateUser();
-    const { mutateAsync: createMutate } = useCreateUser();
+    const { mutateAsync: updateMutate } = useUpdateOssc();
+    const { mutateAsync: createMutate } = useCreateOssc();
     // 表单提交处理
     const submitHandle = async () => {
         const values = await form.validateFields();
-        values.avatar = typeof values.avatar === 'string' ? values.avatar : values.avatar?.url;
         if (clickOne?.id) {
             updateMutate(values);
         } else {
@@ -66,6 +65,13 @@ export const OsscEditForm: React.FC<OsscEditFormProps> = ({ clickOne, onClose, d
                     name="code"
                     label="资源编码"
                     rules={[{ required: true, message: '资源编码不能为空' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="endpoint"
+                    label="资源地址"
+                    rules={[{ required: true, message: '资源地址不能为空' }]}
                 >
                     <Input />
                 </Form.Item>
