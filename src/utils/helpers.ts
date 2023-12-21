@@ -2,6 +2,8 @@ import deepmerge from 'deepmerge';
 import { isNil } from 'lodash';
 import { MutableRefObject } from 'react';
 
+import dayjs from 'dayjs';
+
 import { TreeNode } from './types';
 
 /**
@@ -86,4 +88,12 @@ export const traverseTree = (node: TreeNode) => {
     node.children.forEach((child) => {
         traverseTree(child);
     });
+};
+
+/**
+ * 使用 dayjs 格式化时间，一般标准格式
+ */
+export const dayjsFormat = (date: any) => {
+    if (!date) return '';
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
 };
