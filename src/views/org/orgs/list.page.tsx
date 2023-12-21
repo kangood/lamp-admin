@@ -77,64 +77,66 @@ export default () => {
     };
     return (
         <div>
-            <Row>
-                <Col>
-                    <Form form={form}>
-                        <Row gutter={24}>
-                            <Col span={8}>
-                                <Form.Item name="name">
-                                    <Input placeholder="机构名称" allowClear />
-                                </Form.Item>
-                            </Col>
-                            <Col span={4}>
-                                <Form.Item name="search">
-                                    <Button type="primary" htmlType="submit">
-                                        搜索
+            <Card>
+                <Row>
+                    <Col span={12}>
+                        <Form form={form}>
+                            <Row gutter={24}>
+                                <Col span={9}>
+                                    <Form.Item name="name">
+                                        <Input placeholder="机构名称" allowClear />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={3}>
+                                    <Form.Item name="search">
+                                        <Button type="primary" htmlType="submit">
+                                            搜索
+                                        </Button>
+                                    </Form.Item>
+                                </Col>
+                                <Col span={3}>
+                                    <Button type="primary">重置</Button>
+                                </Col>
+                                <Col span={3}>
+                                    <Button type="primary" onClick={addHandler}>
+                                        添加
                                     </Button>
-                                </Form.Item>
-                            </Col>
-                            <Col span={4}>
-                                <Button type="primary">重置</Button>
-                            </Col>
-                            <Col span={4}>
-                                <Button type="primary" onClick={addHandler}>
-                                    添加
-                                </Button>
-                            </Col>
-                            <Col span={4}>
-                                <Button type="primary" onClick={delHandler}>
-                                    删除
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Card style={{ width: 650 }}>
-                        {listOrgTree && (
-                            <Tree
-                                checkable
-                                checkStrictly
-                                // 默认展开所有树节点
-                                defaultExpandAll
-                                // 点击复选框触发
-                                onCheck={onCheck}
-                                // 点击树节点触发
-                                onSelect={onSelect}
-                                treeData={listOrgTree}
-                                fieldNames={{ title: 'label', key: 'id' }}
-                            />
-                        )}
-                    </Card>
-                </Col>
-                <Col>
-                    <Card title={clickOne.id ? '修改' : '新增'} style={{ width: 600 }}>
-                        <OrgEditForm clickOne={clickOne} />
-                    </Card>
-                </Col>
-            </Row>
+                                </Col>
+                                <Col span={3}>
+                                    <Button type="primary" onClick={delHandler}>
+                                        删除
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={23}>
+                                    <Card>
+                                        {listOrgTree && (
+                                            <Tree
+                                                checkable
+                                                checkStrictly
+                                                // 默认展开所有树节点
+                                                defaultExpandAll
+                                                // 点击复选框触发
+                                                onCheck={onCheck}
+                                                // 点击树节点触发
+                                                onSelect={onSelect}
+                                                treeData={listOrgTree}
+                                                fieldNames={{ title: 'label', key: 'id' }}
+                                            />
+                                        )}
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Col>
+                    <Col span={12}>
+                        <Card title={clickOne.id ? '修改' : '新增'}>
+                            <OrgEditForm clickOne={clickOne} />
+                        </Card>
+                    </Col>
+                </Row>
+            </Card>
         </div>
     );
 };
