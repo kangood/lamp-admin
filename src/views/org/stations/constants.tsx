@@ -43,10 +43,6 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
         dataIndex: 'name',
     },
     {
-        title: '描述',
-        dataIndex: 'describe',
-    },
-    {
         title: '机构',
         dataIndex: 'orgMap',
         key: 'orgId',
@@ -56,6 +52,10 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
         title: '状态',
         dataIndex: 'state',
         render: (state) => <Tag color={state ? 'green' : 'volcano'}>{state ? '启用' : '禁用'}</Tag>,
+    },
+    {
+        title: '描述',
+        dataIndex: 'describe',
     },
     {
         title: '创建时间',
