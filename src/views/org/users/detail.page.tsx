@@ -1,5 +1,7 @@
 import { Descriptions, DescriptionsProps, Modal } from 'antd';
 
+import { dayjsFormat } from '@/utils';
+
 import { OutputType, translateSex } from './constants';
 
 interface UserDetailPageProps {
@@ -57,14 +59,13 @@ export const UserDetailPage: React.FC<UserDetailPageProps> = ({ clickOne, onClos
         {
             key: 'createdAt',
             label: '创建时间',
-            span: 3,
-            children: clickOne?.createdAt?.toString(),
+            children: dayjsFormat(clickOne?.createdAt),
         },
         {
             key: 'updatedAt',
             label: '修改时间',
-            span: 3,
-            children: clickOne?.updatedAt?.toString(),
+            span: 2,
+            children: dayjsFormat(clickOne?.updatedAt),
         },
         {
             key: 'lastLoginTime',

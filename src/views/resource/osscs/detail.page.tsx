@@ -2,6 +2,8 @@ import { Descriptions, DescriptionsProps, Modal, Radio } from 'antd';
 
 import { DictMapListType } from '@/views/setting/dictionaries/constants';
 
+import { dayjsFormat } from '@/utils';
+
 import { OutputType } from './constants';
 
 interface OsscDetailPageProps {
@@ -63,12 +65,12 @@ export const OsscDetailPage: React.FC<OsscDetailPageProps> = ({
         {
             key: 'createdAt',
             label: '创建时间',
-            children: clickOne?.createdAt?.toString(),
+            children: dayjsFormat(clickOne?.createdAt),
         },
         {
             key: 'updatedAt',
             label: '修改时间',
-            children: clickOne?.updatedAt?.toString(),
+            children: dayjsFormat(clickOne?.updatedAt),
         },
     ];
     return (

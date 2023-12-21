@@ -2,6 +2,8 @@ import { DeleteOutlined, EditOutlined, MenuOutlined, UserSwitchOutlined } from '
 import { Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
+import { dayjsFormat } from '@/utils';
+
 export interface InputType {
     code?: string;
     name?: string;
@@ -80,6 +82,7 @@ export const columns: ({
     {
         title: '创建时间',
         dataIndex: 'createdAt',
+        render: (createdAt) => dayjsFormat(createdAt),
     },
     {
         title: '操作',

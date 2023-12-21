@@ -203,7 +203,7 @@ export default () => {
                 })}
                 dataSource={data?.items}
                 pagination={false}
-                scroll={{ x: 1450 }}
+                scroll={{ x: 1400 }}
             />
             {/* 自定义分页 */}
             <Pagination

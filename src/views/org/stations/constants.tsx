@@ -2,6 +2,8 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
+import { dayjsFormat } from '@/utils';
+
 export interface InputType {
     name?: string;
     orgId?: number;
@@ -60,10 +62,13 @@ export const columns: ({ onOpenFormHandler, onDelHandler }: IProps) => ColumnsTy
     {
         title: '创建时间',
         dataIndex: 'createdAt',
+        width: 170,
+        render: (createdAt) => dayjsFormat(createdAt),
     },
     {
         title: '操作',
         key: 'action',
+        width: 150,
         render: (_, record) => (
             <Space size="middle">
                 <Button

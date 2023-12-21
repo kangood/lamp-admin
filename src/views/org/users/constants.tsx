@@ -2,6 +2,8 @@ import { DeleteOutlined, DiffOutlined, EditOutlined, RedoOutlined } from '@ant-d
 import { Avatar, Button, Space, Tag, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
+import { dayjsFormat } from '@/utils';
+
 import { OutputType as OrgMap } from '../orgs/list.page';
 import { OutputType as StationMap } from '../stations/constants';
 
@@ -156,6 +158,7 @@ export const columns: ({
     {
         title: '创建时间',
         dataIndex: 'createdAt',
+        render: (createdAt) => dayjsFormat(createdAt),
     },
     {
         title: '操作',
