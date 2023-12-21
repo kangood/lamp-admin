@@ -25,6 +25,7 @@ import { DictionaryLeftEditForm } from './left-edit.page';
 
 export default () => {
     const [form] = Form.useForm();
+    const [formLeft] = Form.useForm();
     // 状态定义
     const [clickType, setClickType] = useState<string>('');
     const [code, setCode] = useState<string>();
@@ -32,13 +33,16 @@ export default () => {
     const [pageQ, setPageQ] = useState<number>(1);
     const [limitQ, setLimitQ] = useState<number>(10);
     const [listTitle, setListTitle] = useState<string>('');
+    const [label, setLabel] = useState<string>('');
+    const [pageQLeft, setPageQLeft] = useState<number>(1);
+    const [limitQLeft, setLimitQLeft] = useState<number>(10);
     // API-hooks
     const { mutateAsync: delMutate, isLoading: delLoading } = useDelDicts();
     const {
         data: listTypeData,
         isLoading: listTypeLoading,
         refetch: listTypeRefetch,
-    } = useListType();
+    } = useListType(label, pageQLeft, limitQLeft);
     const { listDataItems, listMeta, listLoading } = useListDictSingleType(
         clickType,
         pageQ,
@@ -46,10 +50,10 @@ export default () => {
         code,
         name,
     );
-    // ==========左边栏处理==========
-    // ......
-    const onTypePageChange = (_page: number, _pageSize: number) => {
-        // ......
+    // ==============================左边栏处理==============================
+    const onTypePageChange = (page: number, pageSize: number) => {
+        setPageQLeft(page);
+        setLimitQLeft(pageSize);
     };
     // 打开编辑表单处理器，点击按钮触发
     const [clickDictLeft, setClickDictLeft] = useState<OutputType>();
@@ -77,8 +81,8 @@ export default () => {
     };
     // 表单提交处理
     const onFinishHandlerLeft = (values: InputType) => {
-        setCode(values.code);
-        setName(values.name);
+        setLabel(values.keyword);
+        console.log(123, values);
     };
     // 顶部「更多」表单处理
     const dropdownMenuItems: MenuProps['items'] = [
@@ -136,7 +140,7 @@ export default () => {
             setSelectedIdsLeft(ids);
         },
     };
-    // ==========右边栏处理==========
+    // ==============================右边栏处理==============================
     // 字典详情分页改变处理
     const onListPageChange = (page: number, pageSize: number) => {
         setPageQ(page);
@@ -166,6 +170,7 @@ export default () => {
     const onFinishHandler = (values: InputType) => {
         setCode(values.code);
         setName(values.name);
+        console.log(234, values);
     };
     // 重置表单处理
     const resetHandler = () => {
@@ -205,7 +210,7 @@ export default () => {
             <Row>
                 <Col>
                     <Card title="字典列表" style={{ width: 450 }}>
-                        <Form form={form} onFinish={onFinishHandlerLeft}>
+                        <Form form={formLeft} onFinish={onFinishHandlerLeft}>
                             <Row gutter={24}>
                                 <Col span={12}>
                                     <Form.Item name="keyword">

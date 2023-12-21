@@ -9,8 +9,12 @@ import { queryClient } from '@/http/tanstack/react-query';
 /**
  * 根据类型查询字典列表
  */
-export const useListType = () => {
-    return useQuery([], () => service.get('dict/listType').then((response) => response.data));
+export const useListType = (label: string, page?: number, limit?: number) => {
+    return useQuery(['dictListType', label, page, limit], () =>
+        service
+            .get('dict/listType', { params: { label, page, limit } })
+            .then((response) => response.data),
+    );
 };
 
 /**

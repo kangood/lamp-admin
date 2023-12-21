@@ -5,6 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 export interface InputType {
     code: string;
     name: string;
+    keyword: string;
 }
 
 export interface OutputType {
