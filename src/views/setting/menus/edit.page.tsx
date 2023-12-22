@@ -152,7 +152,7 @@ export const MenuEditForm: React.FC<MenuEditFormProps> = ({ clickOne }) => {
                         render={(children) => (
                             <div>
                                 <Popover
-                                    className="mx-3"
+                                    className="mx-1"
                                     color="#404040"
                                     content={
                                         <span className="text-white">

@@ -98,9 +98,9 @@ export default () => {
     };
     return (
         <div>
-            <Row>
-                <Col>
-                    <Card style={{ width: 290 }}>
+            <Row gutter={8}>
+                <Col span={6}>
+                    <Card>
                         <Row>
                             <Form form={form} onFinish={() => message.success('还没做')}>
                                 <Space>
@@ -146,13 +146,13 @@ export default () => {
                         </Row>
                     </Card>
                 </Col>
-                <Col>
-                    <Card title={clickOne.id ? '修改' : '新增'} style={{ width: 600 }}>
+                <Col span={11}>
+                    <Card title={clickOne.id ? '修改' : '新增'}>
                         <MenuEditForm clickOne={clickOne} />
                     </Card>
                 </Col>
-                <Col>
-                    <Card style={{ width: 425 }}>
+                <Col span={7}>
+                    <Card>
                         <ResourceListPage
                             clickMenuId={clickOne.id ?? 0}
                             clickMenuLabel={clickOne.label}

@@ -60,60 +60,60 @@ export default () => {
     };
     return (
         <div>
-            <Row>
-                <Col>
+            <Row gutter={8}>
+                <Col span={12}>
                     <Form form={form}>
                         <Row gutter={24}>
-                            <Col span={8}>
+                            <Col span={9}>
                                 <Form.Item name="name">
                                     <Input placeholder="名称" allowClear />
                                 </Form.Item>
                             </Col>
-                            <Col span={4}>
+                            <Col span={3}>
                                 <Form.Item name="search">
                                     <Button type="primary" htmlType="submit">
                                         搜索
                                     </Button>
                                 </Form.Item>
                             </Col>
-                            <Col span={4}>
+                            <Col span={3}>
                                 <Button type="primary">重置</Button>
                             </Col>
-                            <Col span={4}>
+                            <Col span={3}>
                                 <Button type="primary" onClick={addHandler}>
                                     添加
                                 </Button>
                             </Col>
-                            <Col span={4}>
+                            <Col span={3}>
                                 <Button type="primary" onClick={delHandler}>
                                     删除
                                 </Button>
                             </Col>
                         </Row>
                     </Form>
+                    <Row>
+                        <Col span={24}>
+                            <Card>
+                                {listTree && (
+                                    <Tree
+                                        checkable
+                                        checkStrictly
+                                        // 默认展开所有树节点
+                                        defaultExpandAll
+                                        // 点击复选框触发
+                                        onCheck={onCheck}
+                                        // 点击树节点触发
+                                        onSelect={onSelect}
+                                        treeData={listTree}
+                                        fieldNames={{ title: 'label', key: 'id' }}
+                                    />
+                                )}
+                            </Card>
+                        </Col>
+                    </Row>
                 </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Card style={{ width: 650 }}>
-                        {listTree && (
-                            <Tree
-                                checkable
-                                checkStrictly
-                                // 默认展开所有树节点
-                                defaultExpandAll
-                                // 点击复选框触发
-                                onCheck={onCheck}
-                                // 点击树节点触发
-                                onSelect={onSelect}
-                                treeData={listTree}
-                                fieldNames={{ title: 'label', key: 'id' }}
-                            />
-                        )}
-                    </Card>
-                </Col>
-                <Col>
-                    <Card title={clickOne.id ? '修改' : '新增'} style={{ width: 600 }}>
+                <Col span={12}>
+                    <Card title={clickOne.id ? '修改' : '新增'}>
                         <AreaEditForm clickOne={clickOne} />
                     </Card>
                 </Col>

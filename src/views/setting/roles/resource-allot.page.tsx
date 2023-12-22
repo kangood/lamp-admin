@@ -229,11 +229,11 @@ export const ResourceAllotPage: React.FC<ResourceAllotPageProps> = ({
             cancelText="取消"
             onCancel={() => onClose()}
             onOk={submitHandle}
-            width={1000}
+            width="65%"
         >
-            <Row>
-                <Col>
-                    <Card style={{ width: 350 }} title="菜单">
+            <Row gutter={12}>
+                <Col span={9}>
+                    <Card title="菜单">
                         <Row>
                             <Form onFinish={() => message.success('还没做')}>
                                 <Space>
@@ -272,8 +272,8 @@ export const ResourceAllotPage: React.FC<ResourceAllotPageProps> = ({
                         </Row>
                     </Card>
                 </Col>
-                <Col>
-                    <Card style={{ width: 600 }} title="资源">
+                <Col span={15}>
+                    <Card title="资源">
                         <Table
                             rowKey="id"
                             rowSelection={{

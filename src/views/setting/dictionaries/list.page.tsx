@@ -207,9 +207,9 @@ export default () => {
     };
     return (
         <div>
-            <Row>
-                <Col>
-                    <Card title="字典列表" style={{ width: 450 }}>
+            <Row gutter={8}>
+                <Col span={10}>
+                    <Card title="字典列表">
                         <Form form={formLeft} onFinish={onFinishHandlerLeft}>
                             <Row gutter={24}>
                                 <Col span={12}>
@@ -271,11 +271,8 @@ export default () => {
                         )}
                     </Card>
                 </Col>
-                <Col>
-                    <Card
-                        title={`${listTitle ? `[${listTitle}]` : ''}字典详情`}
-                        style={{ width: 800 }}
-                    >
+                <Col span={14}>
+                    <Card title={`${listTitle ? `[${listTitle}]` : ''}字典详情`}>
                         <Form form={form} onFinish={onFinishHandler}>
                             <Row gutter={24}>
                                 <Col span={6}>

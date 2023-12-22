@@ -77,7 +77,7 @@ export default () => {
     };
     return (
         <div>
-            <Row>
+            <Row gutter={8}>
                 <Col span={12}>
                     <Form form={form}>
                         <Row gutter={24}>
@@ -109,7 +109,7 @@ export default () => {
                         </Row>
                     </Form>
                     <Row>
-                        <Col span={23}>
+                        <Col span={24}>
                             <Card>
                                 {listOrgTree && (
                                     <Tree
