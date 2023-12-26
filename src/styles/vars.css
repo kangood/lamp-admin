@@ -6,4 +6,5 @@
         simsun, helvetica, arial, sans-serif, monospace;
     --font-family-firacode: 'Fira Code', 'Source Sans Pro', 'Hiragino Sans GB', 'Microsoft Yahei',
         simsun, helvetica, arial, sans-serif, monospace;
+    --color-text: rgb(175 166 153 / 85%);
 }

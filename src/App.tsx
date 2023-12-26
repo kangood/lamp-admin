@@ -49,7 +49,7 @@ const App: FC = () => {
             setAntdTheme((state) =>
                 produce(state, (draft) => {
                     draft.token = {
-                        colorText: 'rgb(175 166 153 / 85%)',
+                        colorText: 'var(--color-text)',
                     };
                     draft.components!.Tabs!.itemSelectedColor = 'rgb(208 208 208 / 88%)';
                 }),
