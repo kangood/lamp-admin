@@ -84,7 +84,7 @@ const CredentialForm: FC = () => {
                         // prefix: <MobileOutlined />,
                     }}
                     name="account"
-                    placeholder="请输入账号"
+                    placeholder="请输入账号：lamp"
                     rules={[
                         {
                             required: true,
@@ -97,7 +97,7 @@ const CredentialForm: FC = () => {
                         size: 'large',
                     }}
                     name="password"
-                    placeholder="请输入密码"
+                    placeholder="请输入密码：123456"
                     rules={[
                         {
                             required: true,
