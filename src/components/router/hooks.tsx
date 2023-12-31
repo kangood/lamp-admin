@@ -36,8 +36,9 @@ export const useRouterSetuped = () => {
     const ready = RouterStore((state) => state.ready);
     const auth = useAuth();
     const [roleIds, setRoleIds] = useState<number[]>([]);
+    const [enable, setEnable] = useState<boolean>(false);
     const { data: menuTree } = useListMenuTree();
-    const { data: roleMenuList } = useListRoleMenuByRoleIds({ roleIds });
+    const { data: roleMenuList } = useListRoleMenuByRoleIds({ roleIds }, enable);
     useEffect(() => {
         if (RouterStore.getState().config.auth?.enabled) {
             const { config: routerConfig } = RouterStore.getState();
@@ -51,6 +52,7 @@ export const useRouterSetuped = () => {
                 setRoleIds(
                     (decodeJwt(tokenBase64) as any).userRoles.map((item: any) => item.role.id),
                 );
+                setEnable(true);
             }
             const fetchRoutes: RouteOption[] = [];
             // 2.1清空固定的路由

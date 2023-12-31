@@ -19,9 +19,16 @@ export const useListRoleAuthorityIdByRoleId = (values?: InputType) => {
 /**
  * 查询角色的菜单分配数据
  */
-export const useListRoleMenuByRoleIds = (values?: InputType) => {
-    return useQuery(['listRoleMenuByRoleIds', values], () =>
-        service.post('role-authority/listRoleMenuByRoleIds', { ...values }).then((res) => res.data),
+export const useListRoleMenuByRoleIds = (values?: InputType, enabled?: boolean) => {
+    return useQuery(
+        ['listRoleMenuByRoleIds', values],
+        () =>
+            service
+                .post('role-authority/listRoleMenuByRoleIds', { ...values })
+                .then((res) => res.data),
+        {
+            enabled,
+        },
     );
 };
 
