@@ -147,7 +147,13 @@ export default () => {
                     <div className="m-4">
                         <span>产品名称</span>
                         <div className="inline-block w-[1px] h-4 mx-3 bg-[#dcdfe6]" />
-                        <Button className="bg-[#e8f4ff] text-blue-500">Tealamp 快速开发平台</Button>
+                        <Button
+                            className="bg-[#e8f4ff] text-blue-500"
+                            href="https://github.com/KangodYan/tealamp-admin-react"
+                            target="_blank"
+                        >
+                            Tealamp 快速开发平台
+                        </Button>
                         <div className="inline-block w-[1px] h-4 mx-3 bg-[#dcdfe6]" />
                         <span>立即去点个star吧~</span>
                     </div>

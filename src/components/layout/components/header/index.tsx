@@ -1,4 +1,4 @@
-import { Layout, Space, theme as AntdTheme } from 'antd';
+import { Layout, Space, theme as AntdTheme, Button } from 'antd';
 
 import { CSSProperties, useCallback, useMemo } from 'react';
 
@@ -9,6 +9,8 @@ import Icon from '@/components/icon/icon';
 import { useResponsive, useResponsiveMobileCheck } from '@/utils/hooks';
 
 import Theme from '@/components/theme';
+
+import { FetcherStore } from '@/components/fetcher/store';
 
 import { useDrawer, useDrawerChange } from '../drawer/hooks';
 
@@ -48,6 +50,12 @@ export const LayoutHeader = () => {
         if (theme.header === 'dark') return '!text-[rgba(255,255,255,0.65)]';
         return '!bg-white';
     }, [theme.header]);
+    // 退出登录按钮点击
+    const onHandleClick = () => {
+        FetcherStore.setState((state) => {
+            state.token = null;
+        });
+    };
     return (
         <Header style={styles} className={clsx(`flex content-between !px-2 ${classes}`)}>
             <Space>
@@ -75,6 +83,7 @@ export const LayoutHeader = () => {
                 ) : null}
             </div>
             <Space className="flex-none">
+                <Button onClick={onHandleClick}>退出登录</Button>
                 <Theme />
                 <Setting />
             </Space>
