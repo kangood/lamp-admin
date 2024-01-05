@@ -1,6 +1,6 @@
 ## TeaLamp Admin React
 
-特点：
+**特性**
 
 - TailwindCSS 与 Antd 整合
 - 动态暗黑和 Antd 的动态国际化
@@ -8,7 +8,7 @@
 - 使用 token 和 refetch_token 实现无痛刷新
 - 使用 RBAC 实现对资源（菜单和数据）和 api 的访问控制
 
-技术栈：
+**技术栈**
 
 - 主要技术：React + TypeScript
 - 构建工具：Vite
@@ -16,4 +16,4 @@
 - UI 组件：Ant Design
 - 状态库：TanStack Query
 
-后端 API：[TeaLamp API NestJS](https://github.com/KangodYan/tealamp-api-nestjs)
+**后端 API**：[TeaLamp API NestJS](https://github.com/KangodYan/tealamp-api-nestjs)
