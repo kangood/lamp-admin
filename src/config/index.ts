@@ -13,7 +13,8 @@ export const config = (): IConfig => ({
     router: {
         basename: import.meta.env.BASE_URL,
         window: undefined,
-        hash: false,
+        // 在这里切换路由。true 使用 hash 路由，false 使用 browser 路由
+        hash: true,
         routes: [
             {
                 id: 'layout.master',
