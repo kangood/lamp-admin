@@ -1,4 +1,7 @@
 ## TeaLamp Admin React
+**说明**
+
+已将页面模块等迁移到新项目：https://github.com/KangodYan/prune-admin
 
 **特性**
 
