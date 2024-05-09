@@ -1,7 +1,4 @@
 ## TeaLamp Admin React
-**说明**
-
-已将页面模块等迁移到新项目：https://github.com/KangodYan/prune-admin
 
 **特性**
 
@@ -20,3 +17,7 @@
 - 状态库：TanStack Query
 
 **后端 API**：[TeaLamp API NestJS](https://github.com/KangodYan/tealamp-api-nestjs)
+
+**说明**
+
+此项目暂时不更新了，已将页面和后端迁移到新的项目，语法更简单的、风格更突出：https://github.com/KangodYan/prune-admin
