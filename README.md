@@ -1,4 +1,4 @@
-## TeaLamp Admin React
+## Lamp Admin
 
 **特性**
 
@@ -16,8 +16,8 @@
 - UI 组件：Ant Design
 - 状态库：TanStack Query
 
-**后端 API**：[TeaLamp API NestJS](https://github.com/KangodYan/tealamp-api-nestjs)
+**后端 API**：[Lamp API](https://github.com/KangodYan/lamp-api)
 
 **说明**
 
-此项目暂时不更新了，已将页面和后端迁移到新的项目，语法更简单的、风格更突出：https://github.com/KangodYan/prune-admin
+此项目暂时不更新了，已将页面和后端迁移到新的项目，语法更简洁、风格更突出：https://github.com/KangodYan/prune-admin
